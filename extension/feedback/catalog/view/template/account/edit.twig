@@ -1,0 +1,101 @@
+{{ header }}
+
+<section class="settings-page page-content">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="page-title">{{ text_settings }}</h2>
+    </div>
+    <div class="col-md-6 form-settings-wrap">
+      <form enctype="multipart/form-data" action="{{ account_form_action }}" id="form_settings" class="form-settings form-log-in_sign-up">
+
+        <h3>{{ text_account_info }}</h3>
+
+        <label for="name">
+          <span class="label-text">{{ text_pib }}</span>
+          <input class="name" type="text" name="name" id="name" value="{{ name }}" autocomplete="off">
+          <span class="error-message d-none">{{ error_pid }}</span>
+        </label>
+
+        <label for="email">
+          <span class="label-text">{{ text_email }}</span>
+          <input class="email" type="email" name="email" id="email" value="{{ email }}" autocomplete="off">
+          <span class="error-message d-none">{{ error_email }}</span>
+        </label>
+
+        <label for="phone">
+          <span class="label-text">{{ text_telephone }}</span>
+          <input class="phone" type="tel" name="phone" id="phone" value="{{ telephone }}" autocomplete="off">
+          <span class="error-message d-none">{{ error_telephone }}</span>
+        </label>
+
+        <input class="site-btn" type="submit" value="{{ text_save_settings }}">
+
+      </form>
+    </div>
+    <div class="col-md-6 form-new-password-wrap">
+      <h3>{{ text_security }}</h3>
+      <input class="form-new-password-show" type="checkbox" name="form_new_password_show" id="form_new_password_show">
+      <label class="site-btn-lite btn-show-form" for="form_new_password_show">
+        <span class="text">{{ text_change_current_password }}</span>
+        <span class="to-back">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.57 5.93018L3.5 12.0002L9.57 18.0702" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.4999 12H3.66992" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ text_back }}
+        </span>    
+      </label>
+      <form enctype="multipart/form-data" action="{{ password_form_action }}" id="form_new_password" class="form-log-in_sign-up form-new-password">
+        <label for="old_password">
+          <span class="label-text">{{ text_current_password }}</span>
+          <span class="input-wrap">
+            <input class="password" type="password" name="old_password" id="old_password" placeholder="{{ placeholder_current_password }}" autocomplete="off">
+            <svg class="password-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.5299 9.47001L9.46992 14.53C8.81992 13.88 8.41992 12.99 8.41992 12C8.41992 10.02 10.0199 8.42001 11.9999 8.42001C12.9899 8.42001 13.8799 8.82001 14.5299 9.47001Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17.8198 5.77001C16.0698 4.45001 14.0698 3.73001 11.9998 3.73001C8.46984 3.73001 5.17984 5.81001 2.88984 9.41001C1.98984 10.82 1.98984 13.19 2.88984 14.6C3.67984 15.84 4.59984 16.91 5.59984 17.77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.41992 19.53C9.55992 20.01 10.7699 20.27 11.9999 20.27C15.5299 20.27 18.8199 18.19 21.1099 14.59C22.0099 13.18 22.0099 10.81 21.1099 9.39999C20.7799 8.87999 20.4199 8.38999 20.0499 7.92999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15.5095 12.7C15.2495 14.11 14.0995 15.26 12.6895 15.52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="line" d="M9.47 14.53L2 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="line" d="M21.9993 2L14.5293 9.47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="error-message d-none">{{ error_current_password }}</span>
+          </span>
+        </label>
+        <label for="new_password">
+          <span class="label-text">{{ text_new_password }}</span>
+          <span class="input-wrap">
+            <input class="password" type="password" name="new_password" id="new_password" placeholder="{{ placeholder_new_password }}" autocomplete="off">
+            <svg class="password-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.5299 9.47001L9.46992 14.53C8.81992 13.88 8.41992 12.99 8.41992 12C8.41992 10.02 10.0199 8.42001 11.9999 8.42001C12.9899 8.42001 13.8799 8.82001 14.5299 9.47001Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17.8198 5.77001C16.0698 4.45001 14.0698 3.73001 11.9998 3.73001C8.46984 3.73001 5.17984 5.81001 2.88984 9.41001C1.98984 10.82 1.98984 13.19 2.88984 14.6C3.67984 15.84 4.59984 16.91 5.59984 17.77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.41992 19.53C9.55992 20.01 10.7699 20.27 11.9999 20.27C15.5299 20.27 18.8199 18.19 21.1099 14.59C22.0099 13.18 22.0099 10.81 21.1099 9.39999C20.7799 8.87999 20.4199 8.38999 20.0499 7.92999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15.5095 12.7C15.2495 14.11 14.0995 15.26 12.6895 15.52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="line" d="M9.47 14.53L2 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="line" d="M21.9993 2L14.5293 9.47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>           
+            <span class="error-message d-none">{{ error_password }}</span>
+          </span>
+        </label>
+        <label for="repeat_password">
+          <span class="label-text">{{ text_password_again }}</span>
+          <span class="input-wrap">
+            <input class="password" type="password" name="repeat_password" id="repeat_password" placeholder="{{ placeholder_password_again }}" autocomplete="off">
+            <svg class="password-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.5299 9.47001L9.46992 14.53C8.81992 13.88 8.41992 12.99 8.41992 12C8.41992 10.02 10.0199 8.42001 11.9999 8.42001C12.9899 8.42001 13.8799 8.82001 14.5299 9.47001Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17.8198 5.77001C16.0698 4.45001 14.0698 3.73001 11.9998 3.73001C8.46984 3.73001 5.17984 5.81001 2.88984 9.41001C1.98984 10.82 1.98984 13.19 2.88984 14.6C3.67984 15.84 4.59984 16.91 5.59984 17.77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.41992 19.53C9.55992 20.01 10.7699 20.27 11.9999 20.27C15.5299 20.27 18.8199 18.19 21.1099 14.59C22.0099 13.18 22.0099 10.81 21.1099 9.39999C20.7799 8.87999 20.4199 8.38999 20.0499 7.92999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15.5095 12.7C15.2495 14.11 14.0995 15.26 12.6895 15.52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="line" d="M9.47 14.53L2 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="line" d="M21.9993 2L14.5293 9.47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>                
+            <span class="error-message d-none">{{ error_password_again }}</span>
+          </span>
+        </label>
+        <input class="site-btn" type="submit" value="{{ text_save_new_password }}">
+      </form>
+    </div>
+
+  </div>
+</section>
+
+{{ footer }}

@@ -1,0 +1,33 @@
+<div class="col-12 review-pagination-wrap d-flex justify-content-center align-items-center">
+  
+    {% if prev %}
+        <div class="arrow-left">
+            <a href="{{ prev }}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19.92L8.48 13.4C7.71 12.63 7.71 11.37 8.48 10.6L15 4.08002" stroke="#3B5498" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </a>
+        </div>
+    {% endif %}
+  
+    <ul class="review-pagination">
+        {% for link in links %}
+            {% if  link.page == page %}
+                <li class="item active"><a>{{ link.page }}</a></li>
+            {% else %}
+                <li class="item"><a href="{{ link.href }}">{{ link.page }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+  
+    {% if next %}
+        <div class="arrow-right">
+            <a href="{{ next }}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.91 19.92L15.43 13.4C16.2 12.63 16.2 11.37 15.43 10.6L8.91 4.08002" stroke="#3B5498" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </a>
+        </div>
+    {% endif %}
+  
+</div>

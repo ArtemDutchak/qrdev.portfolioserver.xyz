@@ -1,0 +1,62 @@
+{{ header }}
+
+<section class="contact-page page-content">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="page-title">{{ text_contacts }}</h2>
+    </div>
+    <div class="col-md-4 contacts-wrap">
+      <h3>
+        <img src="/catalog/view/stylesheet/static/img/icons/company-name_sign-up.svg" alt="">
+        {{ text_address }}
+      </h3>
+      <address>{{ adress }}</address>
+    </div>
+    <div class="col-md-4 contacts-wrap">
+      <h3>
+        <img src="/catalog/view/stylesheet/static/img/icons/phone.svg" alt="">
+        {{ text_telephone }}
+      </h3>
+      <a href="tel:+{{ telephone_digits }}">{{ telephone }}</a>
+    </div>
+    <div class="col-md-4 contacts-wrap">
+      <h3>
+        <img src="/catalog/view/stylesheet/static/img/icons/clock.svg" alt="">
+        {{ text_open }}
+      </h3>
+      <ul class="schedule">
+        <li>{{ open_hours_mo_fr }}</li>
+        <li>{{ open_hours_sa }}</li>
+        <li>{{ open_hours_su }}</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="feedback-page page-content">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="page-title">{{ text_feedback }}</h2>
+    </div>
+    <div class="col-xl-7 col-lg-10 mx-auto">
+      <h3>{{ text_chapter_title }}</h3>
+      <div class="btn-block">
+        <div class="btn-wrap">
+          <span class="btn-title">{{ text_write_to_us_in }}</span>
+          <a class="site-btn-lite" href="https://t.me/+{{ telephone_digits }}" target="_blank">
+            <img src="/catalog/view/stylesheet/static/img/icons/telegram.svg" alt="">
+            {{ text_telegram }}
+          </a>
+        </div>
+        <div class="btn-wrap">
+          <span class="btn-title">{{ text_write_to_us_on }}</span>
+          <a class="site-btn-lite" href="mailto:{{ email }}">
+            <img src="/catalog/view/stylesheet/static/img/icons/sms.svg" alt="">
+            {{ email }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ footer }}

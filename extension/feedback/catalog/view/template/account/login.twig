@@ -1,0 +1,167 @@
+{{ header }}
+
+<section class="log-in_sign-up-page page-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 order-1 order-md-0">
+        <div class="slider-log-in-wrap">
+          <div class="slider-log-in">
+            <div>
+              <img src="/catalog/view/stylesheet/static/img/log-in-slider/think-1.png" alt="">
+            </div>
+            <div>
+              <img src="/catalog/view/stylesheet/static/img/log-in-slider/think-2.png" alt="">
+            </div>
+            <div>
+              <img src="/catalog/view/stylesheet/static/img/log-in-slider/think-3.png" alt="">
+            </div>
+          </div>
+          <button type="button" class="slick-prev">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M31 24H19" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M23 18L17 24L23 30" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="slick-slider-nav"></div>
+          <button type="button" class="slick-next">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17 24H29" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M25 30L31 24L25 18" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>            
+          </button>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 order-0 order-md-1">
+        <div class="slider-log-in_sign-up">
+          
+          <div>
+            <form action="{{ login_form_action }}" id="form_log_in" class="form-log-in_sign-up" method="post" data-oc-toggle="ajax">
+              <h2>{{ text_form_enter }}</h2>
+              <label for="email_log_in">
+                <span class="label-text">{{ text_form_email }}</span>
+                <input class="email" type="email" name="email_log_in" id="email_log_in" placeholder="{{ entry_form_email }}" autocomplete="off">
+                <span class="error-message d-none">{{ error_email }}</span>
+              </label>
+              <label for="password_log_in">
+                <span class="label-text">{{ text_form_password }}</span>
+                <span class="input-wrap">
+                  <input class="password" type="password" name="password_log_in" id="password_log_in" placeholder="{{ entry_form_password }}" autocomplete="off">
+                  <svg class="password-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5299 9.47001L9.46992 14.53C8.81992 13.88 8.41992 12.99 8.41992 12C8.41992 10.02 10.0199 8.42001 11.9999 8.42001C12.9899 8.42001 13.8799 8.82001 14.5299 9.47001Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.8198 5.77001C16.0698 4.45001 14.0698 3.73001 11.9998 3.73001C8.46984 3.73001 5.17984 5.81001 2.88984 9.41001C1.98984 10.82 1.98984 13.19 2.88984 14.6C3.67984 15.84 4.59984 16.91 5.59984 17.77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.41992 19.53C9.55992 20.01 10.7699 20.27 11.9999 20.27C15.5299 20.27 18.8199 18.19 21.1099 14.59C22.0099 13.18 22.0099 10.81 21.1099 9.39999C20.7799 8.87999 20.4199 8.38999 20.0499 7.92999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15.5095 12.7C15.2495 14.11 14.0995 15.26 12.6895 15.52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="line" d="M9.47 14.53L2 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="line" d="M21.9993 2L14.5293 9.47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>                
+                  <span class="error-message d-none">{{ error_form_password }}</span>
+                </span>
+              </label>
+              <a class="forgot-password" href="/forgot_password.php" target="_blank">{{ text_form_forget_password }}</a>
+              <input class="site-btn" type="submit" value="{{ text_form_action_enter }}">
+              <span class="have-account">{{ text_form_no_account }}</span>
+              <button type="button" class="site-btn-lite btn-to-sign-up">{{ text_form_register }}</button>
+            </form>
+          </div>
+
+          <div>
+            <form action="{{ register_form_action }}" id="form_sign_up" class="form-log-in_sign-up" method="post" data-oc-toggle="ajax">
+              <h2>{{ text_form_register }}</h2>
+              <label for="firstname">
+                <span class="label-text">{{ text_form_fullname }}</span>
+                <input class="firstname" type="text" name="firstname" id="firstname" placeholder="{{ entry_form_fullname }}" autocomplete="off">
+                <span class="error-message d-none">{{ error_form_fullname }}</span>
+              </label>
+              <label for="company_name">
+                <span class="label-text">{{ text_form_company_name }}</span>
+                <input class="company-name" type="text" name="company_name" id="company_name" placeholder="{{ entry_form_fullname }}" autocomplete="off">
+                <span class="error-message d-none">{{ error_form_company_name }}</span>
+              </label>
+              <label for="email">
+                <span class="label-text">{{ text_form_email }}</span>
+                <input class="email" type="email" name="email" id="email" placeholder="{{ entry_form_email }}" autocomplete="off">
+                <span class="error-message d-none">{{ error_form_email }}</span>
+              </label>
+              <label for="telephone">
+                <span class="label-text">{{ text_form_telephone }}</span>
+                <input class="telephone" type="tel" name="telephone" id="telephone" placeholder="+380" autocomplete="off">
+                <span class="error-message d-none">{{ error_form_telephone }}</span>
+              </label>
+
+              <label for="password">
+                <span class="label-text">{{ text_form_password }}</span>
+                <span class="input-wrap">
+                  <input class="password" type="password" name="password" id="password" placeholder="{{ entry_form_password }}" autocomplete="off">
+                  <svg class="password-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5299 9.47001L9.46992 14.53C8.81992 13.88 8.41992 12.99 8.41992 12C8.41992 10.02 10.0199 8.42001 11.9999 8.42001C12.9899 8.42001 13.8799 8.82001 14.5299 9.47001Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.8198 5.77001C16.0698 4.45001 14.0698 3.73001 11.9998 3.73001C8.46984 3.73001 5.17984 5.81001 2.88984 9.41001C1.98984 10.82 1.98984 13.19 2.88984 14.6C3.67984 15.84 4.59984 16.91 5.59984 17.77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.41992 19.53C9.55992 20.01 10.7699 20.27 11.9999 20.27C15.5299 20.27 18.8199 18.19 21.1099 14.59C22.0099 13.18 22.0099 10.81 21.1099 9.39999C20.7799 8.87999 20.4199 8.38999 20.0499 7.92999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15.5095 12.7C15.2495 14.11 14.0995 15.26 12.6895 15.52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="line" d="M9.47 14.53L2 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="line" d="M21.9993 2L14.5293 9.47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>                
+                  <span class="error-message d-none">{{ error_form_password }}</span>
+                </span>
+              </label>
+              <input class="site-btn" type="submit" value="{{ text_form_action_register }}">
+              <span class="have-account">{{ text_form_already_registered }}</span>
+              <button type="button" class="site-btn-lite btn-to-log-in">{{ text_form_action_enter }}</button>
+            </form>
+          </div>
+
+          <div>
+            <form action="/" id="form_forgot_password" class="form-log-in_sign-up form-forgot-password" method="post" data-oc-toggle="ajax">
+              <h2>{{ text_form_restore_password }}</h2>
+              <label for="new_password">
+                <span class="label-text">{{ text_form_new_password }}</span>
+                <span class="input-wrap">
+                  <input class="password" type="password" name="new_password" id="new_password" placeholder="{{ entry_form_new_password }}" autocomplete="off">
+                  <svg class="password-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5299 9.47001L9.46992 14.53C8.81992 13.88 8.41992 12.99 8.41992 12C8.41992 10.02 10.0199 8.42001 11.9999 8.42001C12.9899 8.42001 13.8799 8.82001 14.5299 9.47001Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.8198 5.77001C16.0698 4.45001 14.0698 3.73001 11.9998 3.73001C8.46984 3.73001 5.17984 5.81001 2.88984 9.41001C1.98984 10.82 1.98984 13.19 2.88984 14.6C3.67984 15.84 4.59984 16.91 5.59984 17.77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.41992 19.53C9.55992 20.01 10.7699 20.27 11.9999 20.27C15.5299 20.27 18.8199 18.19 21.1099 14.59C22.0099 13.18 22.0099 10.81 21.1099 9.39999C20.7799 8.87999 20.4199 8.38999 20.0499 7.92999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15.5095 12.7C15.2495 14.11 14.0995 15.26 12.6895 15.52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="line" d="M9.47 14.53L2 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="line" d="M21.9993 2L14.5293 9.47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>           
+                  <span class="error-message d-none">{{ entry_form_password }}</span>
+                </span>
+              </label>
+              <label for="repeat_password">
+                <span class="label-text">{{ text_form_repeat_password }}</span>
+                <span class="input-wrap">
+                  <input class="password" type="password" name="repeat_password" id="repeat_password" placeholder="{{ entry_form_repeat_password }}" autocomplete="off">
+                  <svg class="password-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5299 9.47001L9.46992 14.53C8.81992 13.88 8.41992 12.99 8.41992 12C8.41992 10.02 10.0199 8.42001 11.9999 8.42001C12.9899 8.42001 13.8799 8.82001 14.5299 9.47001Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.8198 5.77001C16.0698 4.45001 14.0698 3.73001 11.9998 3.73001C8.46984 3.73001 5.17984 5.81001 2.88984 9.41001C1.98984 10.82 1.98984 13.19 2.88984 14.6C3.67984 15.84 4.59984 16.91 5.59984 17.77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.41992 19.53C9.55992 20.01 10.7699 20.27 11.9999 20.27C15.5299 20.27 18.8199 18.19 21.1099 14.59C22.0099 13.18 22.0099 10.81 21.1099 9.39999C20.7799 8.87999 20.4199 8.38999 20.0499 7.92999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15.5095 12.7C15.2495 14.11 14.0995 15.26 12.6895 15.52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="line" d="M9.47 14.53L2 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="line" d="M21.9993 2L14.5293 9.47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>                
+                  <span class="error-message d-none">{{ error_form_repeat_password }}</span>
+                </span>
+              </label>
+              <input class="site-btn" type="submit" value="{{ text_form_action_save_new_password }}">
+              <button type="button" class="site-btn-lite btn-to-sign-up">{{ text_form_action_enter }}</button>
+            </form>
+          </div>
+
+        </div><!-- /.slider-log-in_sign-up -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+    const error_form_email           = `{{ error_form_email }}`;
+    const error_form_password        = `{{ error_form_password }}`;
+    const error_form_fullname        = `{{ error_form_fullname }}`;
+    const error_form_company_name    = `{{ error_form_company_name }}`;
+    const error_form_telephone       = `{{ error_form_telephone }}`;
+    const error_form_repeat_password = `{{ error_form_repeat_password }}`;
+</script>
+
+{{ footer }}

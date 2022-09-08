@@ -1,0 +1,11 @@
+<!-- class: demo / standart / premium -->
+
+<li class="navbar-item tariff-plan demo">
+    {{ text_current_tariff }}: {{ current_tariff.name }}
+    
+    {% if current_tariff.active_to %}
+        <span class="date-finish">
+            {{ text_tariff_active_to }}: {{ current_tariff.active_to }}
+        </span>
+    {% endif %}
+</li>
