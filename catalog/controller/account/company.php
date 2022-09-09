@@ -10,6 +10,7 @@ class Company extends \Opencart\System\Engine\Controller {
 		}
 		
 		$this->load->language('company/list');
+		$this->load->model('tool/image');
 
 		$data['href_company_add'] = $this->url->link('account/company|form');
 		
@@ -20,7 +21,7 @@ class Company extends \Opencart\System\Engine\Controller {
 		foreach ($companies as $result) {
 			
 			if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-				$thumb = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_category_width'), $this->config->get('config_image_category_height'));
+				$thumb = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 120, 120);
 			} else {
 				$thumb = '';
 			}
@@ -31,6 +32,7 @@ class Company extends \Opencart\System\Engine\Controller {
 				'id'               => $result['company_id'],
 				'name'             => $result['company_name'],
 				'thumb'            => $thumb,
+				'qr_link'          => $this->url->link('product/company_review', 'company_code=' . $result['company_code']),
 				'qr_thumb'         => '/catalog/view/stylesheet/static/img/qr-code.png',
 				'rating_width'     => ($rating / 5) * 100,
 				'rating'           => $rating,
@@ -89,6 +91,13 @@ class Company extends \Opencart\System\Engine\Controller {
 			$data['company_name'] = '';
 		}
 		
+		$this->load->model('tool/image');
+		if (is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
+			$data['company_image'] = $this->model_tool_image->resize(html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'), 185, 185);
+		} else {
+			$data['company_image'] = '';
+		}
+		
 		if (!empty($company_info)) {
 			$settings = json_decode($company_info['settings'], true);
 		} else {
@@ -105,14 +114,34 @@ class Company extends \Opencart\System\Engine\Controller {
 	}
 	
 	public function edit(): void {
+	
 		
 		if (!$this->customer->isLogged()) {
 			$this->response->redirect($this->url->link('account/login'));
-		}
+		} 
+		
+		$this->load->model('account/company');
 		
 		$json = array(
 			'errors' => array(),
 		);
+		
+		if(!empty($this->request->files) && !empty($this->request->post['code'])) {
+			
+			$path_parts = pathinfo($_FILES["file"]["name"]);
+			$extension = $path_parts['extension'];
+			
+			$filename = $this->request->post['code'] . '.' . $extension;
+			 
+			$result = $this->save_company_logo($filename);
+			
+			$this->model_account_company->addCompanyImage($this->request->post['code'], 'company_logo/' . $filename);
+			
+			$json = json_encode($result);
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
+	        return;       
+	    }
 		
 		$this->load->language('account/company');
 
@@ -208,10 +237,10 @@ class Company extends \Opencart\System\Engine\Controller {
 			$company['settings']['custom_fields'][] = $custom_field;
 		}
 		
-		$this->load->model('account/company');
-		
 		if (isset($this->request->get['company_id'])) {
 			
+			$company_info = $this->customer->getCompanyInfo((int)$this->request->get['company_id']);
+			$json['company_code'] = $company_info['company_code'];
 			$json['msg'] = $this->language->get('text_success_edit');
 			
 			$company['company_id'] = $this->request->get['company_id'];
@@ -227,6 +256,8 @@ class Company extends \Opencart\System\Engine\Controller {
 			
 				$company_id = $this->model_account_company->addCompany($company);
 				if ($company_id) {
+					$company_info = $this->customer->getCompanyInfo($company_id);
+					$json['company_code'] = $company_info['company_code'];
 					$json['msg'] = $this->language->get('text_success_added');
 				}else{
 					$json['msg'] = $this->language->get('error_add_company');
@@ -293,6 +324,46 @@ class Company extends \Opencart\System\Engine\Controller {
 			),
 		);
 		
+	}
+	
+	private function save_company_logo(string $filename): array {
+		$this->load->language('tool/upload');
+
+		$json = [];
+
+		if (!empty($this->request->files['file']['name']) && is_file($this->request->files['file']['tmp_name'])) {
+			
+			// Allowed file extension types
+			$allowed = [];
+
+			$mime_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
+
+			$filetypes = explode("\n", $mime_allowed);
+
+			foreach ($filetypes as $filetype) {
+				$allowed[] = trim($filetype);
+			}
+
+			if (!in_array($this->request->files['file']['type'], $allowed)) {
+				$json['error'] = $this->language->get('error_file_type');
+			}
+
+			// Return any upload error
+			if ($this->request->files['file']['error'] != UPLOAD_ERR_OK) {
+				$json['error'] = $this->language->get('error_upload_' . $this->request->files['file']['error']);
+			}
+		} else {
+			$json['error'] = $this->language->get('error_upload');
+		}
+
+		if (!$json) {
+
+			move_uploaded_file($this->request->files['file']['tmp_name'], DIR_IMAGE . 'company_logo/' . $filename);
+
+			$json['success'] = $this->language->get('text_upload');
+		}
+
+		return $json;
 	}
 	
 }

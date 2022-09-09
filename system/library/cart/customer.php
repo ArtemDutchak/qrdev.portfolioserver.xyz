@@ -143,6 +143,7 @@ class Customer {
 		$query = $this->db->query("SELECT
 		company_id,
 		company_name,
+		company_code,
 		image
 		FROM `" . DB_PREFIX . "company`
 		WHERE

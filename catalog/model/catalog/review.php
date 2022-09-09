@@ -6,6 +6,25 @@ class Review extends \Opencart\System\Engine\Model {
 
 		return $this->db->getLastId();
 	}
+	
+	public function addCompanyReview(string $company_id, array $data): int {
+		$this->db->query(
+			"INSERT INTO `" . DB_PREFIX . "review`
+			SET
+			`author` = '" . $this->db->escape((string)$data['name']) . "',
+			`customer_id` = '0',
+			`product_id` = '" . (int)$company_id . "',
+			`text` = '" . $this->db->escape((string)$data['text']) . "',
+			`telephone` = '" . $this->db->escape((string)$data['telephone']) . "',
+			`email` = '" . $this->db->escape((string)$data['email']) . "',
+			`rating` = '" . (int)$data['rating'] . "',
+			`status` = '1',
+			`date_modified` = '" . $this->db->escape((string)$data['date_added']) . "',
+			`date_added` = '" . $this->db->escape((string)$data['date_added']) . "'"
+		);
+
+		return $this->db->getLastId();
+	}
 
 	public function getReviewsByProductId(int $product_id, int $start = 0, int $limit = 20): array {
 		if ($start < 0) {

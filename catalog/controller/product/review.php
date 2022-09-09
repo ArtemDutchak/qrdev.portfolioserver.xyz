@@ -169,4 +169,31 @@ class Review extends \Opencart\System\Engine\Controller {
 
 		return $this->load->view('product/review_list', $data);
 	}
+	
+	public function set_status(): void {
+		$this->load->language('product/product');
+
+		$json = [
+			'errors' => array(),
+		];
+
+		if (!isset($this->request->post['status_id']) || !isset($this->request->post['review_id'])) {
+			$json['errors'][]  = $this->language->get('error_status');
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
+			return;
+		}
+
+		// Captcha
+		$this->load->model('setting/extension');
+
+		$this->load->model('catalog/review');
+
+		$this->model_catalog_review->setStatus($this->request->post);
+
+		$json['success'] = true;
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 }

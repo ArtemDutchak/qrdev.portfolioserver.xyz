@@ -6,43 +6,43 @@ $_['text_error']                                     = 'Company not found';
 
 
 // Text
-$_['text_load_company_logo']                         = 'Загрузіть логотип компанії';
-$_['text_logo_requirements']                         = 'Вимоги до логотипу: Мін. 150px x 50px Макс. 1000 px x 1000 px';
-$_['text_drag_paste_file']                           = 'Перетягніть та вставте або оберіть та завантажте файл';
-$_['text_company_name']                              = 'Назва компанії*';
-$_['text_client_telephone_on_review']                = 'Номер телефону клієнта при відправки відгуку';
-$_['text_required_if_rate_less_or_equal']            = 'Зробити обов\'язковим, якщо оцінка відгуку менше або дорівнює';
-$_['text_dublicate_positive_review_on_services']     = 'Продублювати схвальний відгук до публічних сервісів.';
-$_['text_min_rate_to_able_dublicate_review']         = 'Мінімальна оцінка для пропозиції продублювати відгук';
-$_['text_review_notifications']                      = 'Повідомлення про відгуки';
-$_['text_entry_phone_telegram']                      = 'Введіть номер телефону Telegram';
-$_['text_how_to_connect']                            = 'Детальніше як підключити';
+$_['text_load_company_logo']                         = 'Upload your company logo';
+$_['text_logo_requirements']                         = 'Logo requirements: Min. 150px x 50px Max. 1000px x 1000px';
+$_['text_drag_paste_file']                           = 'Drag and drop or select and upload a file';
+$_['text_company_name']                              = 'Company name*';
+$_['text_client_telephone_on_review']                = 'The customer\'s phone number when sending feedback';
+$_['text_required_if_rate_less_or_equal']            = 'Make it mandatory if the feedback score is less than or equal to';
+$_['text_dublicate_positive_review_on_services']     = 'Duplicate positive feedback to public services.';
+$_['text_min_rate_to_able_dublicate_review']         = 'Minimum score for a proposal to duplicate a review';
+$_['text_review_notifications']                      = 'Feedback notification';
+$_['text_entry_phone_telegram']                      = 'Enter your Telegram phone number';
+$_['text_how_to_connect']                            = 'Learn more about how to connect';
 $_['text_email'] = 'E-mail';
-$_['text_text_field']                                = 'Текстове поле';
-$_['text_client_recomendation']                      = 'Рекомендація клієнту';
-$_['text_also_recomend_grab_links_from_mobile_apps'] = 'Також рекомендуємо брати посилання з мобільних застосунків.';
+$_['text_text_field']                                = 'Text field';
+$_['text_client_recomendation']                      = 'Recommendation to the client';
+$_['text_also_recomend_grab_links_from_mobile_apps'] = 'We also recommend taking links from mobile applications.';
 $_['text_google']                                    = 'Google';
 $_['text_facebook']                                  = 'Facebook';
-$_['text_another_service_link']                      = 'Посилання на інше джерело';
-$_['text_save_settings']                             = 'Зберегти нааштування';
+$_['text_another_service_link']                      = 'Link to another source';
+$_['text_save_settings']                             = 'Save Settings';
 
-$_['text_success_edit']                              = 'Налаштування успішно збережено!';
-$_['text_success_added']                             = 'Компанію успішно додано!';
+$_['text_success_edit']                              = 'Settings successfully saved!';
+$_['text_success_added']                             = 'Company successfully added!';
 
 // Placeholder
-$_['placeholder_company_name']                       = 'Введіть назву своєї компанії';
+$_['placeholder_company_name']                       = 'Enter your company name';
 $_['placeholder_380']                                = '+380';
-$_['placeholder_entry_email']                        = 'Введіть E-mail';
-$_['placeholder_type_your_text']                     = 'Напишіть свій текст';
-$_['placeholder_your_profile']                       = 'Вкажіть посилання на профіль';
-$_['placeholder_resource_name']                      = 'Назва ресурсу';
+$_['placeholder_entry_email']                        = 'Enter E-mail';
+$_['placeholder_type_your_text']                     = 'Write your text';
+$_['placeholder_your_profile']                       = 'Provide a link to your profile';
+$_['placeholder_resource_name']                      = 'The name of the resource';
 
 // Error
-$_['error_large_image']                              = 'Завелике зображення';
-$_['error_small_image']                              = 'Замале зображення';
-$_['error_select_logo']                              = 'Оберіть логотип вашої компанії';
-$_['error_company_name_required']                    = 'Обов\'язково вкажіть назву компанії';
-$_['error_telegram_number']                          = 'Введіть телефон Telegram';
-$_['error_correct_email']                            = 'Введіть коректний email';
-$_['error_text']                                     = 'Повідомлення про помилку';
-$_['error_add_cause_many_companies']                 = 'Помилка! Досягнено ліміт компаній!';
+$_['error_large_image']                              = 'Image is too large';
+$_['error_small_image']                              = 'Image is too small';
+$_['error_select_logo']                              = 'Choose your company logo';
+$_['error_company_name_required']                    = 'Be sure to specify the name of the company';
+$_['error_telegram_number']                          = 'Enter your Telegram phone number';
+$_['error_correct_email']                            = 'Enter a valid email';
+$_['error_text']                                     = 'Error message';
+$_['error_add_cause_many_companies']                 = 'Error! Company limit reached!';

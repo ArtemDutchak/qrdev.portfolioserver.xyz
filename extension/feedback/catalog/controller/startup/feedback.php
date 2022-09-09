@@ -41,6 +41,9 @@ class Feedback extends \Opencart\System\Engine\Controller
             
             'mail/register',
             
+            'product/company_review',
+            'product/review_success',
+            
         ];
 
         if (in_array($route, $override)) {

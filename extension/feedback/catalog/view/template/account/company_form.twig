@@ -15,7 +15,13 @@
         <div class="form-group">
           <h3>{{ text_load_company_logo }}</h3>
           <p class="logo-requirements">{{ text_logo_requirements }}</p>
-          <div class="dropzone-wrapper">
+          
+          {% if company_image %}
+            <div class="dropzone-wrapper active" style="background-image:url({{ company_image }})">
+          {% else %}
+            <div class="dropzone-wrapper">
+          {% endif %}
+          
             <span class="remove-preview">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" fill="white" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -23,7 +29,7 @@
                 <path d="M14.8299 14.8299L9.16992 9.16992" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>                
             </span>
-            <input type="file" name="img_logo" class="dropzone" accept=".jpg, .jpeg, .png">
+            <input type="file" name="img_logo" class="dropzone" value="{{ company_image }}" accept=".jpg, .jpeg, .png">
             <div class="dropzone-desc">
               <svg class="icon-dropzone" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M38.756 46.6665C41.8827 46.6899 44.8927 45.5232 47.2027 43.4232C54.8327 36.7499 50.7494 23.3565 40.6927 22.0965C37.0994 0.303215 5.66937 8.56321 13.1127 29.3065" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>

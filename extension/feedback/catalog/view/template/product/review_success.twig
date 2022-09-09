@@ -1,0 +1,26 @@
+{{ header }}
+
+<div class="review-user-page success-review-user-page page-content">
+    <div class="row">
+        <div class="col-12">
+            {% if company.image %}
+                <div class="company-logo">
+                    <img src="{{ company.image }}" alt="">
+                </div>
+            {% endif %}
+            <h3 class="form-title">
+                {{ company.name }}
+            </h3>
+            <h3 class="form-title">
+                {{ text_thanks }}
+            <span class="sub-title">{{ text_very_important }}</span>
+            </h3>
+            <div class="img-check-wrap">
+                <img src="/catalog/view/stylesheet/static/img/success-check.png" alt="">
+            </div>
+          
+        </div>
+    </div>
+</div>
+
+{{ footer }}
