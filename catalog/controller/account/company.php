@@ -62,30 +62,6 @@ class Company extends \Opencart\System\Engine\Controller
 
     }
 
-//	public function getQr(string $link): string
-//    {
-//
-//        $data = array(
-//            'qr_code_text' => $link
-//        );
-//
-//        $post_data = $data;
-//
-//        // Prepare new cURL resource
-//        $crl = curl_init('https://api.qr-code-generator.com/v1/create?access-token=NK_ajefeJthaJ9fXnuM17I9xqu-AuPXQcmVH7plKlhY5xWEJn9tAAUKMg9pU6INp');
-//        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($crl, CURLINFO_HEADER_OUT, true);
-//        curl_setopt($crl, CURLOPT_POST, true);
-//        curl_setopt($crl, CURLOPT_POSTFIELDS, $post_data);
-//
-//        // Submit the POST request
-//        $result = curl_exec($crl);
-//        // Close cURL session handle
-//        curl_close($crl);
-//
-//        return $result;
-//    }
-
     public function form(): void
     {
 

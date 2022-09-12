@@ -14,9 +14,5 @@ class Company extends \Opencart\System\Engine\Model {
 
 		return $query->row;
 	}
-	
-	public function convertQrLink() {
-	    return 12123123;
-	}
 
 }
