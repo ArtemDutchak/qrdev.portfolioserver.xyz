@@ -17,6 +17,7 @@ class Feedback extends \Opencart\System\Engine\Controller
         $override = [
             
             'common/header',
+            'common/header_hidden',
             'common/footer',
             'common/success',
             'common/account_button',
