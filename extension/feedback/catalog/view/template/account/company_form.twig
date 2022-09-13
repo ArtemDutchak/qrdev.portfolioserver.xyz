@@ -138,15 +138,21 @@
 
       <div class="col-xl-6 col-lg-6">
       
-        {% for i, custom_field in settings.custom_fields %}
-            <label class="type-text">{{ text_text_field }}</label>
-            <div class="text-field-group input-group">
-              <input class="check-text-field d-none" type="checkbox" name="check_text_field_{{ i }}" id="check_text_field_{{ i }}" {% if custom_field.active %} checked{% endif %}>
-              <textarea class="text-field" name="text_field_{{ i }}" id="text_field_{{ i }}" placeholder="{{ placeholder_type_your_text }}" autocomplete="off">{{ custom_field.value }}</textarea>
-              <label for="check_text_field_{{ i }}" title="off - on"><span class="on-off"></span></label>
-              <span class="error-message d-none">{{ error_text }}</span>
-            </div>
-        {% endfor %}
+        <label class="type-text">{{ text_text_field }}</label>
+        <div class="text-field-group input-group">
+            <input class="check-text-field d-none" type="checkbox" name="check_text_field_1" id="check_text_field_1" {% if settings.custom_field_1.active %} checked{% endif %}>
+            <textarea class="text-field" name="text_field_1" id="text_field_1" placeholder="{{ placeholder_type_your_text }}" autocomplete="off">{{ settings.custom_field_1.value }}</textarea>
+            <label for="check_text_field_1" title="off - on"><span class="on-off"></span></label>
+            <span class="error-message d-none">{{ error_text }}</span>
+        </div>
+      
+        <label class="type-text">{{ text_text_field }}</label>
+        <div class="text-field-group input-group">
+            <input class="check-text-field d-none" type="checkbox" name="check_text_field_2" id="check_text_field_2" {% if settings.custom_field_2.active %} checked{% endif %}>
+            <textarea class="text-field" name="text_field_2" id="text_field_2" placeholder="{{ placeholder_type_your_text }}" autocomplete="off">{{ settings.custom_field_2.value }}</textarea>
+            <label for="check_text_field_2" title="off - on"><span class="on-off"></span></label>
+            <span class="error-message d-none">{{ error_text }}</span>
+        </div>
         
         <h3>{{ text_client_recomendation }}</h3>
         <p class="recomend-text">{{ text_dublicate_positive_review_on_services }}</p>

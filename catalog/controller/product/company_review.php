@@ -3,6 +3,11 @@ namespace Opencart\Catalog\Controller\Product;
 use \Opencart\System\Helper as Helper;
 class CompanyReview extends \Opencart\System\Engine\Controller {
 	public function index(): void {
+		
+		if (!$this->customer->isLogged()) {
+			$this->config->set('config_language', $this->config->get('config_language'));
+		}
+		
 		$this->load->language('product/review');
 
 		if (isset($this->request->get['company_code'])) {
@@ -20,6 +25,20 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		
 		if (!$company_info) {
 			$this->response->redirect($this->url->link('error/not_found'));
+		}
+		
+		$company_settings = json_decode($company_info['settings'], true);
+				
+		if ($company_settings['custom_field_1']['active']) {
+			$data['text_field_1'] = $company_settings['custom_field_1']['value'];
+		}else{
+			$data['text_field_1'] = '';
+		}
+		
+		if ($company_settings['custom_field_2']['active']) {
+			$data['text_field_2'] = $company_settings['custom_field_2']['value'];
+		}else{
+			$data['text_field_2'] = '';
 		}
 
 		// Create a login token to prevent brute force attacks
@@ -58,13 +77,18 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['content_top'] = $this->load->controller('common/content_top');
 		$data['content_bottom'] = $this->load->controller('common/content_bottom');
-		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
+		$data['footer'] = $this->load->controller('common/footer_hidden');
+		$data['header'] = $this->load->controller('common/header_hidden');
 
 		$this->response->setOutput($this->load->view('product/company_review', $data));
 	}
 
 	public function write(): void {
+		
+		if (!$this->customer->isLogged()) {
+			$this->config->set('config_language', $this->config->get('config_language'));
+		}
+		
 		$this->load->language('product/review');
 
 		$json = [
@@ -87,6 +111,7 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$company_code = $this->request->get['company_code'];
 		
 		$this->load->model('catalog/company');
+		
 		$company_info = $this->model_catalog_company->getCompanyByCode($company_code);
 
 		if (!$company_info) {
@@ -136,14 +161,14 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$this->request->post['rating']       = $stars;
 		$this->request->post['date_added']   = date('Y-m-d H:i:s', time());
 
-		if ((Helper\Utf8\strlen($name) < 0) || (Helper\Utf8\strlen($name) > 25)) {
+		if ((Helper\Utf8\strlen($name) < 1) || (Helper\Utf8\strlen($name) > 25)) {
 			$json['errors'][] = [
 				'field_name' => 'name',
 				'text' => $this->language->get('error_name'),
 			];
 		}
 
-		if ((Helper\Utf8\strlen($text) < 0) || (Helper\Utf8\strlen($text) > 1000)) {
+		if ((Helper\Utf8\strlen($text) < 1) || (Helper\Utf8\strlen($text) > 1000)) {
 			$json['errors'][] = [
 				'field_name' => 'text',
 				'text' => $this->language->get('error_text'),
@@ -204,6 +229,11 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 	}
 
 	public function success(): void {
+		
+		if (!$this->customer->isLogged()) {
+			$this->config->set('config_language', $this->config->get('config_language'));
+		}
+		
 		$this->load->language('product/review');
 		
 		if (isset($this->session->data['company_code'])) {
@@ -236,7 +266,7 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		);
 		
 		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
+		$data['header'] = $this->load->controller('common/header_hidden');
 
 		$this->response->setOutput($this->load->view('product/review_success', $data));
 	}

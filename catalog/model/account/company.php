@@ -13,7 +13,7 @@ class Company extends \Opencart\System\Engine\Model {
 		`company_name` = '" . $company_name . "',
 		`status` = '" . (int)$data['status'] . "',
 		`company_code` = '" . $company_code . "',
-		`settings` = '" . json_encode($data['settings']) . "',
+		`settings` = '" . $this->db->escape(json_encode($data['settings'],JSON_UNESCAPED_UNICODE)) . "',
 		`date_added` = NOW(),
 		`date_modified` = NOW()");
 
@@ -28,7 +28,7 @@ class Company extends \Opencart\System\Engine\Model {
 		`image` = '" . $this->db->escape((string)$data['image']) . "',
 		`company_name` = '" . $this->db->escape((string)$data['company_name']) . "',
 		`status` = '" . (int)$data['status'] . "',
-		`settings` = '" . json_encode($data['settings']) . "',
+		`settings` = '" . $this->db->escape(json_encode($data['settings'],JSON_UNESCAPED_UNICODE)) . "',
 		`date_modified` = NOW()
 		WHERE `company_id` = '" . (int)$data['company_id'] . "'
 		");

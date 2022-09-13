@@ -11,8 +11,8 @@
             {{ company.name }}
         </h3>
       <h3 class="form-title">
-        {{ text_we_need_your_review }}
-        <span class="sub-title">{{ text_share_impression }}</span>
+        {{ text_field_1 }}
+        <span class="sub-title">{{ text_field_2 }}</span>
       </h3>
       <form class="form-review-user" id="form_review_user" action="{{ form_action }}">
         <div class="stars-wrap">
@@ -49,7 +49,13 @@
           </label>
           <span class="error-message d-none">{{ error_rate }}</span>
         </div>
+        <label for="name">
+          <span class="label-text">{{ entry_name }}</span>
+          <input class="name" type="text" name="name" id="name" placeholder="{{ placeholder_name }}" autocomplete="off">
+          <span class="error-message d-none">{{ error_name }}</span>
+        </label>
         <label for="text">
+          <span class="label-text">{{ entry_text }}</span>
           <textarea name="text" id="text" placeholder="{{ placeholder_text }}"></textarea>
           <span class="error-message d-none">{{ error_text }}</span>
         </label>
@@ -63,7 +69,7 @@
           <input class="phone" type="tel" name="telephone" id="telephone" placeholder="+380" autocomplete="off">
           <span class="error-message d-none">{{ error_telephone }}</span>
         </label>
-        <input disabled class="site-btn" type="submit" value="{{ text_send }}">
+        <input class="site-btn" type="submit" value="{{ text_send }}">
       </form>
     </div>
   </div>

@@ -228,26 +228,31 @@ class Company extends \Opencart\System\Engine\Controller
         $company['settings']['review_dublication']['services']['custom']['name'] = $this->request->post['duplicate_profile_name'];
         $company['settings']['review_dublication']['services']['custom']['link'] = $this->request->post['duplicate_profile_link'];
 
-        $company['settings']['custom_fields'] = array();
-        for ($i = 0; $i < 10; $i++) {
+        $custom_field = array(
+            'active' => false,
+            'value' => '',
+        );
 
-            if (!isset($this->request->post['text_field_' . $i])) {
-                break;
-            }
-
-            $custom_field = array(
-                'active' => false,
-                'value' => '',
-            );
-
-            if (isset($this->request->post['check_text_field_' . $i]) && $this->request->post['check_text_field_' . $i] == 'on') {
-                $custom_field['active'] = true;
-            }
-
-            $custom_field['value'] = $this->request->post['text_field_' . $i];
-
-            $company['settings']['custom_fields'][] = $custom_field;
+        if (isset($this->request->post['check_text_field_1']) && $this->request->post['check_text_field_1'] == 'on') {
+            $custom_field['active'] = true;
         }
+
+        $custom_field['value'] = $this->db->escape($this->request->post['text_field_1']);
+
+        $company['settings']['custom_field_1'] = $custom_field;
+        
+        $custom_field = array(
+            'active' => false,
+            'value' => '',
+        );
+
+        if (isset($this->request->post['check_text_field_2']) && $this->request->post['check_text_field_2'] == 'on') {
+            $custom_field['active'] = true;
+        }
+
+        $custom_field['value'] = $this->db->escape($this->request->post['text_field_2']);
+
+        $company['settings']['custom_field_2'] = $custom_field;
 
         if (isset($this->request->get['company_id'])) {
 
@@ -346,15 +351,13 @@ class Company extends \Opencart\System\Engine\Controller
                     )
                 ),
             ),
-            'custom_fields' => array(
-                array(
-                    'active' => false,
-                    'value' => '',
-                ),
-                array(
-                    'active' => false,
-                    'value' => '',
-                ),
+            'custom_field_1' => array(
+                'active' => false,
+                'value' => '',
+            ),
+            'custom_field_2' => array(
+                'active' => false,
+                'value' => '',
             ),
         );
 
