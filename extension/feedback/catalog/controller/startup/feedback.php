@@ -19,6 +19,7 @@ class Feedback extends \Opencart\System\Engine\Controller
             'common/header',
             'common/header_hidden',
             'common/footer',
+            'common/footer_hidden',
             'common/success',
             'common/account_button',
             'common/current_tariff',
