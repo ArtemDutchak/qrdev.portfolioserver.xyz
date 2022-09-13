@@ -16,6 +16,7 @@ $_['text_very_important']      = 'Your feedback is very valuable to us';
 
 // Entry
 $_['entry_name']       = 'Name';
+$_['entry_text']       = 'Review';
 $_['entry_review']     = 'Review';
 $_['entry_rating']     = 'Rating';
 $_['entry_email']      = 'E-mail *';

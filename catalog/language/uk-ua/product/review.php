@@ -3,9 +3,9 @@
 $_['text_reviews']    = '%s відгуків';
 $_['text_write']      = 'Додати відгук';
 $_['text_login']      = 'Please <a href="%s">login</a> or <a href="%s">register</a> to review';
-$_['text_no_results'] = 'There are no reviews for this product.';
+$_['text_no_results'] = 'Відгуки відсутні.';
 $_['text_note']       = '<span class="text-danger">Note:</span> HTML is not translated!';
-$_['text_success']    = 'Thank you for your review. It has been submitted to the webmaster for approval.';
+$_['text_success']    = 'Дякуємо за відгук!';
 
 $_['text_we_need_your_review'] = 'Нам дуже важливий ваш відгук';
 $_['text_share_impression']    = 'Поділіться своїм враженням';
@@ -16,12 +16,13 @@ $_['text_very_important']      = 'Ваш відгук дуже цінний дл
 
 // Entry
 $_['entry_name']       = 'Ім\'я';
+$_['entry_text']       = 'Введіть текст';
 $_['entry_review']     = 'Відгук';
 $_['entry_rating']     = 'Оцінка';
-$_['entry_email']      = 'E-mail *';
-$_['entry_telephone']  = 'Номер телефону *';
-$_['entry_good']       = 'Good';
-$_['entry_bad']        = 'Bad';
+$_['entry_email']      = 'E-mail';
+$_['entry_telephone']  = 'Номер телефону';
+$_['entry_good']       = 'Переваги';
+$_['entry_bad']        = 'Недоліки';
 
 // Entry
 $_['placeholder_name']       = 'Введіть Ім\'я';
@@ -36,12 +37,12 @@ $_['placeholder_bad']        = 'Bad';
 $_['tab_review']       = 'Reviews (%s)';
 
 // Error
-$_['error_token']      = 'Warning: Review token invalid!';
-$_['error_product']    = 'Warning: Product could not be found!';
-$_['error_name']       = 'Review Name must be between 3 and 25 characters!';
-$_['error_rating']     = 'Please select a review rating!';
-$_['error_guest']      = 'You must login to review the product!';
-$_['error_purchased']  = 'You must have purchased this product before you can write a review!';
+$_['error_token']      = 'Помилка! Некоректний токен!';
+$_['error_product']    = 'Помилка! Товар не знайдено!';
+$_['error_name']       = 'Ім\'я має бути до 25 символів!';
+$_['error_rating']     = 'Поставте оцінку!';
+$_['error_guest']      = 'Вам потрібно залогінитись щоб залишити відгук';
+$_['error_purchased']  = 'Відгук можуть залишати користувачі, які придбали цей товар!';
 
 $_['error_rate']       = 'Поставте вашу оцінку.';
 $_['error_text']       = 'Поділіться своїми враженням.';
