@@ -17,8 +17,14 @@ $_['text_all']             = 'Дивитися всі';
 
 $_['text_reviews']         = 'Відгуки';
 $_['text_my_companies']    = 'Мої компанії';
-$_['text_tariffs']         = 'Тарифи та фуккції';
+$_['text_tariffs']         = 'Тарифи та функції';
 $_['text_settings']        = 'Налаштування';
 $_['text_write_review']    = 'Залишити відгук';
 $_['text_feedback']        = 'Зворотній зв\'язок';
 $_['text_exit']            = 'Вийти';
+
+$_['text_advantages']      = 'Переваги';
+$_['text_how_it_works']    = 'Як це працює';
+$_['text_features_tariffs']= 'Функції та тарифи';
+$_['text_where_place']     = 'Де розмістити';
+$_['text_login']           = 'Вхід';

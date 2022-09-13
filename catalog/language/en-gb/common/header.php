@@ -18,3 +18,9 @@ $_['text_settings']        = 'Settings';
 $_['text_write_review']    = 'Write review';
 $_['text_feedback']        = 'Feedback';
 $_['text_exit']            = 'Logout';
+
+$_['text_advantages']      = 'Advantages';
+$_['text_how_it_works']    = 'How it works';
+$_['text_features_tariffs']= 'Features and Tariffs';
+$_['text_where_place']     = 'Where to place';
+$_['text_login']           = 'Login';
