@@ -54,13 +54,7 @@ class HeaderGuest extends \Opencart\System\Engine\Controller {
 		$data['href_social_facebook'] = 'https://facebook.com/';
 		$data['href_social_twitter'] = 'https://twitter.com/';
 		
-		$data['href_reviews'] = $this->url->link('account/reviews', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['href_my_companies'] = $this->url->link('account/company|list', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['href_tariffs'] = $this->url->link('account/tariffs', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['href_settings'] = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['href_write_review'] = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['href_feedback'] = $this->url->link('information/contacts', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['href_exit'] = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
+		$data['href_login'] = $this->url->link('account/login');
 
 		$data['title'] = $this->document->getTitle();
 		$data['base'] = $this->config->get('config_url');
