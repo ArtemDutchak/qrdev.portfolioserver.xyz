@@ -15,3 +15,8 @@ $_['text_order'] = 'Історія замовлень';
 $_['text_wishlist'] = 'Закладки';
 $_['text_newsletter'] = 'Розсилка';
 $_['text_powered']      = '<a rel="nofollow" href="https://proplat.biz" target="_blank">Розробка та реклама інтернет магазинів на Opencart</a> %s &copy; %s';
+
+$_['text_say_hello']      = 'Скажи Привіт';
+$_['text_call_one_click'] = 'Зв\'яжіться з нами в один клік';
+$_['text_follow_us']      = 'Слідкуйте за нами';
+$_['text_copyright']      = '&copy; 2020 - %s %s. Всі права захищено.';
