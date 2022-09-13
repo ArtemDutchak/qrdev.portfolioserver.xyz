@@ -24,6 +24,7 @@ $_['text_also_recomend_grab_links_from_mobile_apps'] = 'We also recommend taking
 $_['text_google']                                    = 'Google';
 $_['text_facebook']                                  = 'Facebook';
 $_['text_another_service_link']                      = 'Link to another source';
+$_['text_company_status']                            = 'Company is active';
 $_['text_save_settings']                             = 'Save Settings';
 
 $_['text_success_edit']                              = 'Settings successfully saved!';

@@ -24,6 +24,7 @@ $_['text_also_recomend_grab_links_from_mobile_apps'] = 'Також рекоме�
 $_['text_google']                                    = 'Google';
 $_['text_facebook']                                  = 'Facebook';
 $_['text_another_service_link']                      = 'Посилання на інше джерело';
+$_['text_company_status']                            = 'Компанія активна';
 $_['text_save_settings']                             = 'Зберегти налаштування';
 
 $_['text_success_edit']                              = 'Налаштування успішно збережено!';

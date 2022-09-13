@@ -98,8 +98,10 @@ class Company extends \Opencart\System\Engine\Controller
 
         if (!empty($company_info)) {
             $data['company_name'] = $company_info['company_name'];
+            $data['status'] = $company_info['status'];
         } else {
             $data['company_name'] = '';
+            $data['status'] = true;
         }
 
         $this->load->model('tool/image');
@@ -174,10 +176,14 @@ class Company extends \Opencart\System\Engine\Controller
             'customer_id' => $this->customer->getId(),
             'company_name' => $this->request->post['company_name'],
             'image' => '',
-            'status' => true,
+            'status' => false,
             'settings' => $this->get_empty_settings(),
         );
 
+        if (isset($this->request->post['status']) && $this->request->post['status'] == 'on') {
+            $company['status'] = true;
+        }
+        
         if (isset($this->request->post['check_telephone_required']) && $this->request->post['check_telephone_required'] == 'on') {
             $company['settings']['customer_telephone_required']['active'] = true;
         } else {

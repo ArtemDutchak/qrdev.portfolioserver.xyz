@@ -179,6 +179,15 @@
           <input type="text" class="profile-link" name="duplicate_profile_link" id="duplicate_profile_link" placeholder="{{ placeholder_your_profile }}" autocomplete="off" value="{{ settings.review_dublication.services.custom.link }}">
           <span class="error-message d-none">{{ error_text }}</span>
         </div>
+        
+        <br>
+        <div class="status d-flex justify-content-between pr-3 mb-4">
+          <div class="text">
+            <p class="recomend-text pl-3">{{ text_company_status }}</p>
+          </div>
+          <input class="status d-none" type="checkbox" name="status" id="status" {% if status %} checked{% endif %}>
+          <label for="status" title="off - on"><span class="on-off"></span></label>
+        </div>
           
         <input class="btn-rate-pay" type="submit" value="{{ text_save_settings }}">
       </div>
