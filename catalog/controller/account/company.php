@@ -322,7 +322,10 @@ class Company extends \Opencart\System\Engine\Controller
 
         $pngAbsoluteFilePath = $tempDir . $fileName;
 
-        if (!file_exists($pngAbsoluteFilePath)) {
+        if (!file_exists($pngAbsoluteFilePath)) 
+        {
+            define('IMAGE_WIDTH', 1000);
+	    define('IMAGE_HEIGHT', 1000);
             QRcode::png($codeContents, $pngAbsoluteFilePath);
         }
     }
