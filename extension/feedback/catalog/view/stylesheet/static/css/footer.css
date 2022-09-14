@@ -448,3 +448,33 @@ footer{
     text-shadow: none;
     border-radius: 30px;
 }
+.user-dropdown.user-dropdown .name{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.page-content{
+    padding-bottom: 416px;
+    margin-bottom: 0;
+}
+.footer{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    width: 100%;
+}
+body{
+    min-height: 100vh;
+}
+.reviews-page.page-body{
+    margin-top: 25px;
+}
+@media (min-width: 320px){
+    .reviews-page.page-body {
+        padding-bottom: 532px;
+    }
+    .page-content{
+        padding-bottom: 532px;
+    }
+}
