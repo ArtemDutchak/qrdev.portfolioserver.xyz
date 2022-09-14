@@ -2,6 +2,7 @@
 // Heading
 $_['title_company_add']                              = 'Add new company';
 $_['title_company_edit']                             = 'Edit company';
+$_['title_my_companies']                             = 'My companies';
 $_['text_error']                                     = 'Company not found';
 
 
@@ -31,6 +32,10 @@ $_['text_success_edit']                              = 'Settings successfully sa
 $_['text_success_added']                             = 'Company successfully added!';
 
 $_['text_average_rate']                              = 'Average Rate:';
+$_['text_generate_link']                             = 'Generate link';
+$_['text_download']                                  = 'Download';
+$_['text_qr_code']                                   = 'QR-code';
+$_['text_company_add']                               = 'Add company';
 
 // Placeholder
 $_['placeholder_company_name']                       = 'Enter your company name';

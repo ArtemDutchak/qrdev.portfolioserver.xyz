@@ -2,6 +2,7 @@
 // Heading
 $_['title_company_add']                              = 'Додати нову компанію';
 $_['title_company_edit']                             = 'Редагувати компанію';
+$_['title_my_companies']                             = 'Мої компанії';
 $_['text_error']                                     = 'Компанію не знайдено';
 
 
@@ -31,6 +32,10 @@ $_['text_success_edit']                              = 'Налаштування
 $_['text_success_added']                             = 'Компанію успішно додано!';
 
 $_['text_average_rate']                              = 'Загальна оцінка:';
+$_['text_generate_link']                             = 'Згенерувати посилання';
+$_['text_download']                                  = 'Завантажити';
+$_['text_qr_code']                                   = 'QR-code';
+$_['text_company_add']                               = 'Додати компанію';
 
 // Placeholder
 $_['placeholder_company_name']                       = 'Введіть назву своєї компанії';

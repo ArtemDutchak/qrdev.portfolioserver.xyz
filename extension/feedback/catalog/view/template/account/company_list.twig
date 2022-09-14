@@ -3,7 +3,7 @@
 <section class="my-company-page page-content">
   <div class="row">
     <div class="col-12">
-      <h2 class="page-title">Мои компании</h2>
+      <h2 class="page-title">{{ title_my_companies }}</h2>
     </div>
     
     {% for company in companies %}
@@ -43,7 +43,7 @@
                   <path d="M13 19V16H15C15.6 16 16 15.6 16 15V13H19V15C19 17.2 17.2 19 15 19H13Z"/>
                   <path d="M15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2H15C20 2 22 4 22 9V15C22 20 20 22 15 22Z"/>
                 </svg>
-                Скачать <span class="qr-txt">QR-code</span>
+                {{ text_download }} <span class="qr-txt">{{ text_qr_code }}</span>
               </a>
       
               <br>
@@ -53,7 +53,7 @@
                   <path d="M3.27 12C2.48 11.05 2 9.83 2 8.5C2 5.48 4.47 3 7.5 3H12.5C15.52 3 18 5.48 18 8.5C18 11.52 15.53 14 12.5 14H10"/>
                   <path d="M20.73 12C21.52 12.95 22 14.17 22 15.5C22 18.52 19.53 21 16.5 21H11.5C8.48 21 6 18.52 6 15.5C6 12.48 8.47 10 11.5 10H14"/>
                 </svg>
-                Сгенерировать ссылку
+                {{ text_generate_link }}
               </button>
             </div>
           </div>
@@ -72,7 +72,7 @@
           <path d="M5.80078 12H10.7508" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
           <path d="M8.25 22V18.25" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
-        Добавить компанию
+        {{ text_company_add }}
       </a>
     </div>
   </div>
