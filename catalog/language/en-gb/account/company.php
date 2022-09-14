@@ -53,4 +53,4 @@ $_['error_company_name_required']                    = 'Be sure to specify the n
 $_['error_telegram_number']                          = 'Enter your Telegram phone number';
 $_['error_correct_email']                            = 'Enter a valid email';
 $_['error_text']                                     = 'Error message';
-$_['error_add_cause_many_companies']                 = 'Error! Company limit reached!';
+$_['error_add_cause_many_companies']                 = 'Error! Active company limit reached!';
