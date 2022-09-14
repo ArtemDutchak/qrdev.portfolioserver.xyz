@@ -35,6 +35,22 @@ class Company extends \Opencart\System\Engine\Model {
 		
 	}
 	
+	public function getAverageRate(int $company_id): float {
+
+		$query = $this->db->query(
+			"SELECT AVG(rating) as average
+			FROM `" . DB_PREFIX . "review`
+			WHERE `product_id` = '" . $company_id . "'
+		");
+		
+		if ($query->row && $query->row['average']) {
+			return round($query->row['average'], 2);
+		}
+		
+		return 0.00;
+		
+	}
+	
 	public function addCompanyImage(string $company_code, string $filename): void {
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "company` SET
