@@ -35,6 +35,12 @@ class Company extends \Opencart\System\Engine\Controller
 
             $average_rate = $this->model_account_company->getAverageRate((int)$result['company_id']);
 
+            $qr_path = DIR_STORAGE . 'qr_codes/' . $result['company_code'] . '.png';
+            $qr_file = '';
+            if (is_file($qr_path)) {
+    			$qr_file = HTTP_SERVER . 'storage/qr_codes/' . $result['company_code'] . '.png';
+    		}
+            
             $qr_link = $this->url->link('product/company_review', 'company_code=' . $result['company_code']);
 
             $company = array(
@@ -44,7 +50,7 @@ class Company extends \Opencart\System\Engine\Controller
                 'qr_link' => $qr_link,
                 'code' => $result['company_code'],
 //				'google_qr_link' => $this->getQr(str_replace("amp;", "",$qr_link)),
-                'qr_thumb' => '/catalog/view/stylesheet/static/img/qr-code.png',
+                'qr_file' => $qr_file,
                 'rating_width' => ($average_rate / 5) * 100,
                 'rating' => $average_rate,
                 'href_edit' => $this->url->link('account/company|form', 'company_id=' . $result['company_id']),
@@ -312,7 +318,7 @@ class Company extends \Opencart\System\Engine\Controller
         $codeContents = HTTP_SERVER . 'index.php?route=product/company_review&company_code=' . $companyCode;
 
         $fileName = $companyCode . '.png';
-        $tempDir = 'storage/qr_codes/';
+        $tempDir = DIR_STORAGE . 'qr_codes/';
 
         $pngAbsoluteFilePath = $tempDir . $fileName;
 
