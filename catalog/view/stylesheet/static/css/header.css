@@ -7037,6 +7037,9 @@ body {
   font-size: 14px;
   line-height: 17px;
 }
+.reviews-page.page-header .filter-wrap-block .filter-wrap .label-group .filter-label.active {
+ background-color: #abb9de;
+}
 @media (max-width: 1400px) {
   .reviews-page.page-header .filter-wrap-block .filter-wrap .label-group .filter-label {
     padding: 10px;

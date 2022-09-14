@@ -106,7 +106,7 @@
             <span class="title">{{ text_to_filter }}</span>
             <div class="label-group">
                 {% for sort in sorts %}
-                    <a class="filter-label" href="{{ sort.href }}">{{ sort.text }}</a>
+                    <a class="filter-label {% if active_sort == sort.value %}active{% endif %}" href="{{ sort.href }}">{{ sort.text }}</a>
                 {% endfor %}
             </div>
         </div>
