@@ -12,7 +12,7 @@ class Reviews extends \Opencart\System\Engine\Controller {
 			
 		}		
 		
-		$companies = $this->customer->getCompanyList();
+		$companies = $this->customer->getActiveCompanyList();
 		
 		$data['companies'] = array();
 		
@@ -117,6 +117,8 @@ class Reviews extends \Opencart\System\Engine\Controller {
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($review_total) ? (($page - 1) * $reviews_per_page) + 1 : 0, ((($page - 1) * $reviews_per_page) > ($review_total - $reviews_per_page)) ? $review_total : ((($page - 1) * $reviews_per_page) + $reviews_per_page), $review_total, ceil($review_total / $reviews_per_page));
+		
+		$data['active_sort'] = $sort;
 		
 		$data['sorts'] = [];
 
