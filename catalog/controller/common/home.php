@@ -44,6 +44,7 @@ class Home extends \Opencart\System\Engine\Controller {
 		
 		$data['register_form_action'] = $this->url->link('account/register|register', 'register_token=' . $this->session->data['register_token']);
 		$data['login_form_action'] = $this->url->link('account/login|login', 'login_token=' . $this->session->data['login_token']);
+		$data['forgotten_form_action'] = $this->url->link('account/forgotten|confirm', 'login_token=' . $this->session->data['login_token']);
 
 		$data['login'] = $this->url->link('account/login|login', 'language=' . $this->config->get('config_language') . '&login_token=' . $this->session->data['login_token']);
 		$data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
