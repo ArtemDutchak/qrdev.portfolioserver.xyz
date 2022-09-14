@@ -160,6 +160,13 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$this->request->post['text']         = $text;
 		$this->request->post['rating']       = $stars;
 		$this->request->post['date_added']   = date('Y-m-d H:i:s', time());
+		
+		
+		$telephone_is_required = false;
+		$settings = json_decode($company_info['settings'], true);
+		if ($settings['customer_telephone_required']['active'] && $stars <= (int)$settings['customer_telephone_required']['rating']) {
+			$telephone_is_required = true;
+		}
 
 		if ((Helper\Utf8\strlen($name) < 1) || (Helper\Utf8\strlen($name) > 25)) {
 			$json['errors'][] = [
@@ -190,7 +197,7 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 			);
 		}
 		
-		if ((Helper\Utf8\strlen($telephone) != 12)) {
+		if ($telephone_is_required && (Helper\Utf8\strlen($telephone) != 12)) {
 			$json['error']['telephone'] = $this->language->get('error_telephone');
 			$json['errors'][] = array(
 				'field_name' => 'telephone',
