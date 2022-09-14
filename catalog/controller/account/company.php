@@ -110,12 +110,14 @@ class Company extends \Opencart\System\Engine\Controller
             $data['company_name'] = '';
             $data['status'] = true;
         }
-
-        $this->load->model('tool/image');
-        if (is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
-            $data['company_image'] = $this->model_tool_image->resize(html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'), 185, 185);
-        } else {
-            $data['company_image'] = '';
+        
+        if (!empty($company_info)) {
+            $this->load->model('tool/image');
+            if (is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
+                $data['company_image'] = $this->model_tool_image->resize(html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'), 185, 185);
+            } else {
+                $data['company_image'] = '';
+            }
         }
 
         if (!empty($company_info)) {
@@ -191,15 +193,47 @@ class Company extends \Opencart\System\Engine\Controller
             $company['status'] = true;
         }
         
-        $this->load->model('account/tariff');
-        $current_tariff_id = $this->customer->getCurrentTariffId();
-        $current_tariff_info = $this->model_account_tariff->getTariff((int)$current_tariff_id);
-        
         if ($company['status']) {
-            if ((int)$current_tariff_info['companies'] <= count($this->customer->getActiveCompanyList())) {
-				$json['errors'][] = $this->language->get('error_to_many_active_companies');
-			}
+        
+            $this->load->model('account/tariff');
+            $current_tariff_id = $this->customer->getCurrentTariffId();
+            $current_tariff_info = $this->model_account_tariff->getTariff((int)$current_tariff_id);
+            
+            if (isset($this->request->get['company_id'])) {
+                
+                $company_info = $this->customer->getCompanyInfo((int)$this->request->get['company_id']);
+                
+                if (!$company_info) {
+                    $json['error'] = $this->language->get('error_company_not_found');
+                    $this->response->addHeader('Content-Type: application/json');
+                    $this->response->setOutput(json_encode($json));
+                    return;
+                }
+                
+                if ($company_info['status']) {
+                    $can_operate_with_active_company = true;
+                }else{
+                    $can_operate_with_active_company = ((int)$current_tariff_info['companies'] > count($this->customer->getActiveCompanyList()));
+                }
+                
+                
+            }else{
+            
+                $can_operate_with_active_company = ((int)$current_tariff_info['companies'] > count($this->customer->getActiveCompanyList()));
+                
+            }
+            
+            if (!$can_operate_with_active_company) {
+                $json['error'] = $this->language->get('error_add_cause_many_companies');
+                $this->response->addHeader('Content-Type: application/json');
+                $this->response->setOutput(json_encode($json));
+                return;
+            }
+            
+            
         }
+        
+        
         
         if (isset($this->request->post['check_telephone_required']) && $this->request->post['check_telephone_required'] == 'on') {
             $company['settings']['customer_telephone_required']['active'] = true;
@@ -280,35 +314,48 @@ class Company extends \Opencart\System\Engine\Controller
         if (isset($this->request->get['company_id'])) {
 
             $company_info = $this->customer->getCompanyInfo((int)$this->request->get['company_id']);
+            
+            if (!$company_info) {
+                $json['error'] = $this->language->get('error_company_not_found');
+                $this->response->addHeader('Content-Type: application/json');
+                $this->response->setOutput(json_encode($json));
+                return;
+            }
 
             $json['company_code'] = $company_info['company_code'];
             $this->generateQrCode($json['company_code']);
 
             $json['msg'] = $this->language->get('text_success_edit');
+            
+            if ((int)$this->request->post['remove_logo']) {
+                $this->removeCompanyImage($company_info);
+            }
 
             $company['company_id'] = $this->request->get['company_id'];
             $this->model_account_company->editCompany($company);
 
         } else {
 
-            if ((int)$current_tariff_info['companies'] > count($this->customer->getActiveCompanyList())) {
+            $this->load->model('account/tariff');
+            $current_tariff_id = $this->customer->getCurrentTariffId();
+            $current_tariff_info = $this->model_account_tariff->getTariff((int)$current_tariff_id);
 
-                $company_id = $this->model_account_company->addCompany($company);
-                if ($company_id) {
-                    $company_info = $this->customer->getCompanyInfo($company_id);
-
-                    $json['company_code'] = $company_info['company_code'];
-                    $this->generateQrCode($json['company_code']);
-
-                    $json['msg'] = $this->language->get('text_success_added');
-                } else {
-                    $json['msg'] = $this->language->get('error_add_company');
+            $company_id = $this->model_account_company->addCompany($company);
+            
+            if ($company_id) {
+            
+                if ((int)$this->request->post['remove_logo']) {
+                    $this->removeCompanyImage($company_info);
                 }
+                
+                $company_info = $this->customer->getCompanyInfo($company_id);
 
+                $json['company_code'] = $company_info['company_code'];
+                $this->generateQrCode($json['company_code']);
+
+                $json['msg'] = $this->language->get('text_success_added');
             } else {
-
-                $json['msg'] = $this->language->get('error_add_cause_many_companies');
-
+                $json['msg'] = $this->language->get('error_add_company');
             }
         }
 
@@ -317,6 +364,18 @@ class Company extends \Opencart\System\Engine\Controller
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
 
+    }
+
+    public function removeCompanyImage(array $company_info): void {
+        
+        $file_path = DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8');
+        
+        if (is_file($file_path)) {
+            unlink($file_path);
+        }
+            
+        $this->model_account_company->addCompanyImage($company_info['company_code'], '');
+        
     }
 
     public function generateQrCode(string $companyCode): void

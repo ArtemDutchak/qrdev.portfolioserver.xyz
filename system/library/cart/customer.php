@@ -147,6 +147,21 @@ class Customer {
 		image
 		FROM `" . DB_PREFIX . "company`
 		WHERE
+		`customer_id` = '" . (int)$this->customer_id . "'
+		ORDER BY date_added DESC
+		");
+
+		return $query->rows;
+	}
+
+	public function getActiveCompanyList(): array {
+		$query = $this->db->query("SELECT
+		company_id,
+		company_name,
+		company_code,
+		image
+		FROM `" . DB_PREFIX . "company`
+		WHERE
 		`status` = '1' AND
 		`customer_id` = '" . (int)$this->customer_id . "'
 		ORDER BY date_added DESC

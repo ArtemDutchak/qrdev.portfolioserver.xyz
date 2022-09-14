@@ -9,7 +9,6 @@ class Company extends \Opencart\System\Engine\Model {
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "company` SET
 		`customer_id` = '" . (int)$data['customer_id'] . "',
-		`image` = '" . $this->db->escape((string)$data['image']) . "',
 		`company_name` = '" . $company_name . "',
 		`status` = '" . (int)$data['status'] . "',
 		`company_code` = '" . $company_code . "',
@@ -25,7 +24,6 @@ class Company extends \Opencart\System\Engine\Model {
 	public function editCompany(array $data): void {
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "company` SET
-		`image` = '" . $this->db->escape((string)$data['image']) . "',
 		`company_name` = '" . $this->db->escape((string)$data['company_name']) . "',
 		`status` = '" . (int)$data['status'] . "',
 		`settings` = '" . $this->db->escape(json_encode($data['settings'],JSON_UNESCAPED_UNICODE)) . "',
