@@ -30,6 +30,8 @@ $_['text_save_settings']                             = 'Save Settings';
 $_['text_success_edit']                              = 'Settings successfully saved!';
 $_['text_success_added']                             = 'Company successfully added!';
 
+$_['text_average_rate']                              = 'Average Rate:';
+
 // Placeholder
 $_['placeholder_company_name']                       = 'Enter your company name';
 $_['placeholder_380']                                = '+380';

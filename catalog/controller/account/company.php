@@ -15,7 +15,7 @@ class Company extends \Opencart\System\Engine\Controller
             $this->response->redirect($this->url->link('account/login'));
         }
 
-        $this->load->language('company/list');
+        $this->load->language('account/company');
         $this->load->model('tool/image');
 
         $data['href_company_add'] = $this->url->link('account/company|form');
