@@ -10,7 +10,7 @@ class Reviews extends \Opencart\System\Engine\Controller {
 			
 			$this->response->redirect($this->url->link('account/login'));
 			
-		}
+		}		
 		
 		$companies = $this->customer->getCompanyList();
 		
@@ -50,6 +50,13 @@ class Reviews extends \Opencart\System\Engine\Controller {
 		
 		$this->load->model('catalog/review');
 
+		// $sort = 'more_three' || 'less_four' || 'solved';
+		if (isset($this->request->get['sort'])) {
+			$sort = $this->request->get['sort'];
+		} else {
+			$sort = '';
+		}
+
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -60,10 +67,16 @@ class Reviews extends \Opencart\System\Engine\Controller {
 		
 		$reviews_per_page = 6;
 
-		$review_total = $this->model_catalog_review->getTotalReviewsByCompanyId($data['company_id']);
-
-		$results = $this->model_catalog_review->getReviewsByCompanyId($data['company_id'], ($page - 1) * $reviews_per_page, $reviews_per_page);
-
+		$filter_data = [
+			'company_id'          => $data['company_id'],
+			'sort'                => $sort,
+			'start'               => ($page - 1) * $reviews_per_page,
+			'limit'               => $reviews_per_page
+		];
+		
+		$review_total = $this->model_catalog_review->getTotalReviews($filter_data);
+		$results = $this->model_catalog_review->getReviews($filter_data);
+		
 		foreach ($results as $result) {
 			$data['reviews'][] = [
 				'id'         => $result['review_id'],
@@ -78,14 +91,53 @@ class Reviews extends \Opencart\System\Engine\Controller {
 			];
 		}
 
+		$url = '&customer_token=' . $this->session->data['customer_token'];
+
+		if (isset($this->request->get['filter'])) {
+			$url .= '&filter=' . $this->request->get['filter'];
+		}
+
+		if (isset($this->request->get['sort'])) {
+			$url .= '&sort=' . $this->request->get['sort'];
+		}
+
+		if (isset($this->request->get['order'])) {
+			$url .= '&order=' . $this->request->get['order'];
+		}
+
+		if (isset($this->request->get['limit'])) {
+			$url .= '&limit=' . $this->request->get['limit'];
+		}
+
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $review_total,
 			'page'  => $page,
 			'limit' => $reviews_per_page,
-			'url'   => $this->url->link('account/reviews', 'company_id=' . $data['company_id'] . '&page={page}')
+			'url'   => $this->url->link('account/reviews', 'company_id=' . $data['company_id'] . $url . '&page={page}')
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($review_total) ? (($page - 1) * $reviews_per_page) + 1 : 0, ((($page - 1) * $reviews_per_page) > ($review_total - $reviews_per_page)) ? $review_total : ((($page - 1) * $reviews_per_page) + $reviews_per_page), $review_total, ceil($review_total / $reviews_per_page));
+		
+		$data['sorts'] = [];
+
+		$data['sorts'][] = [
+			'text'  => $this->language->get('text_more_three'),
+			'value' => 'more_three',
+			'href'  => $this->url->link('account/reviews', 'company_id=' . $data['company_id'] . '&customer_token=' . $this->session->data['customer_token'] . '&sort=more_three'),
+		];
+
+		$data['sorts'][] = [
+			'text'  => $this->language->get('text_less_four'),
+			'value' => 'less_four',
+			'href'  => $this->url->link('account/reviews', 'company_id=' . $data['company_id'] . '&customer_token=' . $this->session->data['customer_token'] . '&sort=less_four'),
+		];
+
+		$data['sorts'][] = [
+			'text'  => $this->language->get('text_solved'),
+			'value' => 'solved',
+			'href'  => $this->url->link('account/reviews', 'company_id=' . $data['company_id'] . '&customer_token=' . $this->session->data['customer_token'] . '&sort=solved'),
+		];
+		
 		
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');

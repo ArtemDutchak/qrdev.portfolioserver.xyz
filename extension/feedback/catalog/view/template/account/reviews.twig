@@ -101,17 +101,16 @@
       </div>
     </div>
     <div class="col-xl-4 col-lg-5 col-md-3 col-sm-12 pl-xl-0 pl-md-0 ml-lg-auto filter-wrap-block">
-      <div class="filter-wrap">
-        <span class="title">Фильтровать:</span>
-        <div class="label-group">
-          <input class="filter-input" type="radio" name="filter-reviews" id="more_three">
-          <label class="filter-label" for="more_three">Больше трех</label>
-          <input class="filter-input" type="radio" name="filter-reviews" id="less_three">
-          <label class="filter-label" for="less_three">Меньше четирех</label>
-          <input class="filter-input" type="radio" name="filter-reviews" id="solved">
-          <label class="filter-label" for="solved">Решенные</label>
+      
+        <div class="filter-wrap">
+            <span class="title">{{ text_to_filter }}</span>
+            <div class="label-group">
+                {% for sort in sorts %}
+                    <a class="filter-label" href="{{ sort.href }}">{{ sort.text }}</a>
+                {% endfor %}
+            </div>
         </div>
-      </div>
+        
     </div>
   </div>
 </div>

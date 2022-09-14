@@ -46,6 +46,76 @@ class Review extends \Opencart\System\Engine\Model {
 		return (int)$query->row['total'];
 	}
 
+	public function getReviews(array $filter_data): array {
+		if ($filter_data['start'] < 0) {
+			$filter_data['start'] = 0;
+		}
+
+		if ($filter_data['limit'] < 1) {
+			$filter_data['limit'] = 20;
+		}
+		
+		$sql = "SELECT
+			r.`review_id`,
+			r.`author`,
+			r.`rating`,
+			r.`text`,
+			r.`telephone`,
+			r.`email`,
+			r.`date_added`
+			FROM
+			`" . DB_PREFIX . "review` r
+			LEFT JOIN `" . DB_PREFIX . "company` c ON (r.`product_id` = c.`company_id`)
+			WHERE
+			r.`product_id` = '" . (int)$filter_data['company_id'] . "' AND c.`status` = '1'";
+			
+		if ($filter_data['sort']) {
+			
+			if ($filter_data['sort'] === 'more_three') {
+				$sql .= " AND r.`rating` > '3'";
+			}elseif ($filter_data['sort'] === 'less_four') {
+				$sql .= " AND r.`rating` < '4'";
+			}elseif ($filter_data['sort'] === 'solved') {
+				$solved_status_id = 2;
+				$sql .= " AND r.`status` = '" . $solved_status_id . "'";
+			}
+			
+		}
+			
+		$sql .= " ORDER BY
+			r.`date_added` DESC LIMIT " . (int)$filter_data['start'] . "," . (int)$filter_data['limit'];
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
+
+	public function getTotalReviews(array $filter_data): int {
+		
+		$sql = "SELECT
+			COUNT(*) AS `total`
+			FROM `" . DB_PREFIX . "review` r LEFT JOIN `" . DB_PREFIX . "company` c ON (r.`product_id` = c.`company_id`)
+			WHERE
+			r.`product_id` = '" . (int)$filter_data['company_id'] . "' AND c.`status` = '1'";
+		
+		if ($filter_data['sort']) {
+			
+			if ($filter_data['sort'] === 'more_three') {
+				$sql .= " AND r.`rating` > '3'";
+			}elseif ($filter_data['sort'] === 'less_four') {
+				$sql .= " AND r.`rating` < '4'";
+			}elseif ($filter_data['sort'] === 'solved') {
+				$solved_status_id = 2;
+				$sql .= " AND r.`status` = '" . $solved_status_id . "'";
+			}
+			
+		}
+			
+		$query = $this->db->query($sql);
+
+		return $query->row['total'];
+	}
+
 	public function getReviewsByCompanyId(int $company_id, int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
 			$start = 0;
