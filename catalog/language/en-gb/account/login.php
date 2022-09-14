@@ -22,6 +22,7 @@ $_['error_login']                  = 'Warning: No match for E-Mail Address and/o
 $_['error_attempts']               = 'Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.';
 $_['error_approved']               = 'Warning: Your account requires approval before you can login.';
 
+$_['text_restore']                       = 'Restore Access';
 $_['text_form_enter']                    = 'Login';
 $_['text_form_register']                 = 'Registartion';
 $_['text_form_restore_password']         = 'Password Recovery';
