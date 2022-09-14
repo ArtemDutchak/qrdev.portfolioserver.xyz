@@ -441,3 +441,10 @@ footer{
         font-size: 11px;
     }
 }
+.success-page .float-end a{
+    background: #abb9de;
+    padding: 10px;
+    color: #000;
+    text-shadow: none;
+    border-radius: 30px;
+}

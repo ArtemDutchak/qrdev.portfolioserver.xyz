@@ -8264,3 +8264,7 @@ body {
     width: 100%;
   }
 }
+.success-page .float-end a{
+  background-color:#abb9de;
+  padding:10px;
+}
