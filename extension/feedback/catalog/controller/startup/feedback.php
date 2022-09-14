@@ -31,6 +31,7 @@ class Feedback extends \Opencart\System\Engine\Controller
             'account/register',
             'account/register_success',
             'account/activation_success',
+            'account/forgotten_reset',
             'account/edit',
             'account/company',
             'account/company_form',
