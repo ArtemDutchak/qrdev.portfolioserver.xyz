@@ -16,6 +16,12 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 			$json['errors'][] = $this->language->get('error_input_data');
 		}
 		
+		if ($json['errors']) {
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
+			return;
+		}
+		
 		$tariff = [];
 		if (!$json['errors']) {
 			$this->load->model('account/tariff');
@@ -26,10 +32,10 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 			$json['errors'][] = $this->language->get('error_tariff_not_able');
 		}
 		
-		if ($tariff) {
-			if ((int)$tariff['companies'] < count($this->customer->getCompanyList())) {
-				$json['errors'][] = $this->language->get('error_to_many_active_companies');
-			}
+		if ($json['errors']) {
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
+			return;
 		}
 		
 		$this->load->model('account/customer');
@@ -48,83 +54,16 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 			return;
 		}
 		
-		// free tariff
-		if (!(int)$tariff['price']) {
-			
-			$customer_id = (int)$this->customer->getId();
-			$months = (int)$this->request->post['month'];
-			
-			$date_now  = date('Y-m-d H:i:s', time());
-			$date_to = date('Y-m-d', strtotime("+" . $months . " months", strtotime($date_now)));
-			$date_to = date('Y-m-d', strtotime("+ 1 day", strtotime($date_to)));
-			$date_to = $date_to . ' 23:59:59';
+		if ($tariff) {
+			if ((int)$tariff['companies'] < count($this->customer->getActiveCompanyList())) {
+				$json['errors'][] = $this->language->get('error_to_many_active_companies');
+			}
+		}
 		
-			$new_tariff_data = array(
-				'tariff_id' => (int)$this->request->post['tariff_id'],
-				'active_to' => $date_to,
-				'date_activated' => $date_now,
-				'customer_id' => $this->customer->getId(),
-			);
-			$this->load->model('account/tariff');
-			$current_tariff_info = $this->model_account_tariff->getUserTariff($customer_id);
-			
-			if ($current_tariff_info) {
-                
-                if ((int)$this->request->post['tariff_id'] == $current_tariff_info['tariff_id']) {
-                    
-                    $active_to = $current_tariff_info['active_to'];
-                    $new_active_to = date('Y-m-d', strtotime("+" . $months . " months", strtotime($active_to)));
-            		$new_active_to = $new_active_to . ' 23:59:59';
-                    
-                    $new_tariff_data = array(
-                        'tariff_id' => $current_tariff_info['tariff_id'],
-                        'active_to' => $new_active_to,
-                        'date_activated' => $current_tariff_info['date_activated'],
-                        'customer_id' => $customer_id,
-                    );
-                    
-                }else{
-                    
-                    $date_now  = date('Y-m-d H:i:s', time());
-                    $date_to = date('Y-m-d', strtotime("+" . $months . " months", strtotime($date_now)));
-            		$date_to = date('Y-m-d', strtotime("+ 1 day", strtotime($date_to)));
-            		$date_to = $date_to . ' 23:59:59';
-                
-                    $new_tariff_data = array(
-                        'tariff_id' => (int)$this->request->post['tariff_id'],
-                        'active_to' => $date_to,
-                        'date_activated' => $date_now,
-                        'customer_id' => $customer_id,
-                    );
-                    
-                }
-                
-                $this->model_account_tariff->editTariff($new_tariff_data);
-                
-            }else{
-                
-                $date_now  = date('Y-m-d H:i:s', time());
-                $date_to = date('Y-m-d', strtotime("+" . $months . " months", strtotime($date_now)));
-                $date_to = date('Y-m-d', strtotime("+ 1 day", strtotime($date_to)));
-                $date_to = $date_to . ' 23:59:59';
-            
-                $new_tariff_data = array(
-                    'tariff_id' => (int)$this->request->post['tariff_id'],
-                    'active_to' => $date_to,
-                    'date_activated' => $date_now,
-                    'customer_id' => $customer_id,
-                );
-                
-                $this->model_account_tariff->addTariff($new_tariff_data);
-                
-            }
-			
-			$this->model_account_customer->setFreeAble($customer_id, 0);
-			
+		if ($json['errors']) {
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
 			return;
-			
 		}
 		
 		$order_data = [];
