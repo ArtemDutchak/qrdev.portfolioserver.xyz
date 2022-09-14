@@ -191,6 +191,16 @@ class Company extends \Opencart\System\Engine\Controller
             $company['status'] = true;
         }
         
+        $this->load->model('account/tariff');
+        $current_tariff_id = $this->customer->getCurrentTariffId();
+        $current_tariff_info = $this->model_account_tariff->getTariff((int)$current_tariff_id);
+        
+        if ($company['status']) {
+            if ((int)$current_tariff_info['companies'] <= count($this->customer->getActiveCompanyList())) {
+				$json['errors'][] = $this->language->get('error_to_many_active_companies');
+			}
+        }
+        
         if (isset($this->request->post['check_telephone_required']) && $this->request->post['check_telephone_required'] == 'on') {
             $company['settings']['customer_telephone_required']['active'] = true;
         } else {
@@ -281,11 +291,7 @@ class Company extends \Opencart\System\Engine\Controller
 
         } else {
 
-            $this->load->model('account/tariff');
-            $current_tariff_id = $this->customer->getCurrentTariffId();
-            $current_tariff_info = $this->model_account_tariff->getTariff((int)$current_tariff_id);
-
-            if ((int)$current_tariff_info['companies'] > count($this->customer->getCompanyList())) {
+            if ((int)$current_tariff_info['companies'] > count($this->customer->getActiveCompanyList())) {
 
                 $company_id = $this->model_account_company->addCompany($company);
                 if ($company_id) {
