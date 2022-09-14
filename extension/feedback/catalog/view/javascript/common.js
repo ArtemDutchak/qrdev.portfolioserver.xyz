@@ -24,7 +24,22 @@ $(document).ready(function() {
     
 })
 
-
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": true,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 
 function setTariff(tariffId) {
 
@@ -45,7 +60,8 @@ function setTariff(tariffId) {
         data,
         success: function(json) {
             if (json.errors.length) {
-                alert(json.errors.join());
+                // alert(json.errors.join());
+                toastr.error(json.errors.join());
             }else{
                 if (json.redirect) {
                     window.open(json.redirect, '_blank');
