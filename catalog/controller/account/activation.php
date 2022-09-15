@@ -31,7 +31,7 @@ class Activation extends \Opencart\System\Engine\Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
+		$data['header'] = $this->load->controller('common/header_guest');
 
 		$this->response->setOutput($this->load->view('account/activation_success', $data));
 	}
