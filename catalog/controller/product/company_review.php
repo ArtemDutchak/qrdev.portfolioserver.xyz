@@ -231,9 +231,35 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 
 		}
 
+        $this->sendTelegramNotification();
+
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+    public function sendTelegramNotification()
+    {
+        $method = 'sendMessage';
+        $data = [
+            'chat_id' => '573122288',
+            'text' => 'Тест'
+        ];
+        $headers = [];
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_POST => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'https://api.telegram.org/bot' . TELEGRAM_TOKEN . '/' . $method,
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => array_merge(array("Content-Type: application/json"), $headers)
+        ]);
+
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return (json_decode($result, 1) ? json_decode($result, 1) : $result);
+    }
 
 	public function success(): void {
 		
