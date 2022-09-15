@@ -138,6 +138,18 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 			'reward'       => 0
 		]];
 		
+		// apply specials
+		$total = $order_data['products'][0]['total'];
+		$special = 0;		
+		if ($quantity >= 3 && $quantity < 6) {
+			$special = $total * 0.1;
+		}elseif ($quantity >= 6 && $quantity < 12) {
+			$special = $total * 0.15;
+		}elseif ($quantity === 12) {
+			$special = $total * 0.2;
+		}
+		$order_data['products'][0]['total'] = intVal($total - $special);
+		
 		$order_data['total'] = $order_data['products'][0]['total'];
 
 		// Gift Voucher
