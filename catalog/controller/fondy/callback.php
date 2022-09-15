@@ -94,6 +94,15 @@ class Callback extends \Opencart\System\Engine\Controller {
             
             $this->model_account_transaction->addTransaction($customer_id, $transaction_description, $amount, $order_id);
             
+        }else{
+            
+    		$config_fail_status = 10;
+            
+            $this->model_checkout_order->addHistory(
+				(int)$order_id,
+				(int)$config_fail_status,
+			);
+            
         }
     }
 }

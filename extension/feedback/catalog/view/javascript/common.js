@@ -60,18 +60,51 @@ function setTariff(tariffId) {
         data,
         success: function(json) {
             if (json.errors.length) {
-                // alert(json.errors.join());
+                
                 toastr.error(json.errors.join());
-            }else{
-                if (json.redirect) {
-                    window.open(json.redirect, '_blank');
-                }
-                location.reload();
+                
+            }else if (json.redirect) {
+                
+                window.open(json.redirect, '_blank');
+                start_checking_for_success_payment(json.order_id);
+                
+            }else if (json.success) {
+                
+                location.href = json.success;
+                
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
+    
+}
+
+function start_checking_for_success_payment(order_id) {
+    
+    let check_interval = setInterval(()=>{check_for_success_payment(order_id)}, 1000);
+
+    function check_for_success_payment(order_id) {
+
+        console.log(order_id);
+        // clearInterval(check_interval);
+
+        $.ajax({
+            url: 'index.php?route=checkout/confirm|check_payment',
+            dataType: 'json',
+            method: 'POST',
+            data:{order_id},
+            success: function(json) {
+                if (json.redirect) {
+                    location.href = json.redirect;
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+        
+    }
     
 }

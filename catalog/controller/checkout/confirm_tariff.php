@@ -206,12 +206,22 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 				'price' => $order_data['total'],
 			);
 			
-			$server_output = $this->load->controller('fondy/tariffs|create_payment', $payment_data);
-			if ($server_output['response']['response_status'] === 'success') {
-				$json['redirect'] = $server_output['response']['checkout_url'];
+			if ((int)$payment_data['price']) {
+				
+				$server_output = $this->load->controller('fondy/tariffs|create_payment', $payment_data);
+				if ($server_output['response']['response_status'] === 'success') {
+					$json['redirect'] = $server_output['response']['checkout_url'];
+					$json['order_id'] = $order_id;
+				}else{
+					$json['errors'][] = $this->language->get('error_payment_service_response');
+					$json['response'] = $server_output;
+				}
+				
 			}else{
-				$json['errors'][] = $this->language->get('error_payment_service_response');
-				$json['response'] = $server_output;
+				
+				$this->free_tariff_callback((int)$order_id);
+				$json['success'] = $this->url->link('checkout/success', 'customer_token=' . $this->session->data['customer_token']);
+				
 			}
 			
 			
@@ -227,4 +237,78 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 	public function confirm(): void {
 		$this->response->setOutput($this->index());
 	}
+	
+	public function free_tariff_callback(int $order_id) :void {
+        
+        $this->load->model('checkout/order');
+        $order_info = $this->model_checkout_order->getOrder($order_id);
+        $customer_id = (int)$order_info['customer_id'];
+            
+        $order_products = $this->model_checkout_order->getProducts($order_id);
+        
+        $this->load->model('account/tariff');
+        $current_tariff_info = $this->model_account_tariff->getUserTariff($customer_id);
+        
+        if ($current_tariff_info) {
+            
+            if ((int)$order_products[0]['product_id'] == $current_tariff_info['tariff_id']) {
+                
+                $active_to = $current_tariff_info['active_to'];
+                $new_active_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($active_to)));
+        		$new_active_to = $new_active_to . ' 23:59:59';
+                
+                $new_tariff_data = array(
+                    'tariff_id' => $current_tariff_info['tariff_id'],
+                    'active_to' => $new_active_to,
+                    'date_activated' => $current_tariff_info['date_activated'],
+                    'customer_id' => $customer_id,
+                );
+                
+            }else{
+                
+                $date_now  = date('Y-m-d H:i:s', time());
+                $date_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($date_now)));
+        		$date_to = date('Y-m-d', strtotime("+ 1 day", strtotime($date_to)));
+        		$date_to = $date_to . ' 23:59:59';
+            
+                $new_tariff_data = array(
+                    'tariff_id' => $order_products[0]['product_id'],
+                    'active_to' => $date_to,
+                    'date_activated' => $date_now,
+                    'customer_id' => $customer_id,
+                );
+                
+            }
+            
+            $this->model_account_tariff->editTariff($new_tariff_data);
+            
+        }else{
+            
+            $date_now  = date('Y-m-d H:i:s', time());
+            $date_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($date_now)));
+            $date_to = date('Y-m-d', strtotime("+ 1 day", strtotime($date_to)));
+            $date_to = $date_to . ' 23:59:59';
+        
+            $new_tariff_data = array(
+                'tariff_id' => $order_products[0]['product_id'],
+                'active_to' => $date_to,
+                'date_activated' => $date_now,
+                'customer_id' => $customer_id,
+            );
+            
+            $this->model_account_tariff->addTariff($new_tariff_data);
+            
+        }
+        
+        $config_complete_status = 5;
+		
+		$this->model_account_customer->setFreeAble($customer_id, 0);
+        
+        $this->model_checkout_order->addHistory(
+			(int)$order_id,
+			(int)$config_complete_status,
+		);
+		
+    }
+	
 }

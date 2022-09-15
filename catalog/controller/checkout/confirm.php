@@ -379,4 +379,33 @@ class Confirm extends \Opencart\System\Engine\Controller {
 	public function confirm(): void {
 		$this->response->setOutput($this->index());
 	}
+
+	public function check_payment(): void {
+		
+		$json = [];
+		
+		if (!isset($this->request->post['order_id']) && !(int)$this->request->post['order_id']) {
+			$json['error'] = true;
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
+			return;
+		}
+		
+		$this->load->model('checkout/order');
+		
+		$order_info = $this->model_checkout_order->getOrder((int)$this->request->post['order_id']);
+		
+		$config_complete_status = 5;
+		$config_fail_status = 10;
+		if ($order_info['order_status_id'] == $config_complete_status) {
+			$json['redirect'] = $this->url->link('checkout/success', 'customer_token=' . $this->session->data['customer_token']);
+		}
+		if ($order_info['order_status_id'] == $config_fail_status) {
+			$json['redirect'] = $this->url->link('checkout/failure', 'customer_token=' . $this->session->data['customer_token']);
+		}
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+		
+	}
 }
