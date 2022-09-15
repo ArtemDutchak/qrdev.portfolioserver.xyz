@@ -90,6 +90,23 @@ class Reviews extends \Opencart\System\Engine\Controller {
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			];
 		}
+		
+		$review_rates = $this->model_catalog_review->getReviewRates((int)$data['company_id']);
+		$review_stats = [
+			'ratting-1' => 0,
+			'ratting-2' => 0,
+			'ratting-3' => 0,
+			'ratting-4' => 0,
+			'ratting-5' => 0,
+		];
+		foreach ($review_rates as $review_rate) {
+			$key = 'ratting-' . $review_rate['rating'];
+			if (empty($review_stats[$key])) {
+				$review_stats[$key] = 0;
+			}
+			$review_stats[$key]++;
+		}
+		$data['review_stats'] = $review_stats;
 
 		$url = '&customer_token=' . $this->session->data['customer_token'];
 
@@ -119,6 +136,7 @@ class Reviews extends \Opencart\System\Engine\Controller {
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($review_total) ? (($page - 1) * $reviews_per_page) + 1 : 0, ((($page - 1) * $reviews_per_page) > ($review_total - $reviews_per_page)) ? $review_total : ((($page - 1) * $reviews_per_page) + $reviews_per_page), $review_total, ceil($review_total / $reviews_per_page));
 		
 		$data['active_sort'] = $sort;
+		$data['no_sort_href'] = $this->url->link('account/reviews', 'company_id=' . $data['company_id'] . '&customer_token=' . $this->session->data['customer_token']);
 		
 		$data['sorts'] = [];
 

@@ -165,4 +165,17 @@ class Review extends \Opencart\System\Engine\Model {
 		");
 		
 	}
+
+	public function getReviewRates(int $company_id): array {
+		
+		$query = $this->db->query("SELECT
+			r.`rating`
+			FROM `" . DB_PREFIX . "review` r
+			WHERE
+			r.`product_id` = '" . (int)$company_id . "'
+			AND r.`status` <> '0'");
+
+		return $query->rows;
+		
+	}
 }
