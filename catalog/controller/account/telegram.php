@@ -18,69 +18,23 @@ class Telegram
 # Обрабатываем ручной ввод или нажатие на кнопку
         $data = $data['callback_query'] ? $data['callback_query'] : $data['message'];
 
-# Важные константы
-        define('TOKEN', '5427022142:AAFHk3MUh0O9YPuGmR5A6sd2Nl72mHgXw8g');
-
 # Записываем сообщение пользователя
         $message = mb_strtolower(($data['text'] ? $data['text'] : $data['data']), 'utf-8');
 
 
 # Обрабатываем сообщение
         switch ($message) {
-            case 'текст':
+            case '/start':
                 $method = 'sendMessage';
                 $send_data = [
-                                        'text' => $data['from']['username']
-
-                ];
-                break;
-
-            case 'кнопки':
-                $method = 'sendMessage';
-                $send_data = [
-                    'text' => 'Вот мои кнопки',
-                    'reply_markup' => [
-                        'resize_keyboard' => true,
-                        'keyboard' => [
-                            [
-                                ['text' => 'Видео'],
-                                ['text' => 'Кнопка 2'],
-                            ],
-                            [
-                                ['text' => 'Кнопка 3'],
-                                ['text' => 'Кнопка 4'],
-                            ]
-                        ]
-                    ]
-                ];
-                break;
-
-
-            case 'видео':
-                $method = 'sendVideo';
-                $send_data = [
-                    'video' => 'https://chastoedov.ru/video/amo.mp4',
-                    'caption' => 'Вот мое видео',
-                    'reply_markup' => [
-                        'resize_keyboard' => true,
-                        'keyboard' => [
-                            [
-                                ['text' => 'Кнопка 1'],
-                                ['text' => 'Кнопка 2'],
-                            ],
-                            [
-                                ['text' => 'Кнопка 3'],
-                                ['text' => 'Кнопка 4'],
-                            ]
-                        ]
-                    ]
+                    'text' => "Ласкаво просимо до QR telegram bot.\nДля підключення повідомлень вкажіть свій telegram id у налаштуваннях компанії. \nTelegram id Ви можете дізнатися тут.\nhttps://t.me/getmyid_bot"
                 ];
                 break;
 
             default:
                 $method = 'sendMessage';
                 $send_data = [
-                    'text' => 'Не понимаю о чем вы :('
+                    'text' => "Якщо Ви ще ні підключили повідомлення зробіть наступне\nДля підключення повідомлень вкажіть свій telegram id у налаштуваннях компанії. \nTelegram id ви можете дізнатися тут.\nhttps://t.me/getmyid_bot"
                 ];
         }
 

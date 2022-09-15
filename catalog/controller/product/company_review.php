@@ -28,7 +28,7 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		}
 		
 		$company_settings = json_decode($company_info['settings'], true);
-				
+
 		if ($company_settings['custom_field_1']['active']) {
 			$data['text_field_1'] = $company_settings['custom_field_1']['value'];
 		}else{
@@ -223,28 +223,31 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 
 			$company_id = (int)$company_info['company_id'];
 			$review_id = $this->model_catalog_review->addCompanyReview($company_id, $this->request->post);
-			
+
 			if ($review_id) {
+                $company_settings = json_decode($company_info['settings'], true);
+                $telegramId = $company_settings['review_notification']['telegram']['value'];
+
+                $data = [
+                    'chat_id' => $telegramId,
+                    'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
+                ];
+
+                $this->sendTelegramNotification($data);
+
 				$this->session->data['company_code'] = $company_code;
 				$json['redirect'] = $this->url->link('product/company_review|success');
 			}
 
 		}
 
-        $this->sendTelegramNotification();
-
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
-    public function sendTelegramNotification()
+    public function sendTelegramNotification(array $data, $headers = [])
     {
         $method = 'sendMessage';
-        $data = [
-            'chat_id' => '573122288',
-            'text' => 'Тест'
-        ];
-        $headers = [];
 
         $curl = curl_init();
         curl_setopt_array($curl, [
