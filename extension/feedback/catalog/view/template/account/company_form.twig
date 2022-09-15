@@ -117,7 +117,7 @@
           <span class="h3">{{ text_review_notifications }}</span>
         </h3>
         <div class="label-wrap">
-          <label class="type-text" for="notification_telegram_phone">{{ text_entry_phone_telegram }}</label>
+          <label class="type-text" for="notification_telegram_phone">{{ text_entry_telegram_id }}</label>
           <a class="info-link" href="/" target="_blank">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.4779 13.8997V8.99961M10.3088 6.02092V5.70444M10.0647 2.00195C13.6961 2.09406 20.1053 5.82085 17.3162 13.4845C13.8298 23.0641 1.13978 15.1904 2.0462 10.1381C2.95263 5.08575 6.43329 1.90984 10.0647 2.00195Z" stroke="#3B5498" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span class="link-text">{{ text_how_to_connect }}</span>
@@ -125,9 +125,9 @@
         </div>
         <div class="telegram-group input-group">
           <input class="check-telegram-number d-none" type="checkbox" name="check_notification_telegram_phone" id="check_notification_telegram_phone" {% if settings.review_notification.telegram.active %} checked{% endif %}>
-          <input type="tel" class="telegram-number" name="notification_telegram_phone" id="notification_telegram_phone" placeholder="{{ placeholder_380 }}" autocomplete="off" value="{{ settings.review_notification.telegram.value }}">
+          <input type="text" class="telegram-number" name="notification_telegram_phone" id="notification_telegram_phone" placeholder="{{ placeholder_telegram_id }}" autocomplete="off" value="{{ settings.review_notification.telegram.value }}">
           <label for="check_notification_telegram_phone" title="off - on"><span class="on-off"></span></label>
-          <span class="error-message d-none">{{ error_telegram_number }}</span>
+          <span class="error-message d-none">{{ error_telegram_id }}</span>
         </div>
         <label class="type-text" for="notification_email">{{ text_email }}</label>
         <div class="email-group input-group">
