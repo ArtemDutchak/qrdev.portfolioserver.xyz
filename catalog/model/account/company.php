@@ -49,6 +49,18 @@ class Company extends \Opencart\System\Engine\Model {
 		
 	}
 	
+	public function getCompanyInfo(int $customer_id, int $company_id): array {
+		$query = $this->db->query("SELECT
+		*
+		FROM `" . DB_PREFIX . "company`
+		WHERE
+		`company_id` = '" . $company_id . "'
+		AND `customer_id` = '" . $customer_id . "'
+		");
+
+		return $query->row;
+	}
+	
 	public function addCompanyImage(string $company_code, string $filename): void {
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "company` SET

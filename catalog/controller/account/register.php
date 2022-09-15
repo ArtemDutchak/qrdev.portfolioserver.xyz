@@ -293,6 +293,9 @@ class Register extends \Opencart\System\Engine\Controller {
 			);
 			$this->load->model('account/company');
 			$company_id = $this->model_account_company->addCompany($company);
+			
+			$company_info = $this->model_account_company->getCompanyInfo((int)$customer_id, (int)$company_id);
+			$this->load->controller('account/company|generateQrCode', $company_info['company_code']);
 
 			// Clear any previous login attempts for unregistered accounts.
 			$this->model_account_customer->deleteLoginAttempts($email);
