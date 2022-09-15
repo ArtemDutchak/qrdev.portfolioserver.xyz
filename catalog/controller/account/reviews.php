@@ -18,7 +18,7 @@ class Reviews extends \Opencart\System\Engine\Controller {
 		
 		foreach ($companies as $result) {
 			
-			if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+			if ($result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
 				$thumb = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 38, 38);
 			} else {
 				$thumb = '';

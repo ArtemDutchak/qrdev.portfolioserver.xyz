@@ -47,7 +47,7 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$data['review_token'] = $this->session->data['review_token'];
 		
 		$this->load->model('tool/image');
-		if (is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
+		if ($company_info['image'] && is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
 			$thumb = $this->model_tool_image->resize(html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'), 140, 140);
 		} else {
 			$thumb = '';

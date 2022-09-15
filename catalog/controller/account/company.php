@@ -27,7 +27,7 @@ class Company extends \Opencart\System\Engine\Controller
 
         foreach ($companies as $result) {
 
-            if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+            if ($result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
                 $thumb = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 120, 120);
             } else {
                 $thumb = '';
@@ -368,10 +368,12 @@ class Company extends \Opencart\System\Engine\Controller
 
     public function removeCompanyImage(array $company_info): void {
         
-        $file_path = DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8');
-        
-        if (is_file($file_path)) {
-            unlink($file_path);
+        if ($company_info['image']) {
+            $file_path = DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8');
+            
+            if (is_file($file_path)) {
+                unlink($file_path);
+            }
         }
             
         $this->model_account_company->addCompanyImage($company_info['company_code'], '');
