@@ -48,6 +48,9 @@ class Header extends \Opencart\System\Engine\Controller {
 			$data['code'] = $data['lang'];
 		}
 		
+		$companies = $this->customer->getCompanyList();
+		$data['company_count'] = count($companies);
+		
 		$data['direction'] = $this->language->get('direction');
 		
 		$data['href_reviews'] = $this->url->link('account/reviews', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
