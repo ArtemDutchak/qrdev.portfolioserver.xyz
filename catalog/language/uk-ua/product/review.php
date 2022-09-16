@@ -14,6 +14,9 @@ $_['text_send']                = 'Відправити';
 $_['text_thanks']              = 'Дякуємо!';
 $_['text_very_important']      = 'Ваш відгук дуже цінний для нас';
 
+$_['text_new_review']          = 'Новий відгук';
+$_['text_new_review_written']  = 'Ваша компанія "%s" отримала новий відгук';
+
 // Entry
 $_['entry_name']       = 'Ім\'я';
 $_['entry_text']       = 'Введіть текст';
