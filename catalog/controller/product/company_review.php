@@ -243,19 +243,11 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 			if ($settings['review_notification']['email']['active'] && $settings['review_notification']['email']['value']) {
 				$client_email_data = [
 					'email'   => $settings['review_notification']['email']['value'],
-					'subject' => 'Новий відгук',
-					'text'    => 'Ваша компанія отримала новий відгук',
+					'subject' => $this->language->get('text_new_review'),
+					'text'    => sprintf($this->language->get('text_new_review_written'), $company_info['company_name']),
 				];
 				$this->sendEmailNotification($client_email_data);
 			}
-			
-			// send email notification to admin
-			$admin_email_data = [
-				'email'   => 'artemdutchak@gmail.com',
-				'subject' => 'Новий відгук до однієї з компаній',
-				'text'    => 'Компанія ' .  . ' отримала новий відгук',
-			];
-			$this->sendEmailNotification($admin_email_data);
 
 			$this->session->data['company_code'] = $company_code;
 			$json['redirect'] = $this->url->link('product/company_review|success');
