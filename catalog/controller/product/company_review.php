@@ -230,14 +230,18 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$review_id = $this->model_catalog_review->addCompanyReview($company_id, $this->request->post);
 
 		if ($review_id) {
-            $telegramId = $settings['review_notification']['telegram']['value'];
+			
+			// send telegram notification to company owner
+			if ($settings['review_notification']['telegram']['active'] && $settings['review_notification']['telegram']['value']) {
+	            $telegramId = $settings['review_notification']['telegram']['value'];
 
-            $data = [
-                'chat_id' => $telegramId,
-                'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
-            ];
+	            $data = [
+	                'chat_id' => $telegramId,
+	                'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
+	            ];
 
-            $this->sendTelegramNotification($data);
+	            $this->sendTelegramNotification($data);
+			}
 			
 			// send email notification to company owner
 			if ($settings['review_notification']['email']['active'] && $settings['review_notification']['email']['value']) {
