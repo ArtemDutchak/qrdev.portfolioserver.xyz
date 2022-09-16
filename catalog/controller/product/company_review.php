@@ -218,27 +218,47 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if (!$json['errors']) {
-			$this->load->model('catalog/review');
+		if ($json['errors']) {
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
+			return;
+		}
+		
+		$this->load->model('catalog/review');
 
-			$company_id = (int)$company_info['company_id'];
-			$review_id = $this->model_catalog_review->addCompanyReview($company_id, $this->request->post);
+		$company_id = (int)$company_info['company_id'];
+		$review_id = $this->model_catalog_review->addCompanyReview($company_id, $this->request->post);
 
-			if ($review_id) {
-                $company_settings = json_decode($company_info['settings'], true);
-                $telegramId = $company_settings['review_notification']['telegram']['value'];
+		if ($review_id) {
+            $telegramId = $settings['review_notification']['telegram']['value'];
 
-                $data = [
-                    'chat_id' => $telegramId,
-                    'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
-                ];
+            $data = [
+                'chat_id' => $telegramId,
+                'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
+            ];
 
-                $this->sendTelegramNotification($data);
-
-				$this->session->data['company_code'] = $company_code;
-				$json['redirect'] = $this->url->link('product/company_review|success');
+            $this->sendTelegramNotification($data);
+			
+			// send email notification to company owner
+			if ($settings['review_notification']['email']['active'] && $settings['review_notification']['email']['value']) {
+				$client_email_data = [
+					'email'   => $settings['review_notification']['email']['value'],
+					'subject' => 'Новий відгук',
+					'text'    => 'Ваша компанія отримала новий відгук',
+				];
+				$this->sendEmailNotification($client_email_data);
 			}
+			
+			// send email notification to admin
+			$admin_email_data = [
+				'email'   => 'artemdutchak@gmail.com',
+				'subject' => 'Новий відгук до однієї з компаній',
+				'text'    => 'Компанія ' .  . ' отримала новий відгук',
+			];
+			$this->sendEmailNotification($admin_email_data);
 
+			$this->session->data['company_code'] = $company_code;
+			$json['redirect'] = $this->url->link('product/company_review|success');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -262,6 +282,28 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
         $result = curl_exec($curl);
         curl_close($curl);
         return (json_decode($result, 1) ? json_decode($result, 1) : $result);
+    }
+
+    public function sendEmailNotification(array $data) :void {
+        
+		if ($this->config->get('config_mail_engine')) {
+			$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
+			$mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+			$mail->setTo($data['email']);
+			// Less spam and fix bug when using SMTP like sendgrid.
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+			$mail->setSubject(html_entity_decode($data['subject']));
+			$mail->setText(html_entity_decode($data['text']));
+			$mail->send();
+		}
+		
     }
 
 	public function success(): void {
