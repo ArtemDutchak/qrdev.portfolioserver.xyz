@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']    = 'Feeds';
+$_['heading_title'] = 'Канали обміну';
 
 // Text
-$_['text_success']     = 'Success: You have modified feeds!';
-$_['text_list']        = 'Feed List';
+$_['text_success'] = 'Налаштування успішно змінено!';
+$_['text_list'] = 'Список каналів';
 
 // Column
-$_['column_name']      = 'Product Feed Name';
-$_['column_status']    = 'Status';
-$_['column_action']    = 'Action';
+$_['column_name'] = 'Назва каналу';
+$_['column_status'] = 'Статус';
+$_['column_action'] = 'Дія';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify feeds!';
-$_['error_extension']  = 'Warning: Extension does not exist!';
+$_['error_permission'] = 'У Вас немає прав для редагування розширення Канали обміну!';
+$_['error_extension'] = 'Увага: Розширення не існує!';

@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']    = 'Anti-Fraud';
+$_['heading_title'] = 'Захист від шахраїв';
 
 // Text
-$_['text_success']     = 'Success: You have modified anti-fraud!';
-$_['text_list']        = 'Anti-Fraud List';
+$_['text_success'] = 'Налаштування успішно змінено!';
+$_['text_list'] = 'Список модулів';
 
 // Column
-$_['column_name']      = 'Anti-Fraud Name';
-$_['column_status']    = 'Status';
-$_['column_action']    = 'Action';
+$_['column_name'] = 'Назва';
+$_['column_status'] = 'Статус';
+$_['column_action'] = 'Дія';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify anti-fraud!';
-$_['error_extension']  = 'Warning: Extension does not exist!';
+$_['error_permission'] = 'У Вас немає прав для редагування розширення Захист від шахраїв!';
+$_['error_extension'] = 'Увага: Розширення не існує!';

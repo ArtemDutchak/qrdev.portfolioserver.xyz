@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']    = 'Капча';
+$_['heading_title'] = 'Захист від роботів';
 
 // Text
-$_['text_success']     = 'Успіх: ви змінили капчі!';
-$_['text_list']        = 'Список капч';
+$_['text_success'] = 'Налаштування успішно змінено!';
+$_['text_list'] = 'Список модулів';
 
 // Column
-$_['column_name']      = 'Назва Капча';
-$_['column_status']    = 'Статус';
-$_['column_action']    = 'Дії';
+$_['column_name'] = 'Назва';
+$_['column_status'] = 'Статус';
+$_['column_action'] = 'Дія';
 
 // Error
-$_['error_permission'] = 'Попередження: у вас немає дозволу на зміну капчі!';
-$_['error_extension']  = 'Попередження: розширення не існує!';
+$_['error_permission'] = 'У Вас немає прав для редагування розширення Захист від роботів!';
+$_['error_extension'] = 'Увага: Розширення не існує!';

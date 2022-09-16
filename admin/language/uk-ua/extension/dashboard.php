@@ -1,18 +1,18 @@
 <?php
 // Heading
-$_['heading_title']     = 'Інформаційна панель';
+$_['heading_title'] = 'Головна панель';
 
 // Text
-$_['text_success']      = 'Успіх: ви змінили інформаційні панелі!';
-$_['text_list']         = 'Список дашбордів';
+$_['text_success'] = 'Налаштування успішно змінено!';
+$_['text_list'] = 'Список модулів';
 
 // Column
-$_['column_name']       = 'Назва інформаційної панелі';
-$_['column_width']      = 'Width';
-$_['column_status']     = 'Status';
-$_['column_sort_order'] = 'Sort Order';
-$_['column_action']     = 'Action';
+$_['column_name'] = 'Назва';
+$_['column_width'] = 'Ширина';
+$_['column_status'] = 'Статус';
+$_['column_sort_order'] = 'Порядок сортування';
+$_['column_action'] = 'Дія';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify dashboards!';
-$_['error_extension']  = 'Warning: Extension does not exist!';
+$_['error_permission'] = 'У Вас немає прав для редагування розширення Головна панель!';
+$_['error_extension'] = 'Увага: Розширення не існує!';

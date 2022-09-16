@@ -1,18 +1,18 @@
 <?php
 // Heading
-$_['heading_title']     = 'Payments';
+$_['heading_title'] = 'Оплата';
 
 // Text
-$_['text_success']      = 'Success: You have modified payments!';
-$_['text_list']         = 'Payment List';
+$_['text_success'] = 'Налаштування успішно змінено!';
+$_['text_list'] = 'Список способів оплати';
 
 // Column
-$_['column_name']       = 'Payment Method';
-$_['column_vendor']     = 'Vendor';
-$_['column_status']     = 'Status';
-$_['column_sort_order'] = 'Sort Order';
-$_['column_action']     = 'Action';
+$_['column_name'] = 'Спосіб оплати';
+$_['column_vendor'] = 'Розробник';
+$_['column_status'] = 'Статус';
+$_['column_sort_order'] = 'Порядок сортування';
+$_['column_action'] = 'Дія';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify payments!';
-$_['error_extension']   = 'Warning: Extension does not exist!';
+$_['error_permission'] = 'У Вас немає прав для редагування розширення Оплата!';
+$_['error_extension'] = 'Увага: Розширення не існує!';

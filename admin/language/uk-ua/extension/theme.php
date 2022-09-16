@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']    = 'Themes';
+$_['heading_title'] = 'Шаблони';
 
 // Text
-$_['text_success']     = 'Success: You have modified themes!';
+$_['text_success'] = 'Налаштування успішно оновлено!';
 
 // Column
-$_['column_name']      = 'Theme Name';
-$_['column_status']    = 'Status';
-$_['column_action']    = 'Action';
+$_['column_name'] = 'Назва';
+$_['column_status'] = 'Статус';
+$_['column_action'] = 'Дія';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify themes!';
-$_['error_extension']  = 'Warning: Extension does not exist!';
+$_['error_permission'] = 'У Вас немає прав для редагування розширення Шаблони!';
+$_['error_extension'] = 'Увага: Розширення не існує!';

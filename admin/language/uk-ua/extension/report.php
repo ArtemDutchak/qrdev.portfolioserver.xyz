@@ -1,17 +1,17 @@
 <?php
 // Heading
-$_['heading_title']     = 'Reports';
+$_['heading_title'] = 'Звіти';
 
 // Text
-$_['text_success']      = 'Success: You have modified reports!';
-$_['text_list']         = 'Reports List';
+$_['text_success'] = 'Налаштування успішно оновлено!';
+$_['text_list'] = 'Список звітів';
 
 // Column
-$_['column_name']       = 'Report Name';
-$_['column_status']     = 'Status';
-$_['column_sort_order'] = 'Sort Order';
-$_['column_action']     = 'Action';
+$_['column_name'] = 'Ім\'я';
+$_['column_status'] = 'Статус';
+$_['column_sort_order'] = 'Порядок сортування';
+$_['column_action'] = 'Дія';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify reports!';
-$_['error_extension']   = 'Warning: Extension does not exist!';
+$_['error_permission'] = 'У Вас немає прав для редагування розширення Звіти!';
+$_['error_extension'] = 'Увага: Розширення не існує!';

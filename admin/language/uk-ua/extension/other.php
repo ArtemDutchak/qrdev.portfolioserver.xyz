@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']    = 'Other';
+$_['heading_title'] = 'Інші';
 
 // Text
-$_['text_success']     = 'Success: You have modified other extension!';
-$_['text_list']        = 'Other List';
+$_['text_success'] = 'Налаштування успішно оновлено!';
+$_['text_list'] = 'Список';
 
 // Column
-$_['column_name']      = 'Other Name';
-$_['column_status']    = 'Status';
-$_['column_action']    = 'Action';
+$_['column_name'] = 'Ім\'я';
+$_['column_status'] = 'Статус';
+$_['column_action'] = 'Дія';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify other extension!';
-$_['error_extension']  = 'Warning: Extension does not exist!';
+$_['error_permission'] = 'У Вас немає прав для редагування розширення Інші!';
+$_['error_extension'] = 'Увага: Розширення не існує!';
