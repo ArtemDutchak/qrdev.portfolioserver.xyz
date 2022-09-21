@@ -419,6 +419,8 @@ class Customer extends \Opencart\System\Engine\Controller {
 		$data['date_active_to'] = $date_to = date('Y-m-d', strtotime("+ 1 day", strtotime($data['date_active_to'])));
 		$data['date_activated'] = false;
 		
+		$data['activation_left_data'] = [];
+		
 		$data['companies'] = [];
 
 		if (isset($this->request->get['customer_id'])) {
@@ -429,12 +431,22 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$data['current_tariff_info'] = $this->model_customer_customer->getCurrentTariffInfoByCustomerId((int)$this->request->get['customer_id']);
 			
 			if ($data['current_tariff_info']) {
+				
 				$data['current_tariff_id'] = $data['current_tariff_info']['tariff_id'];
 				$data['date_active_to'] = date('Y-m-d', strtotime($data['current_tariff_info']['active_to']));
 				$data['date_activated'] = $data['current_tariff_info']['date_activated'];
+				
+				$data['activation_left_data'] = $this->get_activation_left_data([
+					'active_to' => strtotime($data['current_tariff_info']['active_to']),
+					'price' => $data['current_tariff_info']['price'],
+				]);
 			}
 			
 			$data['companies'] = $this->model_customer_customer->getCustomerCompanies((int)$this->request->get['customer_id']);
+			
+			for ($i=0; $i < count($data['companies']); $i++) {
+				$data['companies'][$i]['href_reviews'] = $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token'] . '&filter_product=' . $data['companies'][$i]['company_name']);
+			}
 		}
 		
 		
@@ -494,6 +506,12 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$data['telephone'] = $customer_info['telephone'];
 		} else {
 			$data['telephone'] = '';
+		}
+
+		if (!empty($customer_info)) {
+			$data['comment'] = $customer_info['comment'];
+		} else {
+			$data['comment'] = '';
 		}
 
 		// Custom Fields
@@ -580,6 +598,32 @@ class Customer extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('customer/customer_form', $data));
 	}
 
+	public function get_activation_left_data(array $data): array {
+		
+		$ts_now = time();
+		$out = [
+			'years' => 0,
+			'expired' => ($data['active_to'] - $ts_now) < 0,
+		];
+		
+		$months = 0;
+		while (strtotime('+1 MONTH', $ts_now) < $data['active_to']) {
+		    $months++;
+		    $ts_now = strtotime('+1 MONTH', $ts_now);
+		}
+		$out['months'] = $months;
+		$out['days'] = (int)(($data['active_to'] - $ts_now) / (60*60*24));
+		
+		if (!$out['expired']) {
+			$out['funds'] =
+			intVal($out['months'] * $data['price']
+			+ $out['days'] * $data['price'] / 31);
+		}
+		
+		return $out;
+		
+	}
+	
 	public function save(): void {
 		$this->load->language('customer/customer');
 

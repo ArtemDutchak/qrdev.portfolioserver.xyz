@@ -10,6 +10,7 @@ class Customer extends \Opencart\System\Engine\Model {
 		`lastname` = '" . $this->db->escape((string)$data['lastname']) . "',
 		`email` = '" . $this->db->escape((string)$data['email']) . "',
 		`telephone` = '" . $this->db->escape((string)$data['telephone']) . "',
+		`comment` = '" . $this->db->escape((string)$data['comment']) . "',
 		`custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : json_encode([])) . "',
 		`newsletter` = '" . (isset($data['newsletter']) ? (bool)$data['newsletter'] : 0) . "',
 		`password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "',
@@ -55,6 +56,7 @@ class Customer extends \Opencart\System\Engine\Model {
 		`lastname` = '" . $this->db->escape((string)$data['lastname']) . "',
 		`email` = '" . $this->db->escape((string)$data['email']) . "',
 		`telephone` = '" . $this->db->escape((string)$data['telephone']) . "',
+		`comment` = '" . $this->db->escape((string)$data['comment']) . "',
 		`custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : json_encode([])) . "',
 		`newsletter` = '" . (isset($data['newsletter']) ? (bool)$data['newsletter'] : 0) . "',
 		`status` = '" . (isset($data['status']) ? (bool)$data['status'] : 0) . "',
@@ -522,8 +524,14 @@ class Customer extends \Opencart\System\Engine\Model {
 
 	public function getCurrentTariffInfoByCustomerId(int $customer_id): array {
 		$query = $this->db->query("SELECT
-		*
-		FROM `" . DB_PREFIX . "customer_tariff`
+		ct.`tariff_id`,
+		ct.`customer_id`,
+		ct.`active_to`,
+		ct.`date_activated`,
+		t.`price`,
+		t.`status`
+		FROM `" . DB_PREFIX . "customer_tariff` ct
+		LEFT JOIN `" . DB_PREFIX . "tariff` t ON (ct.tariff_id = t.tariff_id)
 		WHERE
 		`customer_id` = '" . (int)$customer_id . "'
 		");
