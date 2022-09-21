@@ -22,6 +22,7 @@ $_['text_history_add'] = 'Додати історію';
 $_['text_transaction'] = 'Операції';
 $_['text_transaction_add'] = 'Додати транзакцію';
 $_['text_companies']        = 'Компанії';
+$_['text_comment']          = 'Коментар';
 $_['text_tariff']           = 'Тариф';
 $_['text_reward'] = 'Нагороджувати очки';
 $_['text_reward_add'] = 'Додати нагородні бали';
@@ -30,6 +31,10 @@ $_['text_option'] = 'Параметри';
 $_['text_login'] = 'Увійти в магазин';
 $_['text_unlock'] = 'Розблокувати обліковий запис';
 $_['text_no_current_tariff']= 'Тариф відсутній';
+$_['text_years_left']       = 'Років';
+$_['text_months_left']       = 'Місяців';
+$_['text_days_left']        = 'Днів';
+$_['text_tariff_expired']   = 'Вийшов термін дії тарифу';
 
 // Column
 $_['column_name'] = 'Ім\'я клієнта';
@@ -92,6 +97,8 @@ $_['entry_current_tariff']   = 'Поточний тариф';
 $_['entry_date_to']          = 'Дата до';
 $_['entry_last_active_date'] = 'Останій день дії тарифу';
 $_['entry_date_activated']   = 'Дата активації тарифу';
+$_['entry_activation_left']  = 'Залишилось часу';
+$_['entry_funds_equal']      = 'В еквіваленті';
 
 // Help
 $_['help_safe'] = 'Встановіть значення true, щоб схвалити цього клієнта, від того, якщо він був спійманий за системою по боротьбі з шахрайством';

@@ -20,6 +20,7 @@ $_['text_history_add']      = 'Add History';
 $_['text_transaction']      = 'Transactions';
 $_['text_transaction_add']  = 'Add Transaction';
 $_['text_companies']        = 'Companies';
+$_['text_comment']          = 'Comment';
 $_['text_tariff']           = 'Tariff';
 $_['text_reward']           = 'Reward Points';
 $_['text_reward_add']       = 'Add Reward Points';
@@ -29,6 +30,10 @@ $_['text_login']            = 'Login into Store';
 $_['text_unlock']           = 'Unlock Account';
 $_['text_filter']           = 'Filter';
 $_['text_no_current_tariff']= 'No current tariff';
+$_['text_years_left']       = 'Years';
+$_['text_months_left']      = 'Months';
+$_['text_days_left']        = 'Days';
+$_['text_tariff_expired']   = 'Tariff Expired';
 
 // Column
 $_['column_name']           = 'Customer Name';
@@ -84,6 +89,8 @@ $_['entry_current_tariff']  = 'Current Tariff';
 $_['entry_date_to']         = 'Date to';
 $_['entry_last_active_date']= 'Last Date Active';
 $_['entry_date_activated']  = 'Activation Date';
+$_['entry_activation_left']  = 'Time left';
+$_['entry_funds_equal']      = 'In equivalent';
 
 // Button
 $_['button_order']          = 'Orders';

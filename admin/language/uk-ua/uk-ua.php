@@ -113,6 +113,7 @@ $_['tab_design']                    = 'Дизайн';
 $_['tab_discount']                  = 'Знижка';
 $_['tab_general']                   = 'Основні';
 $_['tab_companies']                 = 'Компанії';
+$_['tab_comment']                   = 'Коментар';
 $_['tab_tariff']                    = 'Тарифи';
 $_['tab_history']                   = 'Історія';
 $_['tab_ftp']                       = 'FTP';

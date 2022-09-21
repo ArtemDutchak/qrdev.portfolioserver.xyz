@@ -134,6 +134,7 @@ $_['tab_discount']                  = 'Discount';
 $_['tab_documentation']             = 'Documentation';
 $_['tab_general']                   = 'General';
 $_['tab_companies']                 = 'Companies';
+$_['tab_comment']                   = 'Comment';
 $_['tab_tariff']                    = 'Tariffs';
 $_['tab_history']                   = 'History';
 $_['tab_ip']                        = 'IP Addresses';
