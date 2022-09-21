@@ -50,3 +50,5 @@ $_['error_subscription']         = 'Warning: Subscription plan could not be foun
 $_['error_name']                 = 'Review Name must be between 3 and 25 characters!';
 $_['error_text']                 = 'Review Text must be between 25 and 1000 characters!';
 $_['error_rating']               = 'Please select a review rating!';
+$_['error_review_set_status']    = 'Status change error!';
+$_['error_review_set_status_non_active_tariff'] = 'To change the feedback status, pay the tariff!';
