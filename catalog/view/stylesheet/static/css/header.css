@@ -6125,16 +6125,16 @@ body {
      object-position: center top;
   border-radius: 50%;
 }
-.my-company-page .company-block .company-img-wrap .company-settings {
+.my-company-page .company-block .company-settings {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  top: 16px;
+  right: 32px;
   transition: 0.5s;
 }
-.my-company-page .company-block .company-img-wrap .company-settings:hover {
+.my-company-page .company-block .company-settings:hover {
   transform: rotate(0.2turn);
 }
-.my-company-page .company-block .company-img-wrap .company-settings:focus {
+.my-company-page .company-block .company-settings:focus {
   transform: rotate(0.4turn);
 }
 .my-company-page .company-block .company-name {
@@ -7152,6 +7152,46 @@ body {
   flex-direction: column;
   /* Review-Body */
 }
+.reviews-page.page-body .review-card.expired .menu-toggle{
+    filter: blur(5px);
+}
+.reviews-page.page-body .review-card.expired .ratting{
+    /*filter: blur(5px);*/
+}
+.reviews-page.page-body .review-card.expired .date{
+    filter: blur(3px);
+}
+.reviews-page.page-body .review-card.expired .text{
+    filter: blur(3px);
+}
+.reviews-page.page-body .review-card.expired .site-btn-lite.btn-phone{
+    filter: blur(3px);
+}
+.reviews-page.page-body .review-card.expired .site-btn-lite.btn-email{
+    filter: blur(3px);
+}
+.reviews-page.page-body .review-card.expired .expired-text{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-sm{
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6982c5;
+}
+.footer-sm a{
+    color: white;
+}
+
 @media (max-width: 767.98px) {
   .reviews-page.page-body .review-card {
     max-width: 500px;
@@ -7306,6 +7346,13 @@ body {
 }
 .reviews-page.page-body .review-card .review-body .date .time {
   opacity: 0.5;
+}
+.reviews-page.page-body .review-card .review-body{
+    margin-bottom: 10px;
+}
+.reviews-page.page-body .review-card .review-body .text{
+    max-height: 150px;
+    overflow-y: overlay;
 }
 .reviews-page.page-body .review-card .review-body .text p {
   font-size: 15px;
