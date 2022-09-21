@@ -173,9 +173,7 @@ class Review extends \Opencart\System\Engine\Controller {
 	public function set_status(): void {
 		$this->load->language('product/product');
 
-		$json = [
-			'errors' => array(),
-		];
+		$json = [];
 
 		if (!isset($this->request->post['status_id']) || !isset($this->request->post['review_id'])) {
 			$json['errors'][]  = $this->language->get('error_status');
@@ -188,10 +186,20 @@ class Review extends \Opencart\System\Engine\Controller {
 		$this->load->model('setting/extension');
 
 		$this->load->model('catalog/review');
-
-		$this->model_catalog_review->setStatus($this->request->post);
-
-		$json['success'] = true;
+		
+		if (!$this->customer->hasActiveTariff()) {
+			$json['error'] = $this->language->get('error_review_set_status_non_active_tariff');
+		}
+		
+		$review_info = $this->model_catalog_review->getReview((int)$this->request->post['review_id']);
+		if (!$review_info) {
+			$json['error'] = $this->language->get('error_review_set_status');
+		}
+		
+		if (empty($json['error'])) {
+			$this->model_catalog_review->setStatus($this->request->post);
+			$json['success'] = true;
+		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));

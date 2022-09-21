@@ -38,6 +38,7 @@ class Feedback extends \Opencart\System\Engine\Controller
             'account/company_list',
             'account/tariffs',
             'account/reviews',
+            'account/tariff_expired_block',
             
             'ajax/language',
             

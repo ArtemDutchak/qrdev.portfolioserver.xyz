@@ -111,7 +111,7 @@ class Company extends \Opencart\System\Engine\Controller
             $data['status'] = true;
         }
         
-        if (!empty($company_info)) {
+        if (!empty($company_info) && $company_info['image']) {
             $this->load->model('tool/image');
             if (is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
                 $data['company_image'] = $this->model_tool_image->resize(html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'), 185, 185);

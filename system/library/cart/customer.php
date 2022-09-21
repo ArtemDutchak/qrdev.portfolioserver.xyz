@@ -216,4 +216,20 @@ class Customer {
 
 		return $query->row;
 	}
+
+	public function hasActiveTariff(): bool {
+		$query = $this->db->query("SELECT
+		ct.active_to as active_to
+		FROM `" . DB_PREFIX . "customer_tariff` ct
+		WHERE
+		`customer_id` = '" . (int)$this->customer_id . "'
+		");
+		
+		if (!$query->row) {
+			return false;
+		}
+		
+		$ts_active_to = strtotime($query->row['active_to']);
+		return $ts_active_to > time();
+	}
 }

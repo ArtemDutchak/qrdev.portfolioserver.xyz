@@ -46,6 +46,28 @@ class Review extends \Opencart\System\Engine\Model {
 		return (int)$query->row['total'];
 	}
 
+	public function getReview(int $review_id): array {
+		
+		$sql = "SELECT
+			r.`review_id`,
+			r.`author`,
+			r.`rating`,
+			r.`text`,
+			r.`telephone`,
+			r.`email`,
+			r.`date_added`
+			FROM
+			`" . DB_PREFIX . "review` r
+			LEFT JOIN `" . DB_PREFIX . "company` c ON (r.`product_id` = c.`company_id`)
+			WHERE
+			c.`customer_id` = '" . (int)$this->customer->getId() . "'
+			AND c.`status` = '1'";
+			
+		$query = $this->db->query($sql);
+
+		return $query->row;
+	}
+
 	public function getReviews(array $filter_data): array {
 		if ($filter_data['start'] < 0) {
 			$filter_data['start'] = 0;

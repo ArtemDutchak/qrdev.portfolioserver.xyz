@@ -8,7 +8,7 @@ class Reviews extends \Opencart\System\Engine\Controller {
 
 		if (!$this->customer->isLogged()) {
 			
-			$this->response->redirect($this->url->link('account/login'));
+			$this->response->redirect($this->url->link('account/login'), true);
 			
 		}		
 		
@@ -28,7 +28,7 @@ class Reviews extends \Opencart\System\Engine\Controller {
 				'id' => $result['company_id'],
 				'name' => $result['company_name'],
 				'thumb' => $thumb,
-				'href' => $this->url->link('account/reviews', 'company_id=' . $result['company_id']),
+				'href' => $this->url->link('account/reviews', 'company_id=' . $result['company_id'] . '&customer_token=' . $this->session->data['customer_token']),
 			);
 			
 			$data['companies'][] = $company;
@@ -43,10 +43,23 @@ class Reviews extends \Opencart\System\Engine\Controller {
 			$data['company_id'] = (int)$data['companies'][0]['id'];
 		}
 		if (!$data['company_id']) {
-			$this->response->redirect($this->url->link('account/company|list', 'customer_token=' . $this->session->data['customer_token'], true));
+			$this->response->redirect($this->url->link('account/company|list', 'customer_token=' . $this->session->data['customer_token']), true);
 		}
 		
-		// $company_info = $this->model_catalog_company->getCompany($data['company_id']);
+		$this->load->model('catalog/company');
+		$company_info = $this->customer->getCompanyInfo((int)$data['company_id']);
+		
+		if (!$company_info) {
+			$this->response->redirect($this->url->link('error/not_found', 'customer_token=' . $this->session->data['customer_token'], true));
+		}
+		
+		
+		$data['current_company_name'] = $company_info['company_name'];
+		if ($company_info['image'] && is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
+			$data['current_company_image'] = $this->model_tool_image->resize(html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'), 62, 62);
+		} else {
+			$data['current_company_image'] = '';
+		}
 		
 		$this->load->model('catalog/review');
 
@@ -62,10 +75,17 @@ class Reviews extends \Opencart\System\Engine\Controller {
 		} else {
 			$page = 1;
 		}
+		
+		if ($this->customer->hasActiveTariff()) {
+			$data['tariff_expired_block'] = false;
+			$reviews_per_page = 6;
+		}else{
+			$data['tariff_expired_block'] = $this->get_tariff_expired_block((int)$data['company_id']);
+			$reviews_per_page = 5;
+		}
 
 		$data['reviews'] = [];
 		
-		$reviews_per_page = 6;
 
 		$filter_data = [
 			'company_id'          => $data['company_id'],
@@ -77,8 +97,21 @@ class Reviews extends \Opencart\System\Engine\Controller {
 		$review_total = $this->model_catalog_review->getTotalReviews($filter_data);
 		$results = $this->model_catalog_review->getReviews($filter_data);
 		
+		$expiredResults = [];
+		if (!$this->customer->hasActiveTariff()) {
+			$expiredResults = $this->model_catalog_review->getExpiredReviews((int)$data['company_id']);
+		}
+		
 		foreach ($results as $result) {
-			$data['reviews'][] = [
+			
+			$expired = false;
+			foreach ($expiredResults as $expiredResult) {
+				if ($result['review_id'] == $expiredResult['review_id']) {
+					$expired = true;
+				}
+			}
+			
+			$review = [
 				'id'         => $result['review_id'],
 				'author'     => $result['author'],
 				'text'       => nl2br($result['text']),
@@ -87,8 +120,18 @@ class Reviews extends \Opencart\System\Engine\Controller {
 				'email'      => nl2br($result['email']),
 				'date'       => date("d.m.Y", strtotime($result['date_added'])),
 				'time'       => date("H:i", strtotime($result['date_added'])),
-				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'expired'    => $expired,
 			];
+			
+			if ($review['expired']) {
+				$review['author']    = '-----';
+				$review['text']      = '----- ----- -----';
+				$review['telephone'] = $review['telephone'] ? '380---------' : '';
+				$review['email']     = $review['email'] ? '-----@-----.---' : '';
+			}
+			
+			$data['reviews'][] = $review;
 		}
 		
 		$review_rates = $this->model_catalog_review->getReviewRates((int)$data['company_id']);
@@ -164,4 +207,16 @@ class Reviews extends \Opencart\System\Engine\Controller {
 
 		$this->response->setOutput($this->load->view('account/reviews', $data));
 	}
+	
+	public function get_tariff_expired_block(int $company_id) :string {
+		
+		$this->load->model('catalog/review');
+		
+		$expiredResults = $this->model_catalog_review->getExpiredReviews($company_id);
+		$data['review_count'] = count($expiredResults);
+		$data['href_pay'] = $this->url->link('account/tariffs', 'customer_token=' . $this->session->data['customer_token']);
+		return $this->load->view('account/tariff_expired_block', $data);
+		
+	}
+	
 }

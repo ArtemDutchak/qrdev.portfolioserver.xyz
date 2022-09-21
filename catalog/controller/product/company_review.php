@@ -181,6 +181,18 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 				'text' => $this->language->get('error_text'),
 			];
 		}
+		
+		if (Helper\Utf8\strlen($this->request->post['text']) < 1) {
+			$json['errors'][] = [
+				'field_name' => 'text',
+				'text' => $this->language->get('error_text'),
+			];
+		}elseif (Helper\Utf8\strlen($this->request->post['text']) > 1000) {
+			$json['errors'][] = [
+				'field_name' => 'text',
+				'text' => $this->language->get('error_text_length'),
+			];
+		}
 
 		if ($stars < 1 || $stars > 5) {
 			$json['errors'][] = [
@@ -339,7 +351,7 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 			'image' => $thumb,
 		);
 		
-		$data['footer'] = $this->load->controller('common/footer');
+		$data['footer'] = $this->load->controller('common/footer_hidden');
 		$data['header'] = $this->load->controller('common/header_hidden');
 
 		$this->response->setOutput($this->load->view('product/review_success', $data));

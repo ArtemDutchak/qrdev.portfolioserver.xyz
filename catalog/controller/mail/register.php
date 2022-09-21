@@ -4,6 +4,10 @@ use \Opencart\System\Helper as Helper;
 class Register extends \Opencart\System\Engine\Controller {
 	// catalog/model/account/customer/addCustomer/after
 	public function index(string &$route, array &$args, mixed &$output): void {
+		
+		// disable account activation
+		return;
+		
 		$this->load->language('mail/register');
 
 		$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
