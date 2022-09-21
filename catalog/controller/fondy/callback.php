@@ -20,6 +20,7 @@ class Callback extends \Opencart\System\Engine\Controller {
         
         $customer_id = (int)$order_info['customer_id'];
         
+        $mail_data = [];
 
         if ($callaback_object->order_status == 'approved') {
             
@@ -31,6 +32,8 @@ class Callback extends \Opencart\System\Engine\Controller {
             if ($current_tariff_info) {
                 
                 if ((int)$order_products[0]['product_id'] == $current_tariff_info['tariff_id']) {
+                    
+                    $mail_data['action'] = 'continue';
                     
                     $active_to = $current_tariff_info['active_to'];
                     $new_active_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($active_to)));
@@ -44,6 +47,8 @@ class Callback extends \Opencart\System\Engine\Controller {
                     );
                     
                 }else{
+    			
+    				$mail_data['action'] = 'new';
                     
                     $date_now  = date('Y-m-d H:i:s', time());
                     $date_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($date_now)));
@@ -62,6 +67,8 @@ class Callback extends \Opencart\System\Engine\Controller {
                 $this->model_account_tariff->editTariff($new_tariff_data);
                 
             }else{
+			
+				$mail_data['action'] = 'new';
                 
                 $date_now  = date('Y-m-d H:i:s', time());
                 $date_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($date_now)));
@@ -93,6 +100,10 @@ class Callback extends \Opencart\System\Engine\Controller {
             $transaction_description = "OrderId: "  . $order_id . ", PaymentId: " . $callaback_object->payment_id;
             
             $this->model_account_transaction->addTransaction($customer_id, $transaction_description, $amount, $order_id);
+            
+            $mail_data['order_id'] = $order_id;
+    		
+    		$this->load->controller('mail/order|mailAboutFreeOrder', $mail_data);
             
         }else{
             

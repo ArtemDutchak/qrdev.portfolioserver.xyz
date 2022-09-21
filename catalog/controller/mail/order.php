@@ -522,4 +522,99 @@ class Order extends \Opencart\System\Engine\Controller {
 			}
 		}
 	}
+	
+	public function mailAboutFreeOrder(array $mail_data) :void {
+		
+		$this->load->language('mail/order');
+		
+		$this->load->model('checkout/order');
+        $order_info = $this->model_checkout_order->getOrder((int)$mail_data['order_id']);
+		if (!$order_info) {
+			return;
+		}
+		
+        $customer_id = (int)$order_info['customer_id'];
+		
+		$this->load->model('account/customer');
+		$customer_info = $this->model_account_customer->getCustomer($customer_id);
+		if (!$customer_info) {
+			return;
+		}
+		
+		$data['title'] = '';
+		$subject = $order_info['store_name'];
+		if ($mail_data['action'] === 'new') {
+			$data['title'] = $this->language->get('text_activate_tariff');
+			$subject = $order_info['store_name'] . ' ' . $data['title'];
+		}elseif ($mail_data['action'] === 'continue') {
+			$data['title'] = $this->language->get('text_continue_tariff');
+			$subject = $order_info['store_name'] . ' ' . $data['title'];
+		}
+		
+		$order_products = $this->model_checkout_order->getProducts($order_info['order_id']);
+		
+		$data['order_id'] = $mail_data['order_id'];
+		$data['tariff_name'] = $order_products[0]['name'];
+		$data['order_months'] = $order_products[0]['quantity'];
+		$data['order_total'] = (int)$order_info['total'] . ' ' . $order_info['currency_code'];
+		
+		$data['customer_name'] = $order_info['firstname'];
+		$data['customer_email'] = $order_info['email'];
+		$data['customer_telephone'] = $order_info['telephone'];
+		
+		// admin
+		if (in_array('tariff', (array)$this->config->get('config_mail_alert'))) {
+			
+			if ($this->config->get('config_mail_engine')) {
+				
+				$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
+				$mail->parameter = $this->config->get('config_mail_parameter');
+				$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+				$mail->setTo($this->config->get('config_email'));
+				$mail->setFrom($this->config->get('config_email'));
+				$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
+				$mail->setSubject($subject);
+				$mail->setHtml($this->load->view('mail/order_admin', $data));
+				$mail->send();
+
+				// Send to additional alert emails
+				$emails = explode(',', $this->config->get('config_mail_alert_email'));
+
+				foreach ($emails as $email) {
+					if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+						$mail->setTo(trim($email));
+						$mail->send();
+					}
+				}
+				
+			}
+			
+		}
+		
+		// customer 
+		
+		if ($this->config->get('config_mail_engine')) {
+			
+			$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
+			$mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+			$mail->setTo($order_info['email']);
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
+			$mail->setSubject($subject);
+			$mail->setHtml($this->load->view('mail/order_client', $data));
+			$mail->send();
+			
+		}
+	}
 }

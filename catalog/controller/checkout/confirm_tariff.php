@@ -251,10 +251,14 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
         
         $this->load->model('account/tariff');
         $current_tariff_info = $this->model_account_tariff->getUserTariff($customer_id);
+		
+		$mail_data = [];
         
         if ($current_tariff_info) {
             
             if ((int)$order_products[0]['product_id'] == $current_tariff_info['tariff_id']) {
+				
+				$mail_data['action'] = 'continue';
                 
                 $active_to = $current_tariff_info['active_to'];
                 $new_active_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($active_to)));
@@ -268,6 +272,8 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
                 );
                 
             }else{
+			
+				$mail_data['action'] = 'new';
                 
                 $date_now  = date('Y-m-d H:i:s', time());
                 $date_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($date_now)));
@@ -286,6 +292,8 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
             $this->model_account_tariff->editTariff($new_tariff_data);
             
         }else{
+			
+			$mail_data['action'] = 'new';
             
             $date_now  = date('Y-m-d H:i:s', time());
             $date_to = date('Y-m-d', strtotime("+" . $order_products[0]['quantity'] . " months", strtotime($date_now)));
@@ -311,6 +319,10 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 			(int)$order_id,
 			(int)$config_complete_status,
 		);
+		
+		$mail_data['order_id'] = $order_id;
+		
+		$this->load->controller('mail/order|mailAboutFreeOrder', $mail_data);
 		
     }
 	

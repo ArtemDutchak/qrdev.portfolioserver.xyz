@@ -34,10 +34,10 @@ $_['text_update_comment'] = 'Коментар до Вашого замовлен
 $_['text_update_link'] = 'Для перегляду замовлення перейдіть по посиланню нижче:';
 $_['text_update_footer'] = 'Якщо у Вас є які-небудь питання, відповідайте на це повідомлення.';
 
-$_['text_activate_tariff'] = 'Активація тарифу.';
-$_['text_continue_tariff'] = 'Подовження тарифу.';
-$_['text_order_id']        = 'Номер замовлення';
-$_['text_tariff']          = 'Тариф';
-$_['text_months']          = 'Місяців';
-$_['text_total']           = 'Всього';
-$_['text_customer_info']   = 'Інформація про клієнта';
+$_['text_activate_tariff'] = 'Tariff activation.';
+$_['text_continue_tariff'] = 'Tariff extension.';
+$_['text_order_id']        = 'Order Id';
+$_['text_tariff']          = 'Tariff';
+$_['text_months']          = 'Months';
+$_['text_total']           = 'Total';
+$_['text_customer_info']   = 'Client Info';
