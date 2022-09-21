@@ -344,11 +344,11 @@ class Company extends \Opencart\System\Engine\Controller
             
             if ($company_id) {
             
+                $company_info = $this->customer->getCompanyInfo($company_id);
+                
                 if ((int)$this->request->post['remove_logo']) {
                     $this->removeCompanyImage($company_info);
                 }
-                
-                $company_info = $this->customer->getCompanyInfo($company_id);
 
                 $json['company_code'] = $company_info['company_code'];
                 $this->generateQrCode($json['company_code']);

@@ -565,13 +565,23 @@ class Setting extends \Opencart\System\Engine\Controller {
 		];
 
 		$data['mail_alerts'][] = [
-			'text'  => $this->language->get('text_mail_affiliate'),
-			'value' => 'affiliate'
+			'text'  => $this->language->get('text_mail_company'),
+			'value' => 'company'
 		];
 
+		// $data['mail_alerts'][] = [
+		// 	'text'  => $this->language->get('text_mail_affiliate'),
+		// 	'value' => 'affiliate'
+		// ];
+
+		// $data['mail_alerts'][] = [
+		// 	'text'  => $this->language->get('text_mail_order'),
+		// 	'value' => 'order'
+		// ];
+
 		$data['mail_alerts'][] = [
-			'text'  => $this->language->get('text_mail_order'),
-			'value' => 'order'
+			'text'  => $this->language->get('text_mail_tariff'),
+			'value' => 'tariff'
 		];
 
 		$data['mail_alerts'][] = [
