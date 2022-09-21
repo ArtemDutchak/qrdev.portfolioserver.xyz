@@ -67,7 +67,9 @@ class Review extends \Opencart\System\Engine\Model {
 			`" . DB_PREFIX . "review` r
 			LEFT JOIN `" . DB_PREFIX . "company` c ON (r.`product_id` = c.`company_id`)
 			WHERE
-			r.`product_id` = '" . (int)$filter_data['company_id'] . "' AND c.`status` = '1'";
+			r.`product_id` = '" . (int)$filter_data['company_id'] . "'
+			AND r.`status` <> '0'
+			AND c.`status` = '1'";
 			
 		if ($filter_data['sort']) {
 			
@@ -96,7 +98,9 @@ class Review extends \Opencart\System\Engine\Model {
 			COUNT(*) AS `total`
 			FROM `" . DB_PREFIX . "review` r LEFT JOIN `" . DB_PREFIX . "company` c ON (r.`product_id` = c.`company_id`)
 			WHERE
-			r.`product_id` = '" . (int)$filter_data['company_id'] . "' AND c.`status` = '1'";
+			r.`product_id` = '" . (int)$filter_data['company_id'] . "'
+			AND r.`status` <> '0'
+			AND c.`status` = '1'";
 		
 		if ($filter_data['sort']) {
 			
@@ -178,4 +182,30 @@ class Review extends \Opencart\System\Engine\Model {
 		return $query->rows;
 		
 	}
+
+	public function getExpiredReviews(int $company_id): array {
+		
+		$query = $this->db->query("SELECT
+		ct.active_to as active_to
+		FROM `" . DB_PREFIX . "customer_tariff` ct
+		WHERE
+		`customer_id` = '" . (int)$this->customer->getId() . "'
+		");
+		
+		if (!$query->row) {
+			return [];
+		}
+		
+		$query = $this->db->query("SELECT
+			*
+			FROM `" . DB_PREFIX . "review` r
+			WHERE
+			r.`product_id` = '" . (int)$company_id . "'
+			AND r.`date_added` > '" . $query->row['active_to'] . "'
+			AND r.`status` <> '0'");
+
+		return $query->rows;
+		
+	}
+	
 }
