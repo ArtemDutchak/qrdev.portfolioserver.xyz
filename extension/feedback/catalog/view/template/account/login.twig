@@ -1,5 +1,6 @@
 {{ header }}
 
+<script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
 <section class="log-in_sign-up-page page-content">
   <div class="container-fluid">
     <div class="row">
@@ -29,13 +30,13 @@
               <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M17 24H29" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M25 30L31 24L25 18" stroke="#3B5498" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>            
+            </svg>
           </button>
         </div>
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 order-0 order-md-1">
         <div class="slider-log-in_sign-up">
-          
+
           <div>
             <form action="{{ login_form_action }}" id="form_log_in" class="form-log-in_sign-up" method="post" data-oc-toggle="ajax">
               <h2>{{ text_form_enter }}</h2>
@@ -60,7 +61,11 @@
                 </span>
               </label>
               <a class="forgot-password" href="/forgot_password.php" target="_blank">{{ text_form_forget_password }}</a>
-              <input class="site-btn" type="submit" value="{{ text_form_action_enter }}">
+
+              <div id="g-recaptcha-login"></div>
+              <input type="hidden" id="captcha_login" name="captcha" value="">
+
+              <input class="site-btn mt-2" type="submit" value="{{ text_form_action_enter }}">
               <span class="have-account">{{ text_form_no_account }}</span>
               <button type="button" class="site-btn-lite btn-to-sign-up">{{ text_form_register }}</button>
             </form>
@@ -105,21 +110,30 @@
                   <span class="error-message d-none">{{ error_form_password }}</span>
                 </span>
               </label>
-              <input class="site-btn" type="submit" value="{{ text_form_action_register }}">
+{#              <div id="g-recaptcha-register" class="g-recaptcha mb-2" data-callback="capcha_filled"#}
+{#                   data-expired-callback="capcha_expired" data-sitekey="6LcI6BIiAAAAAI78lZVo_OBsBB6xYkzTrhwXjP5k"></div>#}
+              <div id="g-recaptcha-register"></div>
+
+              <input type="hidden" id="captcha_register" name="captcha" value="">
+              <input id="sing-up-sub" class="site-btn mt-2" type="submit" value="{{ text_form_action_register }}">
               <span class="have-account">{{ text_form_already_registered }}</span>
               <button type="button" class="site-btn-lite btn-to-log-in">{{ text_form_action_enter }}</button>
             </form>
           </div>
 
           <div>
-            <form id="form_forgot_password" action="{{ forgotten_form_action }}" class="form-log-in_sign-up form-forgot-password" method="post" data-oc-toggle="ajax">
+            <form id="form_forgot_password" action="{{ forgotten_form_action }}" class="form-log-in_sign-up form-forgot-password" method="post" data-oc-toggle="ajax" placeholder="">
               <h2>{{ text_form_restore_password }}</h2>
               <label for="email">
                 <span class="label-text">{{ text_form_email }}</span>
                 <input class="email" type="email" name="email" id="email" placeholder="{{ entry_form_email }}" autocomplete="off">
                 <span class="error-message d-none">{{ error_form_email }}</span>
               </label>
-              <input class="site-btn" type="submit" value="{{ text_restore }}">
+
+              <div id="g-recaptcha-forgot" class="mb-2"></div>
+              <input type="hidden" id="captcha_forgot" name="captcha" value="">
+
+              <input class="site-btn mt-2" type="submit" value="{{ text_restore }}">
               <button type="button" class="site-btn-lite btn-to-sign-up">{{ text_form_action_enter }}</button>
             </form>
           </div>
@@ -137,6 +151,26 @@
     const error_form_company_name    = `{{ error_form_company_name }}`;
     const error_form_telephone       = `{{ error_form_telephone }}`;
     const error_form_repeat_password = `{{ error_form_repeat_password }}`;
+
+    function capcha_filled_login(response) {
+      document.getElementById('captcha_login').value = response;
+    }
+
+    function capcha_filled_register(response) {
+      document.getElementById('captcha_register').value = response;
+    }
+
+    function capcha_filled_forgot(response) {
+      document.getElementById('captcha_forgot').value = response;
+    }
+
+    var CaptchaCallback = function() {
+      grecaptcha.render('g-recaptcha-login', {'sitekey' : '6LcI6BIiAAAAAI78lZVo_OBsBB6xYkzTrhwXjP5k', 'callback': capcha_filled_login()});
+      grecaptcha.render('g-recaptcha-register', {'sitekey' : '6LcI6BIiAAAAAI78lZVo_OBsBB6xYkzTrhwXjP5k', 'callback': capcha_filled_register()});
+      grecaptcha.render('g-recaptcha-forgot', {'sitekey' : '6LcI6BIiAAAAAI78lZVo_OBsBB6xYkzTrhwXjP5k', 'callback': capcha_filled_forgot()});
+    };
+
+
 </script>
 
 {{ footer }}

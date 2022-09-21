@@ -1,5 +1,6 @@
 <?php
 namespace Opencart\Catalog\Controller\Account;
+use Opencart\Catalog\Controller\Tool\Captcha;
 use \Opencart\System\Helper as Helper;
 class Register extends \Opencart\System\Engine\Controller {
 	public function index(): void {
@@ -106,9 +107,14 @@ class Register extends \Opencart\System\Engine\Controller {
 	public function register(): void {
 		$this->load->language('account/register');
 
+        $captcha = $this->request->post['captcha'];
+
 		$json = [
 			'errors' => array(),
 		];
+
+        $captchaHandler = new Captcha();
+        $json = $captchaHandler->checkCaptcha();
 
 		$keys = [
 			'customer_group_id',
@@ -256,6 +262,7 @@ class Register extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json['errors']) {
+			$this->request->post['is_activated'] = true;
 			$customer_id = $this->model_account_customer->addCustomer($this->request->post);
 
 			$login = $this->customer->login($email, html_entity_decode($password, ENT_QUOTES, 'UTF-8'));

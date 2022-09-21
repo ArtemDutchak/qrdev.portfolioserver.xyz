@@ -1,5 +1,6 @@
 <?php
 namespace Opencart\Catalog\Controller\Account;
+use Opencart\Catalog\Controller\Tool\Captcha;
 use \Opencart\System\Helper as Helper;
 class Login extends \Opencart\System\Engine\Controller {
 	public function index(): void {
@@ -67,6 +68,9 @@ class Login extends \Opencart\System\Engine\Controller {
 		$json = [
 			'errors' => array(),
 		];
+
+        $captchaHandler = new Captcha();
+        $json = $captchaHandler->checkCaptcha();
 
 		if (!isset($this->request->get['login_token']) || !isset($this->session->data['login_token']) || ($this->request->get['login_token'] != $this->session->data['login_token'])) {
 			$json['redirect'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'), true);
