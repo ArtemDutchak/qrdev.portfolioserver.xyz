@@ -194,6 +194,9 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 		
 		$order_id = $this->model_checkout_order->addOrder($order_data);
 		if ($order_id) {
+			$this->session->data['order_id'] = $order_id;
+			$this->session->data['last_order_id'] = $order_id;
+			
 			$json['order_id'] = $order_id;
 			
 			$this->model_checkout_order->addHistory(

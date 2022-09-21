@@ -3,6 +3,8 @@
 $_['heading_title'] = 'Your order has been placed!';
 
 // Text
+$_['text_success_order']   = 'Your order #%s has been successfully processed!';
+
 $_['text_basket']   = 'Shopping Cart';
 $_['text_checkout'] = 'Checkout';
 $_['text_success']  = 'Success';
