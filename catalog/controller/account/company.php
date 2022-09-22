@@ -390,7 +390,7 @@ class Company extends \Opencart\System\Engine\Controller
 
     public function generateQrCode(string $companyCode): void
     {
-        $codeContents = HTTP_SERVER . 'index.php?route=product/company_review&company_code=' . $companyCode;
+        $codeContents = $this->url->link('product/company_review', 'company_code=' . $companyCode);
 
         $fileName = $companyCode . '.png';
         $tempDir = DIR_STORAGE . 'qr_codes/';
@@ -399,8 +399,12 @@ class Company extends \Opencart\System\Engine\Controller
 
         if (!file_exists($pngAbsoluteFilePath)) 
         {
-            define('IMAGE_WIDTH', 1000);
-	    define('IMAGE_HEIGHT', 1000);
+            if (!defined('IMAGE_WIDTH')) {
+                define('IMAGE_WIDTH', 1000);
+            }
+            if (!defined('IMAGE_HEIGHT')) {
+                define('IMAGE_HEIGHT', 1000);
+            }
             QRcode::png($codeContents, $pngAbsoluteFilePath);
         }
     }
