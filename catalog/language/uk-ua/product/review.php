@@ -17,6 +17,9 @@ $_['text_very_important']      = 'Ваш відгук дуже цінний дл
 $_['text_new_review']          = 'Новий відгук';
 $_['text_new_review_written']  = 'Ваша компанія "%s" отримала новий відгук';
 
+$_['text_unable_write_review']  = 'Наразі неможливо додати відгук';
+$_['text_company_not_active']   = 'Компанія не активна';
+
 // Entry
 $_['entry_name']       = 'Ім\'я';
 $_['entry_text']       = 'Введіть текст';

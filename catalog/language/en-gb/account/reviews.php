@@ -12,3 +12,4 @@ $_['text_new']        = 'New';
 $_['text_pay_to_see_reviews'] = 'You have new reviews, pay your rate to view';
 $_['text_pay']                = 'Pay';
 $_['text_expired_pay']        = 'Pay your tariff to view';
+$_['text_recover']            = 'Recover';

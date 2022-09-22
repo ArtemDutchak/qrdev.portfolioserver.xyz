@@ -17,6 +17,9 @@ $_['text_very_important']      = 'Your feedback is very valuable to us';
 $_['text_new_review']          = 'New review';
 $_['text_new_review_written']  = 'Your company "%s" has received a new review';
 
+$_['text_unable_write_review']  = 'It is not possible to add a review at this moment';
+$_['text_company_not_active']   = 'The company is not active';
+
 // Entry
 $_['entry_name']       = 'Name';
 $_['entry_text']       = 'Review';
