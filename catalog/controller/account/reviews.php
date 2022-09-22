@@ -200,6 +200,12 @@ class Reviews extends \Opencart\System\Engine\Controller {
 			'value' => 'solved',
 			'href'  => $this->url->link('account/reviews', 'company_id=' . $data['company_id'] . '&customer_token=' . $this->session->data['customer_token'] . '&sort=solved'),
 		];
+
+		$data['sorts'][] = [
+			'text'  => $this->language->get('text_new'),
+			'value' => 'new',
+			'href'  => $this->url->link('account/reviews', 'company_id=' . $data['company_id'] . '&customer_token=' . $this->session->data['customer_token'] . '&sort=new'),
+		];
 		
 		
 		$data['footer'] = $this->load->controller('common/footer');

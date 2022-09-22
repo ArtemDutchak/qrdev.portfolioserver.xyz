@@ -102,6 +102,9 @@ class Review extends \Opencart\System\Engine\Model {
 			}elseif ($filter_data['sort'] === 'solved') {
 				$solved_status_id = 2;
 				$sql .= " AND r.`status` = '" . $solved_status_id . "'";
+			}elseif ($filter_data['sort'] === 'new') {
+				$new_status_id = 1;
+				$sql .= " AND r.`status` = '" . $new_status_id . "'";
 			}
 			
 		}
@@ -133,6 +136,9 @@ class Review extends \Opencart\System\Engine\Model {
 			}elseif ($filter_data['sort'] === 'solved') {
 				$solved_status_id = 2;
 				$sql .= " AND r.`status` = '" . $solved_status_id . "'";
+			}elseif ($filter_data['sort'] === 'new') {
+				$new_status_id = 1;
+				$sql .= " AND r.`status` = '" . $new_status_id . "'";
 			}
 			
 		}
