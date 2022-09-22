@@ -9,7 +9,7 @@
     {% for company in companies %}
     
         <div class="col-xl-4">
-          <div class="company-block">
+          <div class="company-block {% if company.status %} active {% endif %}">
             <a class="company-settings" href="{{ company.href_edit }}">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect width="32" height="32" rx="16" fill="#1E1C20"/>
@@ -33,7 +33,7 @@
             <div class="qr-code-wrap">
               <a class="qr-code-link" href="{{ company.qr_link }}" target="_blank">
 {#                {{ company.google_qr_link }}#}
-                <img class="qr-code-img" src="/storage/qr_codes/{{ company.code }}.png" alt="">
+                <img class="qr-code-img" src="{{ company.qr_thumb }}" alt="">
               </a>
             </div>
             <div class="buttons-wrap">

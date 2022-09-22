@@ -8,10 +8,11 @@ class Company extends \Opencart\System\Engine\Model {
 			c.company_id,
 			c.company_name,
 			c.settings,
+			c.status,
 			c.image
 			FROM `" . DB_PREFIX . "company` c 
 			WHERE c.`company_code` = '" . $this->db->escape($company_code) . "'
-			AND c.`status` = '1'");
+			");
 
 		return $query->row;
 	}

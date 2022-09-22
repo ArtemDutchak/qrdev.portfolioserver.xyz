@@ -100,7 +100,7 @@
         {% endif %}
         
         <div class="col-xl-4 col-lg-6 col-md-6 review-wrap">
-          <div class="review-card {{ bg_class }} {% if review.expired %} expired {% endif %}">
+          <div id="review_{{ review.id }}" class="review-card {{ bg_class }} {% if review.expired %} expired {% endif %}">
           
             {% if review.expired %}
                 <div class="expired-text">
@@ -109,6 +109,12 @@
                     </span>
                 </div>
             {% endif %}
+            
+            <div class="deleted-text">
+                <span>
+                    <button class="site-btn" onclick="setReviewStatus({{ review.id }}, 1)">{{ text_recover }}</button>
+                </span>
+            </div>
 
             <div class="review-header">
               <button class="menu-toggle"><sup>&hellip;</sup></button>

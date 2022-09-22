@@ -22,8 +22,9 @@ class Company extends \Opencart\System\Engine\Controller
         $data['href_company_add'] = $this->url->link('account/company|form');
 
         $companies = $this->customer->getCompanyList();
-
-        $data['companies'] = array();
+        
+        $active_companies = [];
+        $non_active_companies = [];
 
         foreach ($companies as $result) {
 
@@ -35,10 +36,12 @@ class Company extends \Opencart\System\Engine\Controller
 
             $average_rate = $this->model_account_company->getAverageRate((int)$result['company_id']);
 
-            $qr_path = DIR_STORAGE . 'qr_codes/' . $result['company_code'] . '.png';
+            $qr_path = DIR_IMAGE . 'qr_codes/' . $result['company_code'] . '.png';
             $qr_file = '';
+            $qr_thumb = '';
             if (is_file($qr_path)) {
-    			$qr_file = HTTP_SERVER . 'storage/qr_codes/' . $result['company_code'] . '.png';
+    			$qr_file = HTTP_SERVER . 'image/qr_codes/' . $result['company_code'] . '.png';
+                $qr_thumb = $this->model_tool_image->resize('qr_codes/' . $result['company_code'] . '.png', 110, 110);
     		}
             
             $qr_link = $this->url->link('product/company_review', 'company_code=' . $result['company_code']);
@@ -47,20 +50,28 @@ class Company extends \Opencart\System\Engine\Controller
                 'id' => $result['company_id'],
                 'name' => $result['company_name'],
                 'thumb' => $thumb,
+                'qr_thumb' => $qr_thumb,
                 'qr_link' => $qr_link,
                 'code' => $result['company_code'],
 //				'google_qr_link' => $this->getQr(str_replace("amp;", "",$qr_link)),
                 'qr_file' => $qr_file,
                 'rating_width' => ($average_rate / 5) * 100,
                 'rating' => $average_rate,
+                'status' => $result['status'],
                 'href_edit' => $this->url->link('account/company|form', 'company_id=' . $result['company_id']),
                 'href_generate' => $this->url->link('account/company|form', 'company_id=' . $result['company_id']),
                 'href_download_qr' => $this->url->link('account/company|form', 'company_id=' . $result['company_id']),
             );
-
-            $data['companies'][] = $company;
+            
+            if ($result['status']) {
+                $active_companies[] = $company;
+            }else{
+                $non_active_companies[] = $company;
+            }
 
         }
+        
+        $data['companies'] = array_merge($active_companies, $non_active_companies);
 
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
@@ -393,7 +404,7 @@ class Company extends \Opencart\System\Engine\Controller
         $codeContents = $this->url->link('product/company_review', 'company_code=' . $companyCode);
 
         $fileName = $companyCode . '.png';
-        $tempDir = DIR_STORAGE . 'qr_codes/';
+        $tempDir = DIR_IMAGE . 'qr_codes/';
 
         $pngAbsoluteFilePath = $tempDir . $fileName;
 

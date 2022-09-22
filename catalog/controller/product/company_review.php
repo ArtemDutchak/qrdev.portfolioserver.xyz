@@ -34,12 +34,6 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		}else{
 			$data['text_field_1'] = '';
 		}
-		
-		if ($company_settings['custom_field_2']['active']) {
-			$data['text_field_2'] = $company_settings['custom_field_2']['value'];
-		}else{
-			$data['text_field_2'] = '';
-		}
 
 		// Create a login token to prevent brute force attacks
 		$this->session->data['review_token'] = Helper\General\token(32);
@@ -54,8 +48,9 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		}
 		
 		$data['company'] = array(
-			'name' => $company_info['company_name'],
-			'image' => $thumb,
+			'name'   => $company_info['company_name'],
+			'image'  => $thumb,
+			'status' => $company_info['status'],
 		);
 
 		// Captcha
@@ -273,6 +268,13 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+    public function non_active(){
+		
+		$data['111'] = '';
+		$this->response->setOutput($this->load->view('product/non_active_company', $data));
+		
+	}
+	
     public function sendTelegramNotification(array $data, $headers = [])
     {
         $method = 'sendMessage';

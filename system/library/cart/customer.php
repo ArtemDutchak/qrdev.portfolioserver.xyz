@@ -144,6 +144,7 @@ class Customer {
 		company_id,
 		company_name,
 		company_code,
+		status,
 		image
 		FROM `" . DB_PREFIX . "company`
 		WHERE

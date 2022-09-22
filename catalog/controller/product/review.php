@@ -199,6 +199,11 @@ class Review extends \Opencart\System\Engine\Controller {
 		if (empty($json['error'])) {
 			$this->model_catalog_review->setStatus($this->request->post);
 			$json['success'] = true;
+			
+			$deleted_status = 0;
+			if ($this->request->post['status_id'] == $deleted_status) {
+				$json['deleted'] = true;
+			}
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
