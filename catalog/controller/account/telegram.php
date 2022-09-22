@@ -24,18 +24,12 @@ class Telegram
 
 # Обрабатываем сообщение
         switch ($message) {
-            case '/start':
+            case '/info':
                 $method = 'sendMessage';
                 $send_data = [
-                    'text' => "Ласкаво просимо до QR telegram bot.\nДля підключення повідомлень вкажіть свій telegram id у налаштуваннях компанії. \nTelegram id Ви можете дізнатися тут.\nhttps://t.me/getmyid_bot"
+                    'text' => "Ласкаво просимо до QR telegram bot.\nДля підключення повідомлень вкажіть telegram chat id у налаштуваннях компанії. \nChat id Ви можете дізнатися додавивши цього бота у групу.\nhttps://t.me/getmyid_bot"
                 ];
                 break;
-
-            default:
-                $method = 'sendMessage';
-                $send_data = [
-                    'text' => "Якщо Ви ще ні підключили повідомлення зробіть наступне\nДля підключення повідомлень вкажіть свій telegram id у налаштуваннях компанії. \nTelegram id ви можете дізнатися тут.\nhttps://t.me/getmyid_bot"
-                ];
         }
 
 # Добавляем данные пользователя

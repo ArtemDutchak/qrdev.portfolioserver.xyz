@@ -401,7 +401,7 @@ footer{
     box-shadow: inset 210px 0 #3b5498;
 }
 @media (max-width:767.98px) {
-    .footer-form [type=submit]: hover {
+    .footer-form [type=submit]:hover {
         -webkit-box-shadow: inset 350px 0 #3b5498;
         box-shadow: inset 350px 0 #3b5498;
     }
@@ -504,4 +504,16 @@ body{
     padding-bottom: 0;
     margin-bottom: 5px;
     padding-bottom: 60px;
+}
+
+.pay-tariff-wrap a.site-btn{
+    display: block;
+    background-color: #6982c5;
+}
+.pay-tariff-wrap a.site-btn:hover{
+    color: #fff !important;
+    background-color: #4664b5 !important;
+}
+.form-log-in_sign-up .site-btn{
+    margin-top: 20px !important;
 }
