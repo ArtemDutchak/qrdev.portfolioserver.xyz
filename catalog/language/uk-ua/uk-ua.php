@@ -24,6 +24,8 @@ $_['text_current_tariff']        = 'Поточний тариф';
 $_['text_current_tariff_none']   = 'Відсутній';
 $_['text_tariff_active_to']      = 'Дата закінчення';
 
+$_['text_link_copied']           = 'Посилання скопійовано';
+
 // Buttons
 $_['button_address_add'] = 'Додати адресу';
 $_['button_back'] = 'Назад';

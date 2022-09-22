@@ -38,6 +38,8 @@ $_['text_current_tariff']        = 'Current tariff';
 $_['text_current_tariff_none']   = 'None';
 $_['text_tariff_active_to']      = 'End date';
 
+$_['text_link_copied']           = 'Link Copied';
+
 // Buttons
 $_['button_address_add']    = 'Add Address';
 $_['button_back']           = 'Back';
