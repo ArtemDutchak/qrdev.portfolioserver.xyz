@@ -24,7 +24,7 @@ $_['error_approved']               = 'Warning: Your account requires approval be
 
 $_['text_restore']                       = 'Restore Access';
 $_['text_form_enter']                    = 'Login';
-$_['text_form_register']                 = 'Registartion';
+$_['text_form_register']                 = 'Registration';
 $_['text_form_restore_password']         = 'Password Recovery';
 $_['text_form_email']                    = 'E-mail *';
 $_['text_form_password']                 = 'Password *';
