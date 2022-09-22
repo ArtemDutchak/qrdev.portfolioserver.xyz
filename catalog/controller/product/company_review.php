@@ -201,13 +201,13 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 			];
 		}
 		
-		if ((Helper\Utf8\strlen($email) > 96) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			$json['error']['email'] = $this->language->get('error_email');
-			$json['errors'][] = array(
-				'field_name' => 'email',
-				'text' => $this->language->get('error_email'),
-			);
-		}
+		// if ((Helper\Utf8\strlen($email) > 96) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		// 	$json['error']['email'] = $this->language->get('error_email');
+		// 	$json['errors'][] = array(
+		// 		'field_name' => 'email',
+		// 		'text' => $this->language->get('error_email'),
+		// 	);
+		// }
 		
 		if ($telephone_is_required && (Helper\Utf8\strlen($telephone) != 12)) {
 			$json['error']['telephone'] = $this->language->get('error_telephone');
