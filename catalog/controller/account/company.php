@@ -210,16 +210,24 @@ class Company extends \Opencart\System\Engine\Controller
                     return;
                 }
                 
-                if ($company_info['status']) {
-                    $can_operate_with_active_company = true;
+                if ($current_tariff_info) {
+                    if ($company_info['status']) {
+                        $can_operate_with_active_company = true;
+                    }else{
+                        $can_operate_with_active_company = ((int)$current_tariff_info['companies'] > count($this->customer->getActiveCompanyList()));
+                    }
                 }else{
-                    $can_operate_with_active_company = ((int)$current_tariff_info['companies'] > count($this->customer->getActiveCompanyList()));
+                    $can_operate_with_active_company = false;
                 }
                 
                 
             }else{
-            
-                $can_operate_with_active_company = ((int)$current_tariff_info['companies'] > count($this->customer->getActiveCompanyList()));
+                
+                if ($current_tariff_info) {
+                    $can_operate_with_active_company = ((int)$current_tariff_info['companies'] > count($this->customer->getActiveCompanyList()));
+                }else{
+                    $can_operate_with_active_company = false;
+                }
                 
             }
             
