@@ -517,3 +517,73 @@ body{
 .form-log-in_sign-up .site-btn{
     margin-top: 20px !important;
 }
+
+
+.captcha-error{
+    display: none;
+}
+.captcha-error.error{
+    display: block;
+    font-size: 12px;
+    color: #f23d35;
+    font-weight: 500;
+}
+
+.log-in_sign-up-page.page-content{
+    padding-bottom: 80px;
+}
+
+[for=password_log_in] .input-wrap:before {
+    content: url(../img/icons/lock.svg) !important;
+    position: absolute;
+    top: 9px;
+    left: 16px;
+}
+
+[for=email_log_in]:before {
+    content: url(../img/icons/sms.svg) !important;
+    position: absolute;
+    bottom: 4px;
+    left: 16px;
+}
+
+#firstname {
+    background-image: url('../img/icons/user.svg');
+}
+#telephone{
+    background-image: url(../img/icons/phone.svg);
+}
+#form_review_user  #telephone{
+    background-image: none;
+}
+@media (min-width: 800px){
+    .reviews-page.page-body {
+        padding-bottom: 379px;
+    }
+}
+@media (max-width: 320px){
+    .reviews-page.page-body {
+        padding-bottom: 500px;
+    }
+}
+
+@media (min-width: 800px){
+    .my-company-page.page-content{
+        padding-bottom: 400px;
+    }
+}
+
+@media (min-width:800px){
+    .tariffs-features-page.page-content{
+      padding-bottom: 350px; 
+    }
+}
+
+.review-user-page .form-review-user textarea{
+    font-size: 16px;
+}
+@media (min-width: 320px){
+    .review-user-page.page-content{
+        padding-bottom: 100px;
+    }
+}
