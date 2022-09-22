@@ -6134,8 +6134,11 @@ body {
 .my-company-page .company-block .company-settings:hover {
   transform: rotate(0.2turn);
 }
-.my-company-page .company-block .company-settings:focus {
+.my-company-page .company-block.active .company-settings:focus {
   transform: rotate(0.4turn);
+}
+.my-company-page .company-block .company-settings svg rect{
+  fill: #4caf50;
 }
 .my-company-page .company-block .company-name {
   text-align: center;
@@ -7179,6 +7182,30 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.reviews-page.page-body .review-card .deleted-text{
+    display: none;
+}
+
+.reviews-page.page-body .review-card.deleted .deleted-text{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+}
+
+.reviews-page.page-body .review-card.deleted div:not(.deleted-text){
+    filter: opacity(0.5);
+}
+
+.reviews-page.page-body .review-card.deleted > button{
+    filter: opacity(0.25);
 }
 
 .footer-sm{
