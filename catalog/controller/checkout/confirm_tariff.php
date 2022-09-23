@@ -22,9 +22,10 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 			return;
 		}
 		
+		$this->load->model('account/tariff');
+		
 		$tariff = [];
 		if (!$json['errors']) {
-			$this->load->model('account/tariff');
 			$tariff = $this->model_account_tariff->getTariff((int)$this->request->post['tariff_id']);
 		}
 
@@ -46,6 +47,12 @@ class ConfirmTariff extends \Opencart\System\Engine\Controller {
 			if (!$free_able) {
 				$json['errors'][] = $this->language->get('error_cannot_activate_free_tariff');
 			}
+		}
+		
+		// Disable lower price tariff activatation
+		$current_tarif = $this->model_account_tariff->getTariff((int)$this->customer->getCurrentTariffId());
+		if ($current_tarif && $tariff && $current_tarif['price'] > $tariff['price'] && $tariff['price'] != 0 ) {
+			$json['errors'][] = $this->language->get('error_cannot_activate_lower_tariff');
 		}
 		
 		if ($json['errors']) {
