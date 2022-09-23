@@ -7634,12 +7634,10 @@ body {
 }
 
 .repeat-review-user-page {
-  margin-top: 0;
-  padding-top: 0;
   text-align: center;
 }
 .repeat-review-user-page .company-logo {
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 .repeat-review-user-page .page-title {
   display: inline-block;
