@@ -25,6 +25,16 @@ class Review extends \Opencart\System\Engine\Model {
 
 		return $this->db->getLastId();
 	}
+	public function addReviewImage(int $review_id, string $path): int {
+		$this->db->query(
+			"INSERT INTO `" . DB_PREFIX . "review_image`
+			SET
+			`review_id` = '" . $review_id . "',
+			`image` = '" . $path . "'"
+		);
+
+		return $this->db->getLastId();
+	}
 
 	public function getReviewsByProductId(int $product_id, int $start = 0, int $limit = 20): array {
 		if ($start < 0) {

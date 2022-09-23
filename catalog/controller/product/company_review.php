@@ -89,6 +89,8 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$json = [
 			'errors' => [],
 		];
+		
+		$json['files'] = $this->request->files['image'];
 
 		if (!isset($this->request->get['company_code'])) {
 			$json['errors'][] = [
@@ -238,6 +240,27 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 
 		if ($review_id) {
 			
+		
+			if (!empty($this->request->files)) {
+				
+				for ($i=0; $i < count($this->request->files['image']['name']); $i++) {
+					$name = $this->request->files['image']['name'][$i];
+					
+					$path_parts = pathinfo($name);
+		            $extension = $path_parts['extension'];
+
+		            $filename = $review_id . '-' . Helper\General\token(3) . '.' . $extension;
+
+		            $result = $this->save_review_image($filename, $i);
+					
+					if ($result['success']) {
+						$this->model_catalog_review->addReviewImage((int)$review_id, 'review_images/' . $filename);
+					}
+
+		            
+				}
+	        }
+			
 			// send telegram notification to company owner
 			if ($settings['review_notification']['telegram']['active'] && $settings['review_notification']['telegram']['value']) {
 	            $telegramId = $settings['review_notification']['telegram']['value'];
@@ -282,6 +305,49 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+	
+	
+
+    private function save_review_image(string $filename, int $index): array
+    {
+        $this->load->language('tool/upload');
+
+        $json = [];
+
+        if (!empty($this->request->files['image']['name'][$index]) && is_file($this->request->files['image']['tmp_name'][$index])) {
+
+            // Allowed file extension types
+            $allowed = [];
+
+            $mime_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
+
+            $filetypes = explode("\n", $mime_allowed);
+
+            foreach ($filetypes as $filetype) {
+                $allowed[] = trim($filetype);
+            }
+
+            if (!in_array($this->request->files['image']['type'][$index], $allowed)) {
+                $json['error'] = 'error_file_type';
+            }
+
+            // Return any upload error
+            if ($this->request->files['image']['error'][$index] != UPLOAD_ERR_OK) {
+                $json['error'] = 'error_upload_' . $this->request->files['image']['error'][$index];
+            }
+        } else {
+            $json['error'] = 'error_upload';
+        }
+
+        if (!$json) {
+
+            move_uploaded_file($this->request->files['image']['tmp_name'][$index], DIR_IMAGE . 'review_images/' . $filename);
+
+            $json['success'] = $this->language->get('text_upload');
+        }
+
+        return $json;
+    }
 	
     public function sendTelegramNotification(array $data, $headers = [])
     {
