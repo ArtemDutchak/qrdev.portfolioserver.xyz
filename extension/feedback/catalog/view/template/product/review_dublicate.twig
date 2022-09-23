@@ -1,0 +1,35 @@
+{{ header }}
+
+<div class="review-user-page repeat-review-user-page page-content">
+    <div class="row">
+        <div class="col-12">
+        
+            {% if company.image %}
+                <div class="company-logo">
+                    <img src="{{ company.image }}" alt="">
+                </div>
+            {% endif %}
+            
+            <h3 class="form-title">
+                {{ company.name }}
+            </h3>
+            
+            <h3 class="form-title" id="text_field_2"></h3>
+            
+            {% for link in links %}
+                <a class="site-btn-lite" href="{{ link.href }}" target="_blank">
+                    <img src="{{ link.img }}" alt="">
+                    <span class="btn-text">{{ link.text }}</span>
+                </a>
+            {% endfor %}
+            
+        </div>
+    </div>
+</div>
+
+{{ footer }}
+
+<script>
+var decoded = $("<div/>").html('{{ text_field_2 }}').text();
+    $('#text_field_2').html(decoded);
+</script>

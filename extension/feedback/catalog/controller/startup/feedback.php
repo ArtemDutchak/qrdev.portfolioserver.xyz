@@ -48,6 +48,7 @@ class Feedback extends \Opencart\System\Engine\Controller
             
             'product/company_review',
             'product/review_success',
+            'product/review_dublicate',
             
         ];
 

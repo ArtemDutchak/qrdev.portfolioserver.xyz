@@ -261,18 +261,26 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 			}
 
 			$this->session->data['company_code'] = $company_code;
-			$json['redirect'] = $this->url->link('product/company_review|success');
+			
+			if (
+				$settings['review_dublication']['active']
+				&& $stars >= (int)$settings['review_dublication']['rating']
+				&& (
+					($settings['review_dublication']['services']['google']['active'] && $settings['review_dublication']['services']['google']['value'])
+					|| ($settings['review_dublication']['services']['facebook']['active'] && $settings['review_dublication']['services']['facebook']['value'])
+					|| ($settings['review_dublication']['services']['custom']['active'] && $settings['review_dublication']['services']['custom']['name'] && $settings['review_dublication']['services']['custom']['link'])
+					)
+			) {
+				$json['redirect']  = $this->url->link('product/company_review|dublicate', 'company_code=' . $company_code);
+				$json['copy_text'] = true;
+			}else{
+				$json['redirect']  = $this->url->link('product/company_review|success');
+			}
+			
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
-	}
-
-    public function non_active(){
-		
-		$data['111'] = '';
-		$this->response->setOutput($this->load->view('product/non_active_company', $data));
-		
 	}
 	
     public function sendTelegramNotification(array $data, $headers = [])
@@ -357,6 +365,99 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$data['header'] = $this->load->controller('common/header_hidden');
 
 		$this->response->setOutput($this->load->view('product/review_success', $data));
+	}
+
+	public function dublicate(): void {
+		
+		if (!$this->customer->isLogged()) {
+			$this->config->set('config_language', $this->config->get('config_language'));
+		}
+		
+		$this->load->language('product/review');
+		
+		if (isset($this->request->get['company_code'])) {
+			$company_code = $this->request->get['company_code'];
+		} else {
+			$company_code = 0;
+		}
+		
+		if (!$company_code) {
+			$this->response->redirect($this->url->link('error/not_found'));
+		}
+		
+		$this->load->model('catalog/company');
+		$company_info = $this->model_catalog_company->getCompanyByCode($company_code);
+		
+		if (!$company_info) {
+			$this->response->redirect($this->url->link('error/not_found'));
+		}
+		
+		$settings = json_decode($company_info['settings'], true);
+		
+		if (!$settings['review_dublication']['active']
+			|| !(
+				($settings['review_dublication']['services']['google']['active'] && $settings['review_dublication']['services']['google']['value'])
+				|| ($settings['review_dublication']['services']['facebook']['active'] && $settings['review_dublication']['services']['facebook']['value'])
+				|| ($settings['review_dublication']['services']['custom']['active'] && $settings['review_dublication']['services']['custom']['name'] && $settings['review_dublication']['services']['custom']['link'])
+			)
+		) {
+			$this->response->redirect($this->url->link('error/not_found'));
+		}
+		
+		$this->load->model('tool/image');
+		if (is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
+			$thumb = $this->model_tool_image->resize(html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'), 140, 140);
+		} else {
+			$thumb = '';
+		}
+		
+		if ($settings['custom_field_2']['active']) {
+			$data['text_field_2'] = $settings['custom_field_2']['value'];
+		}else{
+			$data['text_field_2'] = '';
+		}
+		
+		$data['company'] = array(
+			'name' => $company_info['company_name'],
+			'image' => $thumb,
+		);
+		
+		$data['links'] = [];
+		
+		$google_service = $settings['review_dublication']['services']['google'];
+		if ($google_service['active']) {
+			$link = [
+				'href' => $google_service['value'],
+				'img'  => '/catalog/view/stylesheet/static/img/icons/maps.svg',
+				'text' => 'Google Maps',
+			];
+			$data['links'][] = $link;
+		}
+		
+		$facebook_service = $settings['review_dublication']['services']['facebook'];
+		if ($facebook_service['active']) {
+			$link = [
+				'href' => $facebook_service['value'],
+				'img'  => '/catalog/view/stylesheet/static/img/icons/facebook.svg',
+				'text' => 'Facebook',
+			];
+			$data['links'][] = $link;
+		}
+		
+		$custom_service = $settings['review_dublication']['services']['custom'];
+		if ($custom_service['active']) {
+			$link = [
+				'href' => $custom_service['link'],
+				'img'  => '/catalog/view/stylesheet/static/img/icons/profile-link.svg',
+				'text' => $custom_service['name'],
+			];
+			$data['links'][] = $link;
+		}
+		
+		$data['footer'] = $this->load->controller('common/footer_hidden');
+		$data['header'] = $this->load->controller('common/header_hidden');
+
+		$this->response->setOutput($this->load->view('product/review_dublicate', $data));
 	}
 
 	public function list(): void {
