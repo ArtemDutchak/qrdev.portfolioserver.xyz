@@ -102,3 +102,4 @@ $_['error_to_many_active_companies'] = 'Помилка! У вас забагат
 $_['error_payment_service_response'] = 'Помилка! Помилка платіжної системи!';
 $_['error_create_order']             = 'Помилка! Замовлення не створено!';
 $_['error_cannot_activate_free_tariff'] = 'Помилка! Неможливо активувати безкоштовний тариф';
+$_['error_cannot_activate_lower_tariff'] = 'Помилка! Неможливо активувати тариф, дешевший від поточного';
