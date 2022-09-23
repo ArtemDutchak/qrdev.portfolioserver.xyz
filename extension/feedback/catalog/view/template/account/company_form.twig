@@ -140,7 +140,12 @@
 
       <div class="col-xl-6 col-lg-6">
       
-        <label class="type-text">{{ text_text_field_1 }}</label>
+        <label class="type-text" for="text_field_1">{{ text_text_field_1 }}
+            <a href="#help_modal_1" rel="modal:open">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.4779 13.8997V8.99961M10.3088 6.02092V5.70444M10.0647 2.00195C13.6961 2.09406 20.1053 5.82085 17.3162 13.4845C13.8298 23.0641 1.13978 15.1904 2.0462 10.1381C2.95263 5.08575 6.43329 1.90984 10.0647 2.00195Z" stroke="#3B5498" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </label>
+        
         <div class="text-field-group input-group">
             <input class="check-text-field d-none" type="checkbox" name="check_text_field_1" id="check_text_field_1" {% if settings.custom_field_1.active %} checked{% endif %}>
             <textarea class="text-field" name="text_field_1" id="text_field_1" placeholder="{{ placeholder_type_your_text }}" autocomplete="off">{{ settings.custom_field_1.value }}</textarea>
@@ -148,7 +153,11 @@
             <span class="error-message d-none">{{ error_text }}</span>
         </div>
       
-        <label class="type-text">{{ text_text_field_2 }}</label>
+        <label class="type-text" for="text_field_2">{{ text_text_field_2 }}
+            <a href="#help_modal_2" rel="modal:open">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.4779 13.8997V8.99961M10.3088 6.02092V5.70444M10.0647 2.00195C13.6961 2.09406 20.1053 5.82085 17.3162 13.4845C13.8298 23.0641 1.13978 15.1904 2.0462 10.1381C2.95263 5.08575 6.43329 1.90984 10.0647 2.00195Z" stroke="#3B5498" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </label>
         <div class="text-field-group input-group">
             <input class="check-text-field d-none" type="checkbox" name="check_text_field_2" id="check_text_field_2" {% if settings.custom_field_2.active %} checked{% endif %}>
             <textarea class="text-field" name="text_field_2" id="text_field_2" placeholder="{{ placeholder_type_your_text }}" autocomplete="off">{{ settings.custom_field_2.value }}</textarea>
@@ -195,6 +204,18 @@
       </div>
     </form>
   </div>
+  
+  {% for help in helps %}
+      <div id="{{ help.id }}" class="modal">
+          <p>{{ help.text }}</p>
+          <img src="{{ help.img }}" />
+          <hr>
+          <a href="#" rel="modal:close">{{ text_close }}</a>
+      </div>
+  {% endfor %}
+  
+    
+
 </section>
 
 {{ footer }}

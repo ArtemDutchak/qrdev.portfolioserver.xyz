@@ -122,6 +122,8 @@ class Company extends \Opencart\System\Engine\Controller
             $data['status'] = true;
         }
         
+        $this->load->model('tool/image');
+        
         if (!empty($company_info) && $company_info['image']) {
             $this->load->model('tool/image');
             if (is_file(DIR_IMAGE . html_entity_decode($company_info['image'], ENT_QUOTES, 'UTF-8'))) {
@@ -136,6 +138,20 @@ class Company extends \Opencart\System\Engine\Controller
         } else {
             $settings = $this->get_empty_settings();
         }
+        
+        $data['helps'] = [];
+        $help_text_field_1 = [
+            'id'   => 'help_modal_1',
+            'text' => $this->language->get('help_modal_1'),
+            'img'  => $this->model_tool_image->resize('catalog/help/help_modal_1.png', 180, 270),
+        ];
+        $help_text_field_2 = [
+            'id'   => 'help_modal_2',
+            'text' => $this->language->get('help_modal_2'),
+            'img'  => $this->model_tool_image->resize('catalog/help/help_modal_2.png', 180, 270),
+        ];
+        $data['helps'][] = $help_text_field_1;
+        $data['helps'][] = $help_text_field_2;
 
         $data['settings'] = $settings;
 
