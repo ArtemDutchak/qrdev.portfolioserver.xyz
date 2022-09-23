@@ -14,6 +14,9 @@ $_['text_send']                = 'Send';
 $_['text_thanks']              = 'Thank you very much!';
 $_['text_very_important']      = 'Your feedback is very valuable to us';
 
+$_['text_dublicated']          = 'Please duplicate your review for other services!';
+$_['text_paste_your_feedback'] = 'Feedback has already been copied! Go to any service below, paste the text and click "Send"';
+
 $_['text_new_review']          = 'New review';
 $_['text_new_review_written']  = 'Your company "%s" has received a new review';
 
