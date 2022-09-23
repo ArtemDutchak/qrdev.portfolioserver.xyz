@@ -11,6 +11,7 @@ $_['thousand_point'] = '';
 
 // Text
 $_['text_home'] = '<i class="fa fa-home"></i>';
+$_['text_close'] = 'Закрити';
 $_['text_yes'] = 'Так';
 $_['text_no'] = 'Ні';
 $_['text_none'] = ' --- Не обрано --- ';

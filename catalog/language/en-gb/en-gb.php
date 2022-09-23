@@ -11,6 +11,7 @@ $_['thousand_point']        = ',';
 
 // Text
 $_['text_home']             = '<i class="fa fa-home"></i>';
+$_['text_close']            = 'Close';
 $_['text_yes']              = 'Yes';
 $_['text_no']               = 'No';
 $_['text_none']             = ' --- None --- ';

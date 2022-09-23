@@ -40,6 +40,10 @@ $_['text_download']                                  = 'Download';
 $_['text_qr_code']                                   = 'QR-code';
 $_['text_company_add']                               = 'Add company';
 
+// Help
+$_['help_modal_1']                                   = 'The text will be displayed as a title on the add review page';
+$_['help_modal_2']                                   = 'The text will be displayed as a title on the review duplication page';
+
 // Placeholder
 $_['placeholder_company_name']                       = 'Enter your company name';
 $_['placeholder_380']                                = '+380';
