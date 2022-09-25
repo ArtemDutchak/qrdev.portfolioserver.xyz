@@ -94,6 +94,7 @@ class Review extends \Opencart\System\Engine\Model {
 			r.`text`,
 			r.`telephone`,
 			r.`email`,
+			r.`status`,
 			r.`date_added`
 			FROM
 			`" . DB_PREFIX . "review` r

@@ -100,6 +100,7 @@
         {% endif %}
         
         <div class="col-xl-4 col-lg-6 col-md-6 review-wrap">
+        
           <div id="review_{{ review.id }}" class="review-card {{ bg_class }} {% if review.expired %} expired {% endif %}">
           
             {% if review.expired %}
@@ -117,19 +118,30 @@
             </div>
 
             <div class="review-header">
-              <button class="menu-toggle"><sup>&hellip;</sup></button>
               
               {% if review.expired %}
                   <div class="menu-review hide">
                   </div>
               {% else %}
-                  <div class="menu-review hide">
-                    <button class="btn-menu-review btn-delete i-delete" onclick="setReviewStatus({{ review.id }}, 0)">Удалить отзыв</button>
-                    <button class="btn-menu-review btn-decide i-decide" onclick="setReviewStatus({{ review.id }}, 2)">Решить</button>
-                    <button class="btn-menu-review btn-return i-return" onclick="setReviewStatus({{ review.id }}, 1)">Вернуть</button>
+                <div class="control-container">
+                  <div class="select">
+                      {% if review.status == '1' %}
+                          <div class="selectBtn" data-type="firstOption">{{ text_new_one }}</div>
+                      {% endif %}
+                      {% if review.status == '2' %}
+                          <div class="selectBtn" data-type="firstOption">{{ text_solved_one }}</div>
+                      {% endif %}
+                      <div class="selectDropdown">
+                          <div class="option" data-review-id="{{ review.id }}" data-status="1" data-type="{{ text_new_one }}">{{ text_to_return }}</div>
+                          <div class="option" data-review-id="{{ review.id }}" data-status="2" data-type="{{ text_solved_one }}">{{ text_to_solve }}</div>
+                      </div>
                   </div>
+                  
+                  <div>
+                      <button class="btn-review-remove" onclick="setReviewStatus({{ review.id }}, 0)">X</button>
+                  </div>
+                </div>
               {% endif %}
-              
               
               <!-- <div class="user-img"><img src="/catalog/view/stylesheet/static/img/test.png" alt=""></div> -->
               <!-- <div class="user-img"></div> -->
@@ -198,3 +210,113 @@
 </div>
 
 {{ footer }}
+
+
+<style>
+    .control-container{
+        display: flex;
+        justify-content: end;
+    }
+    .btn-review-remove{
+        background-color: #fff;
+        padding: 10px;
+        margin-left: 16px;
+        width: 44px;
+    }
+    .select {
+        min-width: 135px;
+        position: relative;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .select .selectBtn {
+      background: var(--bg1);
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 3px;
+      width: 100%;
+      cursor: pointer;
+      position: relative;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+      background: #fff;
+    }
+    .select .selectBtn:after {
+      content: "";
+      position: absolute;
+      top: 45%;
+      right: 15px;
+      width: 6px;
+      height: 6px;
+      -webkit-transform: translateY(-50%) rotate(45deg);
+              transform: translateY(-50%) rotate(45deg);
+      border-right: 2px solid #666;
+      border-bottom: 2px solid #666;
+      transition: 0.2s ease;
+    }
+    .select .selectBtn.toggle {
+      border-radius: 3px 3px 0 0;
+    }
+    .select .selectBtn.toggle:after {
+      -webkit-transform: translateY(-50%) rotate(-135deg);
+              transform: translateY(-50%) rotate(-135deg);
+    }
+    .select .selectDropdown {
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      border-radius: 0 0 3px 3px;
+      overflow: hidden;
+      background: var(--bg1);
+      border-top: 1px solid #eee;
+      z-index: 1;
+      background: #fff;
+      -webkit-transform: scale(1, 0);
+              transform: scale(1, 0);
+      -webkit-transform-origin: top center;
+              transform-origin: top center;
+      visibility: hidden;
+      transition: 0.2s ease;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    }
+    .select .selectDropdown .option {
+      padding: 10px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+    .select .selectDropdown .option:hover {
+      background: #f8f8f8;
+    }
+    .select .selectDropdown.toggle {
+      visibility: visible;
+      -webkit-transform: scale(1, 1);
+              transform: scale(1, 1);
+    }
+</style>
+
+<script>
+    const select = document.querySelectorAll('.selectBtn');
+    const option = document.querySelectorAll('.option');
+    let index = 1;
+
+    select.forEach(a => {
+    	a.addEventListener('click', b => {
+    		const next = b.target.nextElementSibling;
+    		next.classList.toggle('toggle');
+    		next.style.zIndex = index++;
+    	})
+    })
+    option.forEach(a => {
+    	a.addEventListener('click', b => {
+    		b.target.parentElement.classList.remove('toggle');
+    		
+    		const parent = b.target.closest('.select').children[0];
+    		parent.setAttribute('data-type', b.target.getAttribute('data-type'));
+    		parent.innerText = b.target.getAttribute('data-type');
+            
+            setReviewStatus(b.target.getAttribute('data-review-id'), b.target.getAttribute('data-status'))
+    	})
+    })
+</script>

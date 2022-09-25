@@ -118,6 +118,7 @@ class Reviews extends \Opencart\System\Engine\Controller {
 				'rating'     => (int)$result['rating'],
 				'telephone'  => nl2br($result['telephone']),
 				'email'      => nl2br($result['email']),
+				'status'     => $result['status'],
 				'date'       => date("d.m.Y", strtotime($result['date_added'])),
 				'time'       => date("H:i", strtotime($result['date_added'])),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
