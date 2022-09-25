@@ -4957,7 +4957,6 @@ html {
 }
 .slick-list.dragging {
   cursor: pointer;
-  cursor: hand;
 }
 
 .slick-slider .slick-track,
@@ -7379,7 +7378,6 @@ body {
 }
 .reviews-page.page-body .review-card .review-body .text{
     max-height: 150px;
-    overflow-y: overlay;
 }
 .reviews-page.page-body .review-card .review-body .text p {
   font-size: 15px;

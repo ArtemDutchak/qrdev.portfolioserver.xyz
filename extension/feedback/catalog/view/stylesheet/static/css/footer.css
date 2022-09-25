@@ -601,3 +601,51 @@ body{
         flex-grow: 0;
     }
 }
+
+@media (min-width: 1300px){
+    .reviews-page.page-header .filter-wrap-block{
+        min-width: 453px;
+    }
+}
+
+.success-page.page-content{
+    min-height: calc(100vh - 56px);
+    padding-bottom: 100px;
+}
+
+.review-user-page.page-content{
+    min-height: calc(100vh - 56px);
+    padding-bottom: 100px;
+}
+
+.dropdown-menu{
+    width: 180px;
+}
+
+@media (min-width: 1200px) and (max-width: 1230px){
+    .dropdown-menu{
+        left: -5px;
+    }
+
+}
+
+.modal{
+    padding: 30px !important;
+    background: #f1f1f1 !important;
+}
+.modal a.close-modal{
+    background-image: url(../img/modal-close.svg) !important;
+}
+.modal p{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #4b4751;
+}
+.modal img{
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+}

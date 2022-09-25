@@ -1,5 +1,6 @@
 <?php
 namespace Opencart\Catalog\Controller\Product;
+use CURLFile;
 use \Opencart\System\Helper as Helper;
 class CompanyReview extends \Opencart\System\Engine\Controller {
 	public function index(): void {
@@ -239,10 +240,8 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$review_id = $this->model_catalog_review->addCompanyReview($company_id, $this->request->post);
 
 		if ($review_id) {
-			
-		
+
 			if (!empty($this->request->files)) {
-				
 				for ($i=0; $i < count($this->request->files['image']['name']); $i++) {
 					$name = $this->request->files['image']['name'][$i];
 					
@@ -255,22 +254,43 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 					
 					if ($result['success']) {
 						$this->model_catalog_review->addReviewImage((int)$review_id, 'review_images/' . $filename);
-					}
+
+                        			$telegramId = $settings['review_notification']['telegram']['value'];
+                        			//$this->sendTelegramPhoto($telegramId, DIR_IMAGE . 'review_images/'  . $filename);
+                    }
 
 		            
 				}
 	        }
-			
+
 			// send telegram notification to company owner
 			if ($settings['review_notification']['telegram']['active'] && $settings['review_notification']['telegram']['value']) {
 	            $telegramId = $settings['review_notification']['telegram']['value'];
 
-	            $data = [
-	                'chat_id' => $telegramId,
-	                'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
-	            ];
+                $data = [
+                    'chat_id' => $telegramId,
+                    'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
+                        ."\n\n\"Відгук: ". $this->request->post['text'] ."\""
+                ];
+
+                if(isset($this->request->post['name'])){
+                    $data['name'] .= "\n\nІм'я: " . $this->request->post['name'];
+                }
+
+                if(isset($this->request->post['telephone'])){
+                    $data['text'] .= "\n\nНомер телефону: " . $this->request->post['telephone'];
+                }
+
+                if(isset($this->request->post['email'])) {
+                    $data['text'] .= "\nEmail: " . $this->request->post['email'];
+                }
+
+                if(isset($this->request->post['rating'])) {
+                    $data['text'] .= "\nКількість зірок: " . $this->request->post['rating'];
+                }
 
 	            $this->sendTelegramNotification($data);
+	          
 			}
 			
 			// send email notification to company owner
@@ -365,6 +385,27 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 
         $result = curl_exec($curl);
         curl_close($curl);
+        return (json_decode($result, 1) ? json_decode($result, 1) : $result);
+    }
+    
+    public function sendTelegramPhoto(int $chat_id, string $path)
+    {
+        $method = 'sendPhoto';
+
+        $post_fields = array('chat_id'   => $chat_id,
+            'photo'     => new CURLFile($path)
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type:multipart/form-data"
+        ));
+        curl_setopt($ch, CURLOPT_URL, 'https://api.telegram.org/bot' . TELEGRAM_TOKEN . '/' . $method);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
+        $result = curl_exec($ch);
+
+        curl_close($ch);
         return (json_decode($result, 1) ? json_decode($result, 1) : $result);
     }
 
