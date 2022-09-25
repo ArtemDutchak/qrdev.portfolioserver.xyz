@@ -178,6 +178,26 @@
               <div class="text">
                 <p>{{ review.text }}</p>
               </div>
+              
+                {% if review.images %}
+                
+                    {% for image in images %}
+                        <div class="image magnific-popup">
+                          {% if image.thumb %}
+                            <a href="{{ image.popup }}" title="{{ heading_title }}"><img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="img-thumbnail mb-3"/></a>
+                          {% endif %}
+                          {% if images %}
+                            <div>
+                              {% for image in images %}
+                                <a href="{{ image.popup }}" title="{{ heading_title }}"><img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="img-thumbnail"/></a>&nbsp;
+                              {% endfor %}
+                            </div>
+                          {% endif %}
+                        </div>
+                    {% endfor %}
+                
+                {% endif %}
+              
             </div>
 
                 {% if review.telephone %}

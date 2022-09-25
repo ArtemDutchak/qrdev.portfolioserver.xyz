@@ -111,6 +111,18 @@ class Reviews extends \Opencart\System\Engine\Controller {
 				}
 			}
 			
+			$review_images = $this->model_catalog_review->getImages((int)$result['review_id']);
+			
+			$images = [];
+			foreach ($review_images as $review_image) {
+				if (is_file(DIR_IMAGE . html_entity_decode($review_image['image'], ENT_QUOTES, 'UTF-8'))) {
+					$images[] = [
+						'popup' => $this->model_tool_image->resize(html_entity_decode($review_image['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')),
+						'thumb' => $this->model_tool_image->resize(html_entity_decode($review_image['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_additional_width'), $this->config->get('config_image_additional_height'))
+					];
+				}
+			}
+			
 			$review = [
 				'id'         => $result['review_id'],
 				'author'     => $result['author'],
@@ -118,6 +130,7 @@ class Reviews extends \Opencart\System\Engine\Controller {
 				'rating'     => (int)$result['rating'],
 				'telephone'  => nl2br($result['telephone']),
 				'email'      => nl2br($result['email']),
+				'images'     => $images,
 				'status'     => $result['status'],
 				'date'       => date("d.m.Y", strtotime($result['date_added'])),
 				'time'       => date("H:i", strtotime($result['date_added'])),

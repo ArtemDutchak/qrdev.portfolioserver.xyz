@@ -77,6 +77,20 @@ class Review extends \Opencart\System\Engine\Model {
 
 		return $query->row;
 	}
+	
+	public function getImages(int $review_id): array {
+		$query = $this->db->query(
+			"SELECT
+				*
+			FROM `" . DB_PREFIX . "review_image`
+			WHERE
+				`review_id` = '" . (int)$review_id . "'
+			ORDER BY `sort_order`
+			ASC"
+		);
+
+		return $query->rows;
+	}
 
 	public function getReviews(array $filter_data): array {
 		if ($filter_data['start'] < 0) {
