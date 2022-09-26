@@ -474,12 +474,12 @@ class Company extends \Opencart\System\Engine\Controller
                 ),
             ),
             'custom_field_1' => array(
-                'active' => false,
-                'value' => '',
+                'active' => true,
+                'value' => 'Нам дуже важливий Ваш відгук! Поділіться своїм враженням.',
             ),
             'custom_field_2' => array(
-                'active' => false,
-                'value' => '',
+                'active' => true,
+                'value' => 'Відгук вже скопійовано! Перейдіть до будь-якого з сервісів нижче, вставте текст і натисніть “Надіслати”',
             ),
         );
 
