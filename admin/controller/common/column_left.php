@@ -16,108 +16,112 @@ class ColumnLeft extends \Opencart\System\Engine\Controller {
 				'href'     => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token']),
 				'children' => []
 			];
-
-			// Catalog
-			$catalog = [];
-
+			
+			// review
+			if ($this->user->hasPermission('access', 'catalog/review')) {
+				$data['menus'][] = [
+					'icon'	   => 'fas fa-comment',
+					'name'	   => $this->language->get('text_review'),
+					'href'     => $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token']),
+					'children' => []
+				];
+			}
+			
+			// tariff
 			if ($this->user->hasPermission('access', 'catalog/tariff')) {
-				$catalog[] = [
+				$data['menus'][] = [
+					'icon'	   => 'fas fa-credit-card',
 					'name'	   => $this->language->get('text_tariff'),
 					'href'     => $this->url->link('catalog/tariff', 'user_token=' . $this->session->data['user_token']),
 					'children' => []
 				];
 			}
 
-			if ($this->user->hasPermission('access', 'catalog/category')) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_category'),
-					'href'     => $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
+			// Catalog
+			$catalog = [];
 
-			if ($this->user->hasPermission('access', 'catalog/product')) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_product'),
-					'href'     => $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
-
-			if ($this->user->hasPermission('access', 'catalog/subscription_plan')) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_subscription_plan'),
-					'href'     => $this->url->link('catalog/subscription_plan', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
-
-			if ($this->user->hasPermission('access', 'catalog/filter')) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_filter'),
-					'href'     => $this->url->link('catalog/filter', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
-
-			// Attributes
-			$attribute = [];
-
-			if ($this->user->hasPermission('access', 'catalog/attribute')) {
-				$attribute[] = [
-					'name'     => $this->language->get('text_attribute'),
-					'href'     => $this->url->link('catalog/attribute', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
-
-			if ($this->user->hasPermission('access', 'catalog/attribute_group')) {
-				$attribute[] = [
-					'name'	   => $this->language->get('text_attribute_group'),
-					'href'     => $this->url->link('catalog/attribute_group', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
-
-			if ($attribute) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_attribute'),
-					'href'     => '',
-					'children' => $attribute
-				];
-			}
-
-			if ($this->user->hasPermission('access', 'catalog/option')) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_option'),
-					'href'     => $this->url->link('catalog/option', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
-
-			if ($this->user->hasPermission('access', 'catalog/manufacturer')) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_manufacturer'),
-					'href'     => $this->url->link('catalog/manufacturer', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
-
-			if ($this->user->hasPermission('access', 'catalog/download')) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_download'),
-					'href'     => $this->url->link('catalog/download', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
-
-			if ($this->user->hasPermission('access', 'catalog/review')) {
-				$catalog[] = [
-					'name'	   => $this->language->get('text_review'),
-					'href'     => $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token']),
-					'children' => []
-				];
-			}
+			// if ($this->user->hasPermission('access', 'catalog/category')) {
+			// 	$catalog[] = [
+			// 		'name'	   => $this->language->get('text_category'),
+			// 		'href'     => $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
+			// 
+			// if ($this->user->hasPermission('access', 'catalog/product')) {
+			// 	$catalog[] = [
+			// 		'name'	   => $this->language->get('text_product'),
+			// 		'href'     => $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
+			// 
+			// if ($this->user->hasPermission('access', 'catalog/subscription_plan')) {
+			// 	$catalog[] = [
+			// 		'name'	   => $this->language->get('text_subscription_plan'),
+			// 		'href'     => $this->url->link('catalog/subscription_plan', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
+			// 
+			// if ($this->user->hasPermission('access', 'catalog/filter')) {
+			// 	$catalog[] = [
+			// 		'name'	   => $this->language->get('text_filter'),
+			// 		'href'     => $this->url->link('catalog/filter', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
+			// 
+			// // Attributes
+			// $attribute = [];
+			// 
+			// if ($this->user->hasPermission('access', 'catalog/attribute')) {
+			// 	$attribute[] = [
+			// 		'name'     => $this->language->get('text_attribute'),
+			// 		'href'     => $this->url->link('catalog/attribute', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
+			// 
+			// if ($this->user->hasPermission('access', 'catalog/attribute_group')) {
+			// 	$attribute[] = [
+			// 		'name'	   => $this->language->get('text_attribute_group'),
+			// 		'href'     => $this->url->link('catalog/attribute_group', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
+			// 
+			// if ($attribute) {
+			// 	$catalog[] = [
+			// 		'name'	   => $this->language->get('text_attribute'),
+			// 		'href'     => '',
+			// 		'children' => $attribute
+			// 	];
+			// }
+			// 
+			// if ($this->user->hasPermission('access', 'catalog/option')) {
+			// 	$catalog[] = [
+			// 		'name'	   => $this->language->get('text_option'),
+			// 		'href'     => $this->url->link('catalog/option', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
+			// 
+			// if ($this->user->hasPermission('access', 'catalog/manufacturer')) {
+			// 	$catalog[] = [
+			// 		'name'	   => $this->language->get('text_manufacturer'),
+			// 		'href'     => $this->url->link('catalog/manufacturer', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
+			// 
+			// if ($this->user->hasPermission('access', 'catalog/download')) {
+			// 	$catalog[] = [
+			// 		'name'	   => $this->language->get('text_download'),
+			// 		'href'     => $this->url->link('catalog/download', 'user_token=' . $this->session->data['user_token']),
+			// 		'children' => []
+			// 	];
+			// }
 
 			if ($this->user->hasPermission('access', 'catalog/information')) {
 				$catalog[] = [
