@@ -239,7 +239,7 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$review_id = $this->model_catalog_review->addCompanyReview($company_id, $this->request->post);
 
 		if ($review_id) {
-
+            $filename = '';
 			if (!empty($this->request->files)) {
 				for ($i=0; $i < count($this->request->files['image']['name']); $i++) {
 					$name = $this->request->files['image']['name'][$i];
@@ -253,9 +253,6 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 					
 					if ($result['success']) {
 						$this->model_catalog_review->addReviewImage((int)$review_id, 'review_images/' . $filename);
-
-                        			$telegramId = $settings['review_notification']['telegram']['value'];
-                        			$this->sendTelegramPhoto($telegramId, DIR_IMAGE . 'review_images/'  . $filename);
                     }
 
 		            
@@ -266,6 +263,10 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 			if ($settings['review_notification']['telegram']['active'] && $settings['review_notification']['telegram']['value']) {
 	            $telegramId = $settings['review_notification']['telegram']['value'];
 
+                if($filename != '') {
+                    $this->sendTelegramPhoto($telegramId, DIR_IMAGE . 'review_images/' . $filename);
+                }
+                
                 $data = [
                     'chat_id' => $telegramId,
                     'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
@@ -299,6 +300,11 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 					'subject' => $this->language->get('text_new_review'),
 					'text'    => sprintf($this->language->get('text_new_review_written'), $company_info['company_name']),
 				];
+				
+				if (!$this->customer->hasActiveTariff()) {
+					$client_email_data['text'] = sprintf($this->language->get('text_new_expired_review_written'), $company_info['company_name'], $stars);
+				}
+				
 				$this->sendEmailNotification($client_email_data);
 			}
 
