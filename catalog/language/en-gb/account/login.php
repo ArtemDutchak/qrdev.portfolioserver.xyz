@@ -53,3 +53,4 @@ $_['error_form_fullname']                = 'Entry fullname.';
 $_['error_form_company_name']            = 'Entry Company Name.';
 $_['error_form_telephone']               = 'Entry correct phone.';
 $_['error_form_repeat_password']         = 'Entry password again.';
+$_['error_form_captcha_сomplete']        = 'Please сomplete the captcha.';

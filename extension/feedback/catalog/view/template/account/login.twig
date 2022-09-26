@@ -64,7 +64,7 @@
 
               <div id="g-recaptcha-login"></div>
               <input type="hidden" id="captcha_login" name="captcha" value="">
-              <div class="captcha-error">Please сomplete the captcha</div>
+              <div class="captcha-error">{{ error_form_captcha_сomplete }}</div>
               <input class="site-btn mt-2" type="submit" value="{{ text_form_action_enter }}">
               <span class="have-account">{{ text_form_no_account }}</span>
               <button type="button" class="site-btn-lite btn-to-sign-up">{{ text_form_register }}</button>
@@ -115,7 +115,7 @@
               <div id="g-recaptcha-register"></div>
 
               <input type="hidden" id="captcha_register" name="captcha" value="">
-              <div class="captcha-error">Please сomplete the captcha</div>
+              <div class="captcha-error">{{ error_form_captcha_сomplete }}</div>
               <input id="sing-up-sub" class="site-btn mt-2" type="submit" value="{{ text_form_action_register }}">
               <span class="have-account">{{ text_form_already_registered }}</span>
               <button type="button" class="site-btn-lite btn-to-log-in">{{ text_form_action_enter }}</button>
@@ -133,7 +133,7 @@
 
               <div id="g-recaptcha-forgot" class="mb-2"></div>
               <input type="hidden" id="captcha_forgot" name="captcha" value="">
-              <div class="captcha-error">Please сomplete the captcha</div>
+              <div class="captcha-error">{{ error_form_captcha_сomplete }}</div>
               <input class="site-btn mt-2" type="submit" value="{{ text_restore }}">
               <button type="button" class="site-btn-lite btn-to-sign-up">{{ text_form_action_enter }}</button>
             </form>
