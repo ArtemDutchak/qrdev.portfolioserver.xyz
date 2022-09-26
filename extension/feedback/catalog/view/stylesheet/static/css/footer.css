@@ -604,7 +604,7 @@ body{
 
 @media (min-width: 1300px){
     .reviews-page.page-header .filter-wrap-block{
-        min-width: 453px;
+        min-width: 460px;
     }
 }
 
@@ -674,4 +674,28 @@ body{
 }
 .review-card .btn-review-remove{
     background: none;
+}
+
+.form-review-user .add-image-button-block .site-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #edf0f8;
+    color:#4b4751;
+}
+.form-review-user .add-image-container .add-image-button-block{
+    height: 90px;
+    border: 1px dashed #6982c5;
+    margin-right: 0;
+}
+.form-review-user .add-image-container{
+    height: 100%;
+}
+.form-review-user .add-image-container .form-group .dropzone-wrapper{
+    height: 90px;
+    width: 90px;
+}
+.form-review-user .add-image-container .form-group .dropzone-wrapper .remove-preview{
+    right: 2px;
+    top: 0;
 }
