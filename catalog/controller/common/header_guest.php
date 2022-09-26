@@ -48,6 +48,10 @@ class HeaderGuest extends \Opencart\System\Engine\Controller {
 			$data['code'] = $data['lang'];
 		}
 		
+		if ($data['code'] == 'uk') {
+			$data['code'] = 'uk-ua';
+		}
+		
 		$data['direction'] = $this->language->get('direction');
 
 		$data['href_social_telegram'] = 'https://telegram.org/';
@@ -115,7 +119,7 @@ class HeaderGuest extends \Opencart\System\Engine\Controller {
 		$data['search'] = $this->load->controller('common/search');
 		$data['cart'] = $this->load->controller('common/cart');
 		$data['menu'] = $this->load->controller('common/menu');
-
+		
 		return $this->load->view('common/header_guest', $data);
 	}
 }
