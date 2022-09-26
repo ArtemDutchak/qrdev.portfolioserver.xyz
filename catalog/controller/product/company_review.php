@@ -90,8 +90,6 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 		$json = [
 			'errors' => [],
 		];
-		
-		$json['files'] = $this->request->files['image'];
 
 		if (!isset($this->request->get['company_code'])) {
 			$json['errors'][] = [
@@ -137,7 +135,8 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 			'text',
 			'email',
 			'telephone',
-			'stars'
+			'stars',
+			'image'
 		];
 
 		foreach ($keys as $key) {
