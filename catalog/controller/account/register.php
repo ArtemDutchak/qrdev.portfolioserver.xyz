@@ -295,7 +295,7 @@ class Register extends \Opencart\System\Engine\Controller {
 				'customer_id' => $customer_id,
 				'company_name' => $company_name,
 				'image' => '',
-				'status' => true,
+				'status' => false,
 				'settings' => $this->load->controller('account/company|get_empty_settings'),
 			);
 			$this->load->model('account/company');
