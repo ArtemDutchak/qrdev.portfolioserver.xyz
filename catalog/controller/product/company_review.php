@@ -256,7 +256,7 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
 						$this->model_catalog_review->addReviewImage((int)$review_id, 'review_images/' . $filename);
 
                         			$telegramId = $settings['review_notification']['telegram']['value'];
-                        			//$this->sendTelegramPhoto($telegramId, DIR_IMAGE . 'review_images/'  . $filename);
+                        			$this->sendTelegramPhoto($telegramId, DIR_IMAGE . 'review_images/'  . $filename);
                     }
 
 		            
@@ -270,11 +270,11 @@ class CompanyReview extends \Opencart\System\Engine\Controller {
                 $data = [
                     'chat_id' => $telegramId,
                     'text' => 'У вас новий відгук по компанії "' . $company_info['company_name'] .'"'
-                        ."\n\n\"Відгук: ". $this->request->post['text'] ."\""
+                        ."\n\nВідгук: \"". $this->request->post['text'] ."\""
                 ];
 
                 if(isset($this->request->post['name'])){
-                    $data['name'] .= "\n\nІм'я: " . $this->request->post['name'];
+                    $data['text'] .= "\n\nАвтор відгуку: " . $this->request->post['name'];
                 }
 
                 if(isset($this->request->post['telephone'])){

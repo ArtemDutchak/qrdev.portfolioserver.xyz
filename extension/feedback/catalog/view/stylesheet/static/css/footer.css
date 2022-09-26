@@ -649,3 +649,29 @@ body{
     height: auto;
     margin-bottom: 5px;
 }
+
+.expired .review-body div{
+    filter: blur(3px);
+}
+
+.expired .expired-text span{
+    z-index: 10;
+}
+
+.reviews-page .review-header .select{
+    box-shadow:none;
+}
+.reviews-page .review-header .selectBtn{
+    border: 1px solid #dee0e3;
+    border-radius: 10px;
+    background: transparent;
+}
+.reviews-page.page-body .review-card .review-body .text{
+    max-height: 100%;
+}
+.reviews-page .select .selectDropdown.toggle{
+    border-radius: 10px;
+}
+.review-card .btn-review-remove{
+    background: none;
+}
