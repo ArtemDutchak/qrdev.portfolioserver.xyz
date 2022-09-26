@@ -549,4 +549,33 @@ class Customer extends \Opencart\System\Engine\Model {
 
 		return $query->rows;
 	}
+
+	public function getByTariffEnds(int $days): array {
+		
+		$ts_ends = time() + 24*60*60*$days;
+		$ts_after_ends = time() + 24*60*60*($days + 1);
+		$date_ends = date('Y-m-d', $ts_ends);
+		$date_after_ends = date('Y-m-d', $ts_after_ends);
+		
+		$query = $this->db->query(
+			"SELECT
+				c.`firstname`,
+				c.`email`
+			FROM
+				`" . DB_PREFIX . "customer` c
+			LEFT JOIN
+				`" . DB_PREFIX . "customer_tariff` ct
+			ON
+				(c.customer_id = ct.customer_id)
+			WHERE
+				c.`status` = '1'
+			AND
+				ct.`active_to` >= '" . $date_ends . " 00:00:00'
+			AND
+				ct.`active_to` < '" . $date_after_ends . " 00:00:00'
+			"
+		);
+
+		return $query->rows;
+	}
 }

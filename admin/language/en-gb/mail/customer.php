@@ -12,6 +12,6 @@ $_['text_reward_subject'] = '%s - Бонусні бали';
 $_['text_reward_received'] = 'Ви отримали %s балів!';
 $_['text_reward_total'] = 'Загальне число бонусних балів %s.';
 
-$_['mail_text_subject_tariff_reminder'] = 'Інформація про стан тарифного плану';
-$_['text_3_days_tariff_reminder']       = 'Через три дні закінчується строк дії Вашого тарифного плану';
-$_['text_expired_tariff_reminder']      = 'Закінчився строк дії Вашого тарифного плану';
+$_['mail_text_subject_tariff_reminder'] = 'Information about the status of the tariff plan';
+$_['text_3_days_tariff_reminder']       = 'Your tariff plan expires in three days';
+$_['text_expired_tariff_reminder']      = 'Your tariff plan has expired';
