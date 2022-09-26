@@ -19,6 +19,7 @@ $_['text_paste_your_feedback'] = 'Feedback has already been copied! Go to any se
 
 $_['text_new_review']          = 'New review';
 $_['text_new_review_written']  = 'Your company "%s" has received a new review';
+$_['text_new_expired_review_written']  = 'Your company "%s" received a new review with a rating of "%s". Pay your tariff to review and react to it';
 
 $_['text_unable_write_review']  = 'It is not possible to add a review at this moment';
 $_['text_company_not_active']   = 'The company is not active';
