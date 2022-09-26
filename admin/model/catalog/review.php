@@ -38,6 +38,7 @@ class Review extends \Opencart\System\Engine\Model {
 
 	public function deleteReview(int $review_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "review` WHERE `review_id` = '" . (int)$review_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "review_image` WHERE `review_id` = '" . (int)$review_id . "'");
 
 		$this->cache->delete('product');
 	}
