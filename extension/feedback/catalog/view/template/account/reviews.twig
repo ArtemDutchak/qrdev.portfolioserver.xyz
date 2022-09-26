@@ -320,14 +320,17 @@
     	})
     })
     option.forEach(a => {
-    	a.addEventListener('click', b => {
-    		b.target.parentElement.classList.remove('toggle');
-    		
-    		const parent = b.target.closest('.select').children[0];
-    		parent.setAttribute('data-type', b.target.getAttribute('data-type'));
-    		parent.innerText = b.target.getAttribute('data-type');
+    	a.addEventListener('click', async function(b){
             
-            setReviewStatus(b.target.getAttribute('data-review-id'), b.target.getAttribute('data-status'))
+            const result = await setReviewStatus(b.target.getAttribute('data-review-id'), b.target.getAttribute('data-status'));
+            if(result){
+        		b.target.parentElement.classList.remove('toggle');
+        		
+        		const parent = b.target.closest('.select').children[0];
+        		parent.setAttribute('data-type', b.target.getAttribute('data-type'));
+        		parent.innerText = b.target.getAttribute('data-type');
+            }
+            
     	})
     })
 </script>
