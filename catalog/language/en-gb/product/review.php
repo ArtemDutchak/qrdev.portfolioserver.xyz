@@ -23,6 +23,8 @@ $_['text_new_review_written']  = 'Your company "%s" has received a new review';
 $_['text_unable_write_review']  = 'It is not possible to add a review at this moment';
 $_['text_company_not_active']   = 'The company is not active';
 
+$_['text_add_image']   = 'Додати фото';
+
 // Entry
 $_['entry_name']       = 'Name';
 $_['entry_text']       = 'Review';
