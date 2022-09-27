@@ -148,6 +148,11 @@ class SaleOrder extends \Opencart\System\Engine\Controller {
 		$results = $this->model_extension_opencart_report_sale->getOrders($filter_data);
 
 		foreach ($results as $result) {
+			
+			if (!$result['tax']) {
+				$result['tax'] = 0;
+			}
+			
 			$data['orders'][] = [
 				'date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
 				'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
