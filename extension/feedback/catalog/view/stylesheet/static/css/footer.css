@@ -699,3 +699,24 @@ body{
     right: 2px;
     top: 0;
 }
+
+.deleted .btn-phone, .deleted .btn-email{
+    filter: opacity(0.5);
+}
+
+
+@media (max-width:992px){
+    .reviews-page.page-body{
+        padding-bottom: 500px;
+    }
+}
+@media (max-width: 768px){
+    .reviews-page.page-body{
+        padding-bottom: 532px;
+    }
+}
+@media (min-width: 1900px){
+    .reviews-page.page-body{
+        padding-bottom: 532px;
+    }
+}
